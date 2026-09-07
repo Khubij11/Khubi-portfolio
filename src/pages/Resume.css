@@ -1,0 +1,43 @@
+@media print {
+  @page {
+    margin: 10mm;
+  }
+  html,
+  body {
+    background: #fff !important;
+  }
+  .resume-sheet {
+    zoom: 0.92;
+    max-width: none !important;
+    padding: 0 !important;
+  }
+  .resume-sheet .r-head {
+    padding: 0 0 10px 0 !important;
+  }
+  .resume-sheet h1 {
+    font-size: 30px !important;
+  }
+  .resume-sheet .r-sec {
+    padding: 14px 0 0 0 !important;
+    margin-top: 0 !important;
+    break-inside: avoid;
+  }
+  .resume-sheet .r-label {
+    flex: 0 0 130px !important;
+    padding-top: 4px !important;
+    font-size: 11px !important;
+  }
+  .resume-sheet .r-row {
+    padding: 11px 0 !important;
+    break-inside: avoid;
+  }
+  .resume-sheet .r-title {
+    font-size: 15px !important;
+  }
+  .resume-sheet .r-desc {
+    font-size: 12.5px !important;
+    line-height: 1.4 !important;
+    margin-top: 3px !important;
+    max-width: none !important;
+  }
+}

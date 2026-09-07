@@ -1,0 +1,63 @@
+@import url('https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,200..400;1,6..72,300&family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&family=Baloo+2:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&family=Montserrat:wght@400;500;600;700&family=Open+Sans:wght@400;600;700&family=Poppins:wght@400;500;600;700&display=swap');
+
+:root {
+  --paper: #F3F5F6;
+  --ink: #171A18;
+  --secondary: #43463F;
+  --muted: #8A8D85;
+  --hairline: #D9E1E6;
+  --panel-tint: #EFF1FA;
+  --panel-border: #E7E9F5;
+  --accent: #BE4229;
+  --sky: #7BA6C9;
+  --sky-deep: #3C6C94;
+  --green: #0C8139;
+
+  --font-head: 'Schibsted Grotesk', Helvetica, Arial, sans-serif;
+  --font-ui: 'DM Sans', sans-serif;
+  --font-serif: Newsreader, Georgia, serif;
+  --font-mono: 'DM Mono', monospace;
+
+  color-scheme: light;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: var(--paper);
+  color: var(--ink);
+  -webkit-font-smoothing: antialiased;
+  font-family: var(--font-head);
+}
+
+#root {
+  min-height: 100vh;
+}
+
+a {
+  color: var(--accent);
+  text-decoration: none;
+}
+a:hover {
+  color: var(--ink);
+}
+
+table {
+  border-collapse: collapse;
+}
+
+@media print {
+  .no-print {
+    display: none !important;
+  }
+}
+
+@media (max-width: 640px) {
+  .hero-grid {
+    grid-template-columns: 1fr !important;
+  }
+}
