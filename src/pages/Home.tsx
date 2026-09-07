@@ -51,6 +51,7 @@ const zeroToOne: WorkRowData[] = [
     platform: 'Web · Internal',
     outcome: 'First internal tool built by the India team',
     evidence: 'Shipped',
+    to: '/work/wells-fargo-ai-tool',
   },
   {
     year: '2023',
