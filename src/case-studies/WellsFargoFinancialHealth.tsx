@@ -1,6 +1,5 @@
 import CaseStudyLayout, { type CSSection } from '../components/CaseStudyLayout';
 import FitScale from '../components/FitScale';
-import ScaledPhone from '../components/ScaledPhone';
 import WFBudgetPrototype from './wells-fargo/WFBudgetPrototype';
 import WFSavingsMobile from './wells-fargo/WFSavingsMobile';
 
@@ -311,10 +310,10 @@ const sections: CSSection[] = [
           and the goal rows stack their name, figure, meter and status chip. One decision per screen was already the
           rule, so the small screen needed less furniture rather than a different structure.
         </p>
-        <div style={{ display: 'flex', flexWrap: 'wrap', gap: 24, marginTop: 32, justifyContent: 'center' }}>
-          <ScaledPhone designWidth={1276} designHeight={820} displayWidth={638} displayHeight={410}>
+        <div style={{ marginTop: 32, maxWidth: 638, marginLeft: 'auto', marginRight: 'auto' }}>
+          <FitScale designWidth={1276} background="transparent" border="none">
             <WFSavingsMobile />
-          </ScaledPhone>
+          </FitScale>
         </div>
         <div style={{ ...caption, marginTop: 16 }}>
           Step 4 with the goal block, the dashboard goals section, and a goal detail in its behind-target state. Each
@@ -431,7 +430,7 @@ export default function WellsFargoFinancialHealth() {
           ),
         },
       ]}
-      prev={{ kicker: 'Next case study', label: 'Klub — syndicates on the patron platform', to: '/work/klub' }}
+      prev={{ kicker: 'Next case study', label: 'Wells Fargo — AI tool for PMs', to: '/work/wells-fargo-ai-tool' }}
       next={{ kicker: 'Back to', label: 'All work', to: '/' }}
     />
   );

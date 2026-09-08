@@ -175,7 +175,7 @@ export default function WFCodeDiscovery({
           </div>
         </div>
 
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, minmax(0, 1fr))', gap: 16, alignItems: 'flex-start', alignSelf: 'stretch' }}>
+        <div className="wfcd-mode-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(4, minmax(0, 1fr))', gap: 16, alignItems: 'stretch', alignSelf: 'stretch' }}>
           {MODES.map((m) => {
             const on = m.key === mode;
             return (
@@ -185,7 +185,7 @@ export default function WFCodeDiscovery({
                 style={{
                   position: 'relative',
                   minWidth: 0,
-                  height: 138,
+                  minHeight: 138,
                   borderRadius: 12,
                   padding: 20,
                   display: 'flex',
@@ -294,8 +294,8 @@ export default function WFCodeDiscovery({
               </div>
             </div>
 
-            <div style={{ display: 'flex', flexDirection: 'row', gap: 16, alignItems: 'flex-start', alignSelf: 'stretch' }}>
-              <div style={{ position: 'relative', flexGrow: 1, minWidth: 0 }}>
+            <div style={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap', gap: 16, alignItems: 'flex-start', alignSelf: 'stretch' }}>
+              <div style={{ position: 'relative', flex: '1 1 180px', minWidth: 0 }}>
                 <div style={{ height: 50, borderRadius: 8, background: '#fff', boxShadow: 'inset 0 0 0 1px rgb(203,213,225)', padding: '12px 16px 12px 44px', display: 'flex', alignItems: 'center', overflow: 'hidden' }}>
                   <input
                     type="text"
@@ -436,9 +436,9 @@ export default function WFCodeDiscovery({
             <div style={{ background: '#fff', padding: 24, display: 'flex', flexDirection: 'column', gap: 24, alignItems: 'flex-start', borderRadius: '0 0 12px 12px' }}>
               {RESULTS.map((r) => (
                 <div key={r.path} style={{ borderLeft: '4px solid rgb(153,27,27)', padding: '4px 16px', display: 'flex', flexDirection: 'column', gap: 8, alignItems: 'flex-start', alignSelf: 'stretch' }}>
-                  <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', alignSelf: 'stretch' }}>
-                    <span style={{ fontFamily: mono, fontWeight: 400, fontSize: 12, lineHeight: '16px', color: 'rgb(100,116,139)' }}>{r.path}</span>
-                    <span style={{ fontFamily: mono, fontWeight: 400, fontSize: 12, lineHeight: '16px', color: 'rgb(148,163,184)' }}>{r.line}</span>
+                  <div style={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-between', alignItems: 'center', alignSelf: 'stretch', gap: '2px 12px' }}>
+                    <span style={{ fontFamily: mono, fontWeight: 400, fontSize: 12, lineHeight: '16px', color: 'rgb(100,116,139)', minWidth: 0, overflowWrap: 'anywhere' }}>{r.path}</span>
+                    <span style={{ fontFamily: mono, fontWeight: 400, fontSize: 12, lineHeight: '16px', color: 'rgb(148,163,184)', flexShrink: 0 }}>{r.line}</span>
                   </div>
                   <CodeLine before={r.before} hit={r.hit} after={r.after} />
                 </div>
@@ -465,6 +465,12 @@ export default function WFCodeDiscovery({
           </div>
         </div>
       </div>
+
+      <style>{`
+        @media (max-width: 700px) {
+          .wfcd-mode-grid { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
+        }
+      `}</style>
     </div>
   );
 }

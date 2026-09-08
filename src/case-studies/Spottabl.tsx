@@ -172,7 +172,7 @@ const sections: CSSection[] = [
           next to the name, because they are the two facts that decide whether a shortlist is real.
         </p>
         <div style={{ marginTop: 28 }}>
-          <ScaleFrame height={380} scale={0.5}>
+          <ScaleFrame>
             <CandidateMatchesScreen />
           </ScaleFrame>
         </div>
@@ -187,7 +187,7 @@ const sections: CSSection[] = [
           &ldquo;rejected&rdquo; always carries a reason and nobody has to reconstruct a decision from memory.
         </p>
         <div style={{ marginTop: 28 }}>
-          <ScaleFrame height={380} scale={0.5}>
+          <ScaleFrame>
             <JobCandidatesScreen />
           </ScaleFrame>
         </div>
@@ -203,10 +203,10 @@ const sections: CSSection[] = [
           the source, it lands as the same candidate object.
         </p>
         <div style={{ display: 'flex', flexDirection: 'column', gap: 16, marginTop: 28 }}>
-          <ScaleFrame height={380} scale={0.5}>
+          <ScaleFrame>
             <AddCandidatesScreen />
           </ScaleFrame>
-          <ScaleFrame height={380} scale={0.5}>
+          <ScaleFrame>
             <MyNetworkScreen />
           </ScaleFrame>
         </div>
@@ -221,7 +221,7 @@ const sections: CSSection[] = [
           library was worth building.
         </p>
         <div style={{ marginTop: 28 }}>
-          <ScaleFrame height={380} scale={0.5}>
+          <ScaleFrame>
             <JobCreationScreen />
           </ScaleFrame>
         </div>
@@ -236,7 +236,7 @@ const sections: CSSection[] = [
           of every application.
         </p>
         <div style={{ marginTop: 28 }}>
-          <ScaleFrame height={380} scale={0.5}>
+          <ScaleFrame>
             <CandidateRequestsScreen />
           </ScaleFrame>
         </div>
@@ -311,7 +311,7 @@ export default function Spottabl() {
         { value: '3,000+', label: 'Recruiters on the platform today' },
       ]}
       hero={
-        <ScaleFrame height={507} scale={0.6666} maxWidth={800}>
+        <ScaleFrame maxWidth={800}>
           <MyJobsScreen />
         </ScaleFrame>
       }
@@ -337,7 +337,7 @@ export default function Spottabl() {
           ),
         },
       ]}
-      prev={{ kicker: 'Next case study', label: 'Klub — syndicates on the patron platform', to: '/work/klub' }}
+      prev={{ kicker: 'Next case study', label: 'Wells Fargo — financial health tools', to: '/work/wells-fargo-financial-health' }}
       next={{ kicker: 'Back to', label: 'All work', to: '/' }}
     />
   );

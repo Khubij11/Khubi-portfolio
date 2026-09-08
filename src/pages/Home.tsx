@@ -175,7 +175,7 @@ export default function Home() {
   return (
     <main style={{ margin: '0 auto', maxWidth: 1344, padding: '0 clamp(20px, 5vw, 72px) 96px' }}>
       {/* Hero */}
-      <section style={{ position: 'relative', padding: '64px 24px 64px 0', marginRight: -24, overflow: 'hidden' }}>
+      <section style={{ position: 'relative', padding: '64px 24px 64px 0', marginRight: 'calc(-1 * clamp(20px, 5vw, 72px))', overflow: 'hidden' }}>
         <div
           style={{
             position: 'absolute',

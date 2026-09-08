@@ -31,7 +31,7 @@ const skills: [string, string][] = [
 export default function About() {
   return (
     <main style={{ margin: '0 auto', maxWidth: 1344, padding: '0 clamp(20px, 5vw, 72px) 112px' }}>
-      <div style={{ position: 'relative', padding: '76px 24px 0 24px', margin: '0 -24px', overflow: 'hidden' }}>
+      <div style={{ position: 'relative', padding: '76px 24px 0 24px', margin: '0 calc(-1 * clamp(20px, 5vw, 72px))', overflow: 'hidden' }}>
         <div
           style={{
             position: 'absolute',

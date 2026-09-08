@@ -155,6 +155,7 @@ const sections: CSSection[] = [
             </div>
           </div>
         </div>
+        <div className="scroll-hint">Scroll to see the full diagram →</div>
         <div style={{ fontFamily: 'var(--font-ui)', fontSize: 13, fontWeight: 600, letterSpacing: '0.05em', color: 'var(--muted)', marginTop: 12 }}>
           The whole feature is one branch deep, so a patron who ignores it never meets it.
         </div>

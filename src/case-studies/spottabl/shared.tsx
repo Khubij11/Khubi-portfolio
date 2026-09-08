@@ -1,30 +1,38 @@
-import type { ReactNode } from 'react';
+import { useEffect, useRef, useState, type ReactNode } from 'react';
 
-/** Fixed-scale wrapper matching the source's `transform: scale(n)` technique for a
- * 1200x760 design canvas, cropped inside an overflow-hidden box of the given height. */
-export function ScaleFrame({
-  height,
-  scale,
-  maxWidth,
-  children,
-}: {
-  height: number;
-  scale: number;
-  maxWidth?: number;
-  children: ReactNode;
-}) {
+const DESIGN_WIDTH = 1200;
+const DESIGN_HEIGHT = 760;
+
+/** Scales a fixed 1200x760 design canvas to fit the width of its container, matching
+ * the source's `transform: scale(n)` technique but recomputing the scale on resize so
+ * it never clips content on narrower (e.g. mobile) viewports. */
+export function ScaleFrame({ maxWidth, children }: { maxWidth?: number; children: ReactNode }) {
+  const outerRef = useRef<HTMLDivElement>(null);
+  const [scale, setScale] = useState(1);
+
+  useEffect(() => {
+    const outer = outerRef.current;
+    if (!outer) return;
+    const update = () => setScale(outer.clientWidth / DESIGN_WIDTH);
+    const ro = new ResizeObserver(update);
+    ro.observe(outer);
+    update();
+    return () => ro.disconnect();
+  }, []);
+
   return (
     <div
+      ref={outerRef}
       style={{
         width: '100%',
         maxWidth,
-        height,
+        height: DESIGN_HEIGHT * scale,
         margin: maxWidth ? '0 auto' : undefined,
         overflow: 'hidden',
         border: '1px solid #D9E1E6',
       }}
     >
-      <div style={{ width: 1200, height: 760, transform: `scale(${scale})`, transformOrigin: 'top left' }}>{children}</div>
+      <div style={{ width: DESIGN_WIDTH, height: DESIGN_HEIGHT, transform: `scale(${scale})`, transformOrigin: 'top left' }}>{children}</div>
     </div>
   );
 }

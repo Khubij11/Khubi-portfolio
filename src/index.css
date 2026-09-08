@@ -65,3 +65,20 @@ table {
 .work-row:hover {
   background-color: var(--panel-tint);
 }
+
+.scroll-hint {
+  display: none;
+}
+
+@media (max-width: 700px) {
+  .scroll-hint {
+    display: block;
+    font-family: var(--font-ui);
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+    margin-top: 8px;
+  }
+}

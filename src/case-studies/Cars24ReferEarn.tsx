@@ -48,11 +48,11 @@ const th: React.CSSProperties = {
   textTransform: 'uppercase',
   letterSpacing: '0.1em',
   color: 'var(--muted)',
-  padding: '0 0 10px 0',
+  padding: '0 16px 10px 0',
   borderBottom: '1px solid var(--ink)',
 };
 
-const td: React.CSSProperties = { fontSize: 14, color: 'var(--ink)', padding: '14px 0', borderBottom: '1px solid var(--hairline)' };
+const td: React.CSSProperties = { fontSize: 14, color: 'var(--ink)', padding: '14px 16px 14px 0', borderBottom: '1px solid var(--hairline)' };
 const tdMuted: React.CSSProperties = { ...td, color: 'var(--secondary)' };
 
 const priorityRows = [
@@ -196,6 +196,7 @@ const sections: CSSection[] = [
             </tbody>
           </table>
         </div>
+        <div className="scroll-hint">Scroll to see all columns →</div>
       </>
     ),
   },
@@ -239,6 +240,7 @@ const sections: CSSection[] = [
             </div>
           </div>
         </div>
+        <div className="scroll-hint">Scroll to see the full flow →</div>
         <div style={{ fontFamily: 'var(--font-ui)', fontSize: 13, fontWeight: 600, letterSpacing: '0.05em', color: 'var(--muted)', marginTop: 12 }}>
           The flow, after the cuts. Profile creation sits before this and only happens once.
         </div>
@@ -360,7 +362,7 @@ export default function Cars24ReferEarn() {
           ),
         },
       ]}
-      prev={{ kicker: 'Next case study', label: 'Spottabl — three sides, one pipeline', to: '/work/spottabl' }}
+      prev={{ kicker: 'Next case study', label: 'Cars24 — challan payments', to: '/work/cars24-challans' }}
       next={{ kicker: 'Back to', label: 'All work', to: '/' }}
     />
   );

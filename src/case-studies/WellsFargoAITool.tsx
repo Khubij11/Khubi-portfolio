@@ -289,7 +289,7 @@ export default function WellsFargoAITool() {
           ),
         },
       ]}
-      prev={{ kicker: 'Next case study', label: 'Wells Fargo — financial health tools', to: '/work/wells-fargo-financial-health' }}
+      prev={{ kicker: 'Next case study', label: 'Cars24 — refer & earn', to: '/work/cars24-refer-earn' }}
       next={{ kicker: 'Back to', label: 'All work', to: '/' }}
     />
   );

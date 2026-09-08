@@ -1,6 +1,16 @@
 import { useEffect, useRef, useState, type ReactNode } from 'react';
 
-export default function FitScale({ children, designWidth = 1280 }: { children: ReactNode; designWidth?: number }) {
+export default function FitScale({
+  children,
+  designWidth = 1280,
+  background = '#FFFFFF',
+  border = '1px solid var(--hairline)',
+}: {
+  children: ReactNode;
+  designWidth?: number;
+  background?: string;
+  border?: string;
+}) {
   const outerRef = useRef<HTMLDivElement>(null);
   const innerRef = useRef<HTMLDivElement>(null);
   const [scale, setScale] = useState(1);
@@ -30,7 +40,7 @@ export default function FitScale({ children, designWidth = 1280 }: { children: R
   }, [designWidth]);
 
   return (
-    <div ref={outerRef} style={{ position: 'relative', width: '100%', overflow: 'hidden', background: '#FFFFFF', border: '1px solid var(--hairline)', height }}>
+    <div ref={outerRef} style={{ position: 'relative', width: '100%', overflow: 'hidden', background, border, height }}>
       <div style={{ position: 'absolute', left: 0, top: 0, width: designWidth, transformOrigin: '0 0', transform: `scale(${scale})` }}>
         <div ref={innerRef}>{children}</div>
       </div>

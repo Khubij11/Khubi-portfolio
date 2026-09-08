@@ -76,7 +76,7 @@ export default function Resume() {
           </h1>
           <p style={{ fontSize: 16, color: 'var(--secondary)', margin: '14px 0 0 0' }}>Product designer · Bangalore · Seven years</p>
         </div>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 20 }}>
+        <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: 16 }}>
           <span style={kicker}>Updated September 2026</span>
           <a
             href="/assets/Khubi_Joshi_Resume.pdf"
