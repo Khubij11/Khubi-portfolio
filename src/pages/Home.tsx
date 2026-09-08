@@ -177,6 +177,7 @@ export default function Home() {
       {/* Hero */}
       <section style={{ position: 'relative', padding: '64px 24px 64px 0', marginRight: 'calc(-1 * clamp(20px, 5vw, 72px))', overflow: 'hidden' }}>
         <div
+          className="hero-circle"
           style={{
             position: 'absolute',
             right: '-2%',
@@ -227,6 +228,7 @@ export default function Home() {
         />
 
         <h1
+          className="hero-h1"
           style={{
             position: 'relative',
             margin: '18px 0 0 0',

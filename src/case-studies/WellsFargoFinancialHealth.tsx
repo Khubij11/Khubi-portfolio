@@ -395,9 +395,11 @@ export default function WellsFargoFinancialHealth() {
           </div>
 
           <div style={{ maxWidth: 1000, margin: '0 auto' }}>
-            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '12px 24px', alignItems: 'baseline', justifyContent: 'space-between', marginBottom: 14 }}>
+            <div style={{ textAlign: 'center', marginBottom: 20 }}>
               <div style={kicker}>Working prototype</div>
-              <div style={{ ...kicker, textTransform: 'none' }}>Everything is live — type amounts, drag sliders, toggle deposits, walk all seven steps.</div>
+              <div style={{ ...kicker, textTransform: 'none', color: 'var(--secondary)', marginTop: 8 }}>
+                Everything is live — type amounts, drag sliders, toggle deposits, walk all seven steps.
+              </div>
             </div>
             <EmbedFrame>
               <WFBudgetPrototype />
