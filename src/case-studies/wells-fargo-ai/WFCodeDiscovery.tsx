@@ -250,12 +250,12 @@ export default function WFCodeDiscovery({
           </div>
 
           <div style={{ padding: 24, display: 'flex', flexDirection: 'column', gap: 24, alignItems: 'flex-start' }}>
-            <div style={{ display: 'flex', flexDirection: 'row', gap: 24, alignItems: 'flex-start', alignSelf: 'stretch' }}>
+            <div style={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap', gap: 24, alignItems: 'flex-start', alignSelf: 'stretch' }}>
               {[
                 { label: 'Application Domain', value: domain },
                 { label: 'Repository', value: repository },
               ].map((s) => (
-                <div key={s.label} style={{ flexGrow: 1, display: 'flex', flexDirection: 'column', gap: 6.5, alignItems: 'flex-start', minWidth: 0 }}>
+                <div key={s.label} style={{ flex: '1 1 160px', display: 'flex', flexDirection: 'column', gap: 6.5, alignItems: 'flex-start', minWidth: 0 }}>
                   <span style={{ fontWeight: 500, fontSize: 14, lineHeight: '20px', whiteSpace: 'nowrap', color: 'rgb(51,65,85)' }}>{s.label}</span>
                   <div style={{ position: 'relative', height: 46, alignSelf: 'stretch' }}>
                     <div style={{ height: 46, borderRadius: 8, background: '#fff', boxShadow: 'inset 0 0 0 1px rgb(203,213,225)', padding: '10px 32px 10px 16px', display: 'flex', alignItems: 'center' }}>
@@ -324,14 +324,14 @@ export default function WFCodeDiscovery({
 
         {isMindmap && (
           <div style={{ borderRadius: 12, background: '#fff', boxShadow: 'inset 0 0 0 1px rgb(226,232,240), 0px 1px 2px 0px rgba(0,0,0,0.05)', alignSelf: 'stretch' }}>
-            <div style={{ height: 65, borderRadius: '12px 12px 0 0', background: 'rgba(248,250,252,0.5)', border: '1px solid rgb(226,232,240)', padding: 16, display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+            <div style={{ minHeight: 65, borderRadius: '12px 12px 0 0', background: 'rgba(248,250,252,0.5)', border: '1px solid rgb(226,232,240)', padding: 16, display: 'flex', flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-between', alignItems: 'center', gap: '10px 16px' }}>
               <div style={{ display: 'flex', flexDirection: 'row', gap: 12, alignItems: 'center', flexShrink: 0 }}>
                 <span style={{ fontWeight: 600, fontSize: 16, lineHeight: '24px', whiteSpace: 'nowrap', color: 'rgb(30,41,59)' }}>Dependency map</span>
                 <div style={{ borderRadius: 9999, background: 'rgb(238,242,255)', boxShadow: 'inset 0 0 0 1px rgb(199,210,254)', padding: '2px 8px' }}>
                   <span style={{ fontWeight: 500, fontSize: 12, lineHeight: '16px', whiteSpace: 'nowrap', color: 'rgb(67,56,202)' }}>6 nodes · 2 levels</span>
                 </div>
               </div>
-              <div style={{ display: 'flex', flexDirection: 'row', gap: 8, alignItems: 'center', flexShrink: 0 }}>
+              <div style={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap', gap: 8, alignItems: 'center', flexShrink: 0 }}>
                 <div style={{ borderRadius: 8, background: '#fff', boxShadow: 'inset 0 0 0 1px rgb(203,213,225)', padding: '7px 14px', cursor: 'pointer' }}>
                   <span style={{ fontWeight: 500, fontSize: 13, lineHeight: '18px', whiteSpace: 'nowrap', color: 'rgb(51,65,85)' }}>Export PNG</span>
                 </div>
@@ -342,7 +342,8 @@ export default function WFCodeDiscovery({
             </div>
 
             <div style={{ padding: '28px 24px', borderRadius: '0 0 12px 12px', background: 'rgb(252,252,253)' }}>
-              <div style={{ position: 'relative', width: '100%', maxWidth: 770, height: 400, margin: '0 auto' }}>
+              <div style={{ overflowX: 'auto' }}>
+              <div style={{ position: 'relative', width: '100%', minWidth: 560, maxWidth: 770, height: 400, margin: '0 auto' }}>
                 <svg width={770} height={400} viewBox="0 0 770 400" fill="none" preserveAspectRatio="xMidYMid meet" style={{ position: 'absolute', left: 0, top: 0, width: '100%', height: 400 }}>
                   <path d="M 180 88 C 235 88 240 188 290 188" stroke="rgb(203,213,225)" strokeWidth={1.5} />
                   <path d="M 180 198 C 235 198 240 188 290 188" stroke="rgb(203,213,225)" strokeWidth={1.5} />
@@ -375,6 +376,8 @@ export default function WFCodeDiscovery({
                   </div>
                 ))}
               </div>
+              </div>
+              <div className="scroll-hint">Scroll to see the full diagram →</div>
 
               <div style={{ marginTop: 20, paddingTop: 18, borderTop: '1px solid rgb(241,245,249)', display: 'flex', flexDirection: 'row', gap: 24, alignItems: 'center', flexWrap: 'wrap' }}>
                 <span style={{ fontWeight: 400, fontSize: 13, lineHeight: '18px', color: 'rgb(100,116,139)' }}>
