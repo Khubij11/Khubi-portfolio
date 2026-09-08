@@ -89,6 +89,7 @@ function IllustrationCard() {
         minWidth: 0,
         position: 'relative',
         zIndex: 2,
+        marginTop: 'clamp(-140px, calc(-140px + (1100px - 100vw) * 0.6), -48px)',
         padding: '22px 24px 20px 24px',
         background: 'linear-gradient(168deg, #FBFAF7 0%, #F1EFE9 100%)',
         borderRadius: 3,

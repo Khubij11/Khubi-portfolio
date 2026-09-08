@@ -246,7 +246,7 @@ export default function CaseStudyLayout({
 
       <style>{`
         @media (max-width: 1140px) {
-          .cs-rail { position: static; max-height: none; flex: 0 0 100%; }
+          .cs-rail { position: static !important; top: auto !important; max-height: none !important; overflow-y: visible !important; flex: 0 0 100% !important; }
         }
         @media (min-width: 1141px) {
           .cs-row { flex-wrap: nowrap; }

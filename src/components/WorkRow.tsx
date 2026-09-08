@@ -96,14 +96,17 @@ export default function WorkRow({ row }: { row: WorkRowData }) {
     flexWrap: 'wrap',
     gap: '12px 24px',
     alignItems: 'flex-start',
-    padding: '24px 0',
+    padding: '24px 12px',
+    margin: '0 -12px',
     borderBottom: '1px solid var(--hairline)',
     color: 'var(--ink)',
+    borderRadius: 4,
+    transition: 'background-color 150ms ease',
   };
 
   if (row.to) {
     return (
-      <Link to={row.to} style={style}>
+      <Link to={row.to} className="work-row" style={style}>
         {content}
       </Link>
     );
