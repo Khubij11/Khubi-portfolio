@@ -74,6 +74,7 @@ table {
 
 .work-row:hover {
   background-color: var(--panel-tint);
+  border-left-color: var(--accent) !important;
 }
 
 .scroll-hint {

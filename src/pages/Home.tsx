@@ -129,12 +129,83 @@ function IllustrationCard() {
       </div>
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 20, marginTop: 26, alignItems: 'end' }}>
         <div>
-          <div style={{ height: 84, display: 'flex', alignItems: 'flex-end', justifyContent: 'center' }}>
+          <div style={{ position: 'relative', height: 84, display: 'flex', alignItems: 'flex-end', justifyContent: 'center', gap: 6 }}>
             <img
               src="/assets/illo-whisk.png"
               alt="Whisk in a mixing bowl"
               style={{ display: 'block', height: 84, width: 'auto', objectFit: 'contain', filter: 'drop-shadow(0 8px 10px rgba(23,26,24,0.14))' }}
             />
+            <div
+              style={{
+                position: 'relative',
+                width: 40,
+                height: 40,
+                flex: '0 0 auto',
+                marginBottom: 6,
+                borderRadius: '50%',
+                background: 'linear-gradient(162deg, #E8613C 0%, #C4432A 48%, #932D1A 100%)',
+                boxShadow: '0 7px 10px -6px rgba(23,26,24,0.55), inset 0 1px 1px rgba(255,255,255,0.5), inset 0 -3px 5px rgba(0,0,0,0.28)',
+              }}
+            >
+              <div
+                style={{
+                  position: 'absolute',
+                  inset: 4,
+                  borderRadius: '50%',
+                  background: 'radial-gradient(64% 64% at 36% 26%, #FFFFFF 0%, #F7F4EC 46%, #E4E0D3 100%)',
+                  boxShadow: 'inset 0 1px 2px rgba(23,26,24,0.3)',
+                }}
+              />
+              <div
+                style={{
+                  position: 'absolute',
+                  inset: 7,
+                  borderRadius: '50%',
+                  backgroundImage: 'repeating-conic-gradient(from 0deg, rgba(23,26,24,0.5) 0deg 1.4deg, rgba(23,26,24,0) 1.4deg 30deg)',
+                  WebkitMaskImage: 'radial-gradient(closest-side, transparent 68%, #000 69%)',
+                  maskImage: 'radial-gradient(closest-side, transparent 68%, #000 69%)',
+                }}
+              />
+              <div
+                style={{
+                  position: 'absolute',
+                  left: '50%',
+                  top: '50%',
+                  width: 1.5,
+                  height: 12,
+                  background: 'linear-gradient(#3C6C94, #1F4260)',
+                  transformOrigin: '50% 100%',
+                  transform: 'translate(-50%, -100%) rotate(48deg)',
+                  borderRadius: 2,
+                }}
+              />
+              <div
+                style={{
+                  position: 'absolute',
+                  left: '50%',
+                  top: '50%',
+                  width: 6,
+                  height: 6,
+                  borderRadius: '50%',
+                  transform: 'translate(-50%, -50%)',
+                  background: 'radial-gradient(60% 60% at 34% 28%, #FFFFFF, #C9C4B5 70%, #9A9587 100%)',
+                  boxShadow: '0 1px 2px rgba(23,26,24,0.5)',
+                }}
+              />
+              <div
+                style={{
+                  position: 'absolute',
+                  left: '50%',
+                  top: -4,
+                  transform: 'translateX(-50%)',
+                  width: 11,
+                  height: 7,
+                  borderRadius: '2px 2px 1px 1px',
+                  background: 'linear-gradient(#F0EDE4, #BFBAAB)',
+                  boxShadow: 'inset 0 1px 1px rgba(255,255,255,0.9), 0 1px 2px -1px rgba(23,26,24,0.4)',
+                }}
+              />
+            </div>
           </div>
           <div style={{ fontFamily: 'var(--font-mono)', fontSize: 10, lineHeight: 1.5, letterSpacing: '0.04em', color: 'var(--secondary)', marginTop: 8 }}>
             Timer's on. The cakes rise.
@@ -374,13 +445,6 @@ export default function Home() {
               Read the résumé
             </Link>
           </div>
-        </div>
-        <div style={{ flex: '1 1 300px' }}>
-          <div style={kicker}>Open to</div>
-          <p style={{ fontSize: 14, lineHeight: 1.6, color: 'var(--secondary)', margin: '14px 0 0 0', maxWidth: '44ch' }}>
-            Senior and lead product design roles, Bangalore or remote. <Link to="/contact">Freelance</Link> in the
-            meantime.
-          </p>
         </div>
         <div style={{ flex: '1 1 280px' }}>
           <div style={kicker}>Get in touch</div>

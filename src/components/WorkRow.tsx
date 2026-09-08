@@ -96,12 +96,13 @@ export default function WorkRow({ row }: { row: WorkRowData }) {
     flexWrap: 'wrap',
     gap: '12px 24px',
     alignItems: 'flex-start',
-    padding: '24px 12px',
+    padding: '24px 12px 24px 9px',
     margin: '0 -12px',
     borderBottom: '1px solid var(--hairline)',
+    borderLeft: '3px solid transparent',
     color: 'var(--ink)',
     borderRadius: 4,
-    transition: 'background-color 150ms ease',
+    transition: 'background-color 150ms ease, border-color 150ms ease',
   };
 
   if (row.to) {
