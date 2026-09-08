@@ -225,7 +225,7 @@ function IllustrationCard() {
             />
           </div>
           <div style={{ fontFamily: 'var(--font-mono)', fontSize: 10, lineHeight: 1.5, letterSpacing: '0.04em', color: 'var(--secondary)', marginTop: 8 }}>
-            The coriander keeps me humble.
+            My plants keep me humble.
           </div>
         </div>
       </div>
