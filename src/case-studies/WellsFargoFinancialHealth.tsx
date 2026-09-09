@@ -384,18 +384,18 @@ export default function WellsFargoFinancialHealth() {
       ]}
       hero={
         <>
-          <div style={{ maxWidth: 1000, margin: '0 auto' }}>
-            <p style={{ ...serifP, maxWidth: '56ch', margin: '0 0 26px 0' }}>
+          <div style={{ maxWidth: 1000, margin: '0 auto', textAlign: 'center' }}>
+            <p style={{ ...serifP, maxWidth: '56ch', margin: '0 auto 26px auto' }}>
               The constraint that shaped everything: I couldn't add UI. Every screen had to be assembled from
               components the bank already shipped, so the improvement had to come from sequence, hierarchy and
               language — what a customer sees first, what they see at all, and what it's called.
             </p>
-            <div style={{ display: 'flex', flexWrap: 'wrap', gap: 10, marginBottom: 34 }}>
+            <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: 10, marginBottom: 34 }}>
               <a href="#wf-03" style={{ fontFamily: 'var(--font-ui)', fontSize: 13, fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.1em', padding: '10px 16px', border: '1px solid var(--ink)', color: 'var(--ink)' }}>Read the reframe →</a>
               <a href="#wf-06" style={{ fontFamily: 'var(--font-ui)', fontSize: 13, fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.1em', padding: '10px 16px', border: '1px solid var(--hairline)', color: 'var(--secondary)' }}>See the design decisions →</a>
             </div>
 
-            <div style={{ textAlign: 'center', marginBottom: 20 }}>
+            <div style={{ marginBottom: 20 }}>
               <div style={kicker}>Working prototype</div>
               <div style={{ ...kicker, textTransform: 'none', color: 'var(--secondary)', marginTop: 8 }}>
                 Everything is live — type amounts, drag sliders, toggle deposits, walk all seven steps.
