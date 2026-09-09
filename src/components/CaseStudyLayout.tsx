@@ -47,6 +47,7 @@ export default function CaseStudyLayout({
   summary,
   meta,
   metrics,
+  afterMetrics,
   hero,
   heroCaption,
   sections,
@@ -59,6 +60,7 @@ export default function CaseStudyLayout({
   summary: string;
   meta: MetaItem[];
   metrics?: Metric[];
+  afterMetrics?: ReactNode;
   hero?: ReactNode;
   heroCaption?: string;
   sections: CSSection[];
@@ -138,6 +140,7 @@ export default function CaseStudyLayout({
               ))}
             </div>
           )}
+          {afterMetrics}
         </div>
       </div>
 
