@@ -53,7 +53,6 @@ function monthLabel(n: number) {
   const m = 8 + Math.round(n);
   return MONTHS[((m % 12) + 12) % 12] + ' ' + (2026 + Math.floor(m / 12));
 }
-const SUGGESTIONS = ['Emergency fund', 'Home', 'Travel'];
 const SAVINGS_ACCOUNTS = [
   { name: 'Way2Save Savings', last4: '3300', balance: '$8,680.00' },
   { name: 'Platinum Savings', last4: '9120', balance: '$1,240.55' },
@@ -195,6 +194,14 @@ export default function WFBudgetPrototype({ startStep, onStep }: WFBudgetPrototy
   const [focusKey, setFocusKey] = useState<string | null>(null);
   const [focusIndex, setFocusIndex] = useState<number | null>(null);
   const lastFocused = useRef<HTMLInputElement | null>(null);
+  const [selectedGoalId, setSelectedGoalId] = useState<string | null>('ef');
+  const [editingGoalId, setEditingGoalId] = useState<string | null>(null);
+  const [standaloneEntry, setStandaloneEntry] = useState<'dashboard' | 'wizard'>('dashboard');
+  // Tracks which goal the withdraw panel is open for, rather than a plain
+  // boolean, so navigating to a different goal closes it automatically
+  // (derived during render) instead of needing an effect to reset it.
+  const [withdrawForGoal, setWithdrawForGoal] = useState<string | null>(null);
+  const [withdrawAmt, setWithdrawAmt] = useState('');
 
   function focusRef(key: string, i: number) {
     return (el: HTMLInputElement | null) => {
@@ -292,6 +299,9 @@ export default function WFBudgetPrototype({ startStep, onStep }: WFBudgetPrototy
   const onStandalone = view === 'standalone';
   const gi = goals.findIndex((x) => x.id === openGoal);
   const og = gi > -1 ? goals[gi] : goals[0];
+  const withdrawOpen = withdrawForGoal !== null && withdrawForGoal === og.id;
+  const selGi = goals.findIndex((x) => x.id === selectedGoalId);
+  const selGoal = selGi > -1 ? goals[selGi] : goals[0];
   const income = deposits.reduce((s, dp) => s + (dp.on ? dp.amount : 0), 0);
   const fixedT = fixed.reduce((s, f) => s + f.amount, 0);
   const leftAfterFixed = income - fixedT;
@@ -389,9 +399,6 @@ export default function WFBudgetPrototype({ startStep, onStep }: WFBudgetPrototy
   const isStandalone = onStandalone;
   const showProgress = isFlow;
   const noBudget = !budgetSet;
-  const showGoalBlock = (isFlow && st === 3) || onStandalone;
-  const showChangeName = isFlow && st === 3;
-  const showDerived = (isFlow && st === 3) || onStandalone;
   const showFooterNav = isFlow && st > 0 && st < 6;
   const showBackLink = !isFlow && !isHomeView;
 
@@ -403,8 +410,15 @@ export default function WFBudgetPrototype({ startStep, onStep }: WFBudgetPrototy
   const fLeftAfterFixed = D(leftAfterFixed);
   const fAvailable = D(available);
   const fAllocated = D(allocated);
-  const fToAssign = D(toAssign);
   const fToAssignAbs = D(Math.abs(toAssign));
+  // The sidebar is a fixed "This month" reference and must stay monthly
+  // regardless of the wizard's chosen cadence (bug #5) — plain fmt(), not D().
+  const mIncome = fmt(income);
+  const mFixedNeg = '−' + fmt(fixedT);
+  const mSavingsNeg = '−' + fmt(savingsVal);
+  const mAvailable = fmt(available);
+  const mAllocated = fmt(allocated);
+  const mToAssign = fmt(toAssign);
   const allocPct = pctStr(allocated, available);
   const allocColor = balances ? '#0E7A42' : '#D71E28';
   const assignLabel = balances ? 'Still to assign' : 'Over budget by';
@@ -412,7 +426,6 @@ export default function WFBudgetPrototype({ startStep, onStep }: WFBudgetPrototy
   const leftColor = leftAfterFixed < 0 ? '#D71E28' : '#0E7A42';
   const fixedSharePct = pctStr(fixedT, income);
   const fixedShareColor = fixedT / Math.max(income, 1) > 0.6 ? '#D71E28' : '#57534E';
-  const savingsSharePct = pctStr(savingsVal, leftAfterFixed);
   const savingsIncomePct = pctStr(savingsVal, income);
   const savingsMax = String(Math.max(10, leftAfterFixed));
   const splitFixed = pctStr(fixedT, income);
@@ -520,18 +533,27 @@ export default function WFBudgetPrototype({ startStep, onStep }: WFBudgetPrototy
 
   const gAccounts = SAVINGS_ACCOUNTS.map((a, i) => ({ ...a, selected: gDraft.account === i }));
 
-  const derivedText = onStandalone
-    ? 'You have ' + D(available) + ' left after fixed costs. Saving ' + fmt(dp.needed) + ' a month gets you there by ' + dp.targetLabel + '.'
-    : dp.rate <= 0
-    ? "Set an amount above and we'll tell you when you reach " + fmt(gDraft.target) + '.'
-    : 'At ' + D(savingsVal) + ' a month you reach ' + fmt(gDraft.target) + ' in ' + dp.completion + (dp.gap != null && dp.gap > 0 ? ' — ' + dp.gap + (dp.gap === 1 ? ' month' : ' months') + ' later than your target.' : ' — on track for your ' + dp.targetLabel + ' target.');
-  const derivedShort = dp.gap != null && dp.gap > 0 && !onStandalone;
-  const shortfallLabel = 'Save ' + fmt(dp.needed) + ' a month to hit it';
-  const derivedBg = onStandalone ? '#F5F3EE' : dp.gap != null && dp.gap > 0 ? '#FDF6EE' : '#E9F0EB';
-  const derivedBorder = onStandalone ? '#E7E5E4' : dp.gap != null && dp.gap > 0 ? '#EFD9BC' : '#CADCD0';
-  const derivedColor = onStandalone ? '#57534E' : dp.gap != null && dp.gap > 0 ? '#8A4E08' : '#0B5030';
-  const derivedIconBg = onStandalone ? '#DAD5CB' : dp.gap != null && dp.gap > 0 ? '#C06A0A' : '#0E7A42';
-  const derivedIcon = onStandalone ? I.chart : dp.gap != null && dp.gap > 0 ? I.alert : I.check;
+  // Standalone form: projection for the (unsaved) draft goal being created or edited.
+  const draftDerivedText = 'You have ' + D(available) + ' left after fixed costs. Saving ' + fmt(dp.needed) + ' a month gets you there by ' + dp.targetLabel + '.';
+  const draftDerivedBg = '#F5F3EE';
+  const draftDerivedBorder = '#E7E5E4';
+  const draftDerivedColor = '#57534E';
+  const draftDerivedIconBg = '#DAD5CB';
+  const draftDerivedIcon = I.chart;
+
+  // Step 4 (Savings): projection for the goal actually selected in Step 1,
+  // at the monthly-contribution slider's rate.
+  const selPace = goalPace(selGoal, savingsVal);
+  const selDerivedText = selPace.rate <= 0
+    ? "Set an amount above and we'll tell you when you reach " + fmt(selGoal.target) + '.'
+    : 'At ' + D(savingsVal) + ' a month you reach ' + fmt(selGoal.target) + ' in ' + selPace.completion + (selPace.gap != null && selPace.gap > 0 ? ' — ' + selPace.gap + (selPace.gap === 1 ? ' month' : ' months') + ' later than your target.' : ' — on track for your ' + selPace.targetLabel + ' target.');
+  const selDerivedShort = selPace.gap != null && selPace.gap > 0;
+  const selShortfallLabel = 'Save ' + fmt(selPace.needed) + ' a month to hit it';
+  const selDerivedBg = selPace.gap != null && selPace.gap > 0 ? '#FDF6EE' : '#E9F0EB';
+  const selDerivedBorder = selPace.gap != null && selPace.gap > 0 ? '#EFD9BC' : '#CADCD0';
+  const selDerivedColor = selPace.gap != null && selPace.gap > 0 ? '#8A4E08' : '#0B5030';
+  const selDerivedIconBg = selPace.gap != null && selPace.gap > 0 ? '#C06A0A' : '#0E7A42';
+  const selDerivedIcon = selPace.gap != null && selPace.gap > 0 ? I.alert : I.check;
 
   const dAccount = SAVINGS_ACCOUNTS[og.account].name + ' ···' + SAVINGS_ACCOUNTS[og.account].last4;
   const dSaved = fmt(og.saved);
@@ -565,9 +587,20 @@ export default function WFBudgetPrototype({ startStep, onStep }: WFBudgetPrototy
   const ctaBg = st === 5 ? (balances ? '#0E7A42' : '#A8A29E') : '#D71E28';
   const ctaOpacity = st === 5 && !balances ? 0.6 : 1;
 
-  const openStandalone = () => {
+  const openStandalone = (entry: 'dashboard' | 'wizard') => {
     setView('standalone');
     setDraft({ name: '', target: 12000, months: 20, account: 0 });
+    setEditingGoalId(null);
+    setStandaloneEntry(entry);
+  };
+
+  const openEditGoal = (id: string) => {
+    const idx = goals.findIndex((x) => x.id === id);
+    if (idx < 0) return;
+    const g = goals[idx];
+    setDraft({ name: g.name, target: g.target, months: g.months, account: g.account });
+    setEditingGoalId(id);
+    setView('standalone');
   };
 
   // -------------------------------------------------------------------------
@@ -656,16 +689,16 @@ export default function WFBudgetPrototype({ startStep, onStep }: WFBudgetPrototy
 
           <div style={{ background: '#F5F3EE', border: '1px solid #EDE9E1', borderRadius: 12, padding: 16 }}>
             <div style={label12}>This month</div>
-            <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: 10 }}><span style={{ fontSize: 13, color: '#57534E' }}>Income</span><span style={{ fontSize: 13, fontWeight: 700 }}>{fIncome}</span></div>
-            <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: 6 }}><span style={{ fontSize: 13, color: '#57534E' }}>Fixed costs</span><span style={{ fontSize: 13, fontWeight: 700 }}>{fFixedNeg}</span></div>
-            <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: 6 }}><span style={{ fontSize: 13, color: '#57534E' }}>Savings</span><span style={{ fontSize: 13, fontWeight: 700 }}>{fSavingsNeg}</span></div>
+            <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: 10 }}><span style={{ fontSize: 13, color: '#57534E' }}>Income</span><span style={{ fontSize: 13, fontWeight: 700 }}>{mIncome}</span></div>
+            <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: 6 }}><span style={{ fontSize: 13, color: '#57534E' }}>Fixed costs</span><span style={{ fontSize: 13, fontWeight: 700 }}>{mFixedNeg}</span></div>
+            <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: 6 }}><span style={{ fontSize: 13, color: '#57534E' }}>Savings</span><span style={{ fontSize: 13, fontWeight: 700 }}>{mSavingsNeg}</span></div>
             <div style={{ height: 1, background: '#E3DFD6', margin: '12px 0' }} />
             <div style={label12}>To spend</div>
-            <div style={{ fontFamily: 'Poppins, sans-serif', fontSize: 26, fontWeight: 700, color: '#0E7A42', letterSpacing: '-0.02em', marginTop: 4 }}>{fAvailable}</div>
+            <div style={{ fontFamily: 'Poppins, sans-serif', fontSize: 26, fontWeight: 700, color: '#0E7A42', letterSpacing: '-0.02em', marginTop: 4 }}>{mAvailable}</div>
             <div style={{ height: 5, background: '#E3DFD6', borderRadius: 999, marginTop: 10, overflow: 'hidden' }}>
               <div style={{ height: 5, borderRadius: 999, background: '#0E7A42', width: allocPct }} />
             </div>
-            <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: 7 }}><span style={{ fontSize: 11, color: '#A8A29E' }}>{fAllocated} allocated</span><span style={{ fontSize: 11, color: '#A8A29E' }}>{fToAssign} left</span></div>
+            <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: 7 }}><span style={{ fontSize: 11, color: '#A8A29E' }}>{mAllocated} allocated</span><span style={{ fontSize: 11, color: '#A8A29E' }}>{mToAssign} left</span></div>
           </div>
         </div>
 
@@ -689,15 +722,26 @@ export default function WFBudgetPrototype({ startStep, onStep }: WFBudgetPrototy
             <div style={{ marginTop: 30 }}>
               <div style={{ background: '#fff', border: '1px solid #E7E5E4', borderRadius: 12, padding: '22px 24px' }}>
                 <div style={{ fontSize: 14.5, fontWeight: 700 }}>What are you saving for?</div>
-                <div style={{ fontSize: 13, color: '#78716C', marginTop: 3 }}>Name it now and the rest of the budget works toward it. You can change this later.</div>
-                <input type="text" placeholder="Name this goal" value={gDraft.name} onChange={(e) => setDraftPatch({ name: e.target.value })} style={{ fontFamily: 'Poppins, sans-serif', fontSize: 21, fontWeight: 700, letterSpacing: '-0.02em', width: '100%', marginTop: 12, paddingBottom: 10, borderBottom: '1px solid #E7E5E4' }} />
-                <div style={{ display: 'flex', gap: 8, marginTop: 13 }}>
-                  {SUGGESTIONS.map((s) => {
-                    const active = gDraft.name === s;
+                <div style={{ fontSize: 13, color: '#78716C', marginTop: 3 }}>Pick an existing goal to fund with this budget, or start a new one.</div>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 10, marginTop: 14 }}>
+                  {goals.map((g) => {
+                    const sel = selectedGoalId === g.id;
                     return (
-                      <div key={s} onClick={() => setDraftPatch({ name: s })} style={{ padding: '8px 15px', borderRadius: 999, cursor: 'pointer', fontSize: 13, fontWeight: 700, color: active ? '#FFFFFF' : '#57534E', background: active ? '#292524' : '#FFFFFF', border: `1px solid ${active ? '#292524' : '#E7E5E4'}` }}>{s}</div>
+                      <div key={g.id} onClick={() => setSelectedGoalId(g.id)} style={{ display: 'flex', alignItems: 'center', gap: 14, padding: '15px 18px', borderRadius: 12, cursor: 'pointer', border: `1.5px solid ${sel ? '#D71E28' : '#E7E5E4'}`, background: sel ? '#FDF2F2' : '#FFFFFF' }}>
+                        <div style={{ width: 20, height: 20, borderRadius: 999, flexShrink: 0, border: `1.5px solid ${sel ? '#D71E28' : '#DAD5CB'}`, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                          <div style={{ width: 10, height: 10, borderRadius: 999, background: sel ? '#D71E28' : 'transparent' }} />
+                        </div>
+                        <div style={{ flexGrow: 1, minWidth: 0 }}>
+                          <div style={{ fontSize: 15, fontWeight: 700 }}>{g.name}</div>
+                          <div style={{ fontSize: 12.5, color: '#78716C', marginTop: 2 }}>{fmt(g.saved)} of {fmt(g.target)}</div>
+                        </div>
+                      </div>
                     );
                   })}
+                </div>
+                <div onClick={() => openStandalone('wizard')} style={{ display: 'inline-flex', alignItems: 'center', gap: 8, marginTop: 14, fontSize: 13, fontWeight: 700, color: '#D71E28', cursor: 'pointer' }}>
+                  Create a new goal instead
+                  <Ic path="M4 12h15M13 6l6 6-6 6" size={14} stroke="currentColor" sw={2} />
                 </div>
               </div>
 
@@ -931,7 +975,7 @@ export default function WFBudgetPrototype({ startStep, onStep }: WFBudgetPrototy
                       </div>
                     ))}
                   </div>
-                  <div onClick={openStandalone} style={{ display: 'flex', alignItems: 'center', gap: 8, marginTop: 16, fontSize: 13, fontWeight: 700, color: '#D71E28', cursor: 'pointer' }}>
+                  <div onClick={() => openStandalone('dashboard')} style={{ display: 'flex', alignItems: 'center', gap: 8, marginTop: 16, fontSize: 13, fontWeight: 700, color: '#D71E28', cursor: 'pointer' }}>
                     Create a savings plan
                     <Ic path="M4 12h15M13 6l6 6-6 6" size={14} stroke="currentColor" sw={2} />
                   </div>
@@ -955,16 +999,34 @@ export default function WFBudgetPrototype({ startStep, onStep }: WFBudgetPrototy
             </div>
           )}
 
-          {showGoalBlock && (
+          {isSavings && (
             <div style={{ background: '#fff', border: '1px solid #E7E5E4', borderRadius: 12, padding: '22px 24px', marginTop: 26 }}>
               <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: 20 }}>
                 <div style={{ minWidth: 0 }}>
                   <div style={label12}>Saving for</div>
-                  <input type="text" placeholder="Name this goal" value={gDraft.name} onChange={(e) => setDraftPatch({ name: e.target.value })} style={{ fontFamily: 'Poppins, sans-serif', fontSize: 24, fontWeight: 700, letterSpacing: '-0.025em', width: '100%', marginTop: 3 }} />
+                  <div style={{ fontFamily: 'Poppins, sans-serif', fontSize: 24, fontWeight: 700, letterSpacing: '-0.025em', marginTop: 3 }}>{selGoal.name}</div>
                 </div>
-                {showChangeName && (
-                  <div onClick={() => go(0)} style={{ flexShrink: 0, fontSize: 13, fontWeight: 700, color: '#57534E', cursor: 'pointer', textDecoration: 'underline', textUnderlineOffset: '3px', paddingTop: 18 }}>Change</div>
-                )}
+                <div onClick={() => go(0)} style={{ flexShrink: 0, fontSize: 13, fontWeight: 700, color: '#57534E', cursor: 'pointer', textDecoration: 'underline', textUnderlineOffset: '3px', paddingTop: 18 }}>Change</div>
+              </div>
+
+              <div style={{ position: 'relative', height: 9, background: '#EDE9E1', borderRadius: 999, marginTop: 20, overflow: 'hidden' }}>
+                <div style={{ height: 9, borderRadius: 999, background: '#0E7A42', width: pctStr(selGoal.saved, selGoal.target) }} />
+              </div>
+              <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: 8 }}>
+                <span style={{ fontSize: 12.5, color: '#78716C' }}>{fmt(selGoal.saved)} saved</span>
+                <span style={{ fontSize: 12.5, color: '#78716C' }}>of {fmt(selGoal.target)}</span>
+              </div>
+
+              <div style={{ ...label12, marginTop: 22 }}>Destination account</div>
+              <div style={{ fontSize: 14.5, fontWeight: 700, marginTop: 4 }}>{SAVINGS_ACCOUNTS[selGoal.account].name} ···{SAVINGS_ACCOUNTS[selGoal.account].last4}</div>
+            </div>
+          )}
+
+          {onStandalone && (
+            <div style={{ background: '#fff', border: '1px solid #E7E5E4', borderRadius: 12, padding: '22px 24px', marginTop: 26 }}>
+              <div style={{ minWidth: 0 }}>
+                <div style={label12}>Saving for</div>
+                <input type="text" placeholder="Name this goal" value={gDraft.name} onChange={(e) => setDraftPatch({ name: e.target.value })} style={{ fontFamily: 'Poppins, sans-serif', fontSize: 24, fontWeight: 700, letterSpacing: '-0.025em', width: '100%', marginTop: 3 }} />
               </div>
 
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16, marginTop: 22 }}>
@@ -993,7 +1055,7 @@ export default function WFBudgetPrototype({ startStep, onStep }: WFBudgetPrototy
                 <div style={label12}>{cadenceLabel} savings</div>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 14, marginTop: 4 }}>
                   <div style={{ fontFamily: 'Poppins, sans-serif', fontSize: 38, fontWeight: 700, letterSpacing: '-0.03em' }}>{fSavings}</div>
-                  <div style={{ padding: '6px 13px', borderRadius: 999, background: '#E3EDE6', color: '#0E7A42', fontSize: 13, fontWeight: 700 }}>{savingsSharePct} of take-home</div>
+                  <div style={{ padding: '6px 13px', borderRadius: 999, background: '#E3EDE6', color: '#0E7A42', fontSize: 13, fontWeight: 700 }}>{savingsIncomePct} of take-home</div>
                 </div>
                 <input type="range" min={0} max={Number(savingsMax)} step={10} value={savingsVal} onChange={(e) => setSavings(parse(e.target.value))} style={{ width: '100%', marginTop: 22, display: 'block' }} />
                 <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: 12 }}>
@@ -1004,33 +1066,74 @@ export default function WFBudgetPrototype({ startStep, onStep }: WFBudgetPrototy
             </div>
           )}
 
-          {showDerived && (
-            <div style={{ display: 'flex', alignItems: 'flex-start', gap: 15, borderRadius: 12, padding: '18px 20px', marginTop: 16, background: derivedBg, border: `1px solid ${derivedBorder}` }}>
-              <div style={{ width: 34, height: 34, borderRadius: 9, flexShrink: 0, background: derivedIconBg, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                <Ic path={derivedIcon} size={17} stroke="#fff" sw={2.2} />
+          {isSavings && (
+            <div style={{ display: 'flex', alignItems: 'flex-start', gap: 15, borderRadius: 12, padding: '18px 20px', marginTop: 16, background: selDerivedBg, border: `1px solid ${selDerivedBorder}` }}>
+              <div style={{ width: 34, height: 34, borderRadius: 9, flexShrink: 0, background: selDerivedIconBg, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <Ic path={selDerivedIcon} size={17} stroke="#fff" sw={2.2} />
               </div>
               <div style={{ flexGrow: 1, minWidth: 0 }}>
-                <div style={{ fontSize: 14.5, lineHeight: 1.55, color: derivedColor }}>{derivedText}</div>
-                {derivedShort && (
-                  <div onClick={() => setSavings(dp.needed)} style={{ display: 'inline-block', marginTop: 10, padding: '9px 15px', borderRadius: 9, background: '#fff', border: `1px solid ${derivedBorder}`, fontSize: 13, fontWeight: 700, color: derivedColor, cursor: 'pointer' }}>{shortfallLabel}</div>
+                <div style={{ fontSize: 14.5, lineHeight: 1.55, color: selDerivedColor }}>{selDerivedText}</div>
+                {selDerivedShort && (
+                  <div onClick={() => setSavings(selPace.needed)} style={{ display: 'inline-block', marginTop: 10, padding: '9px 15px', borderRadius: 9, background: '#fff', border: `1px solid ${selDerivedBorder}`, fontSize: 13, fontWeight: 700, color: selDerivedColor, cursor: 'pointer' }}>{selShortfallLabel}</div>
                 )}
+              </div>
+            </div>
+          )}
+
+          {onStandalone && (
+            <div style={{ display: 'flex', alignItems: 'flex-start', gap: 15, borderRadius: 12, padding: '18px 20px', marginTop: 16, background: draftDerivedBg, border: `1px solid ${draftDerivedBorder}` }}>
+              <div style={{ width: 34, height: 34, borderRadius: 9, flexShrink: 0, background: draftDerivedIconBg, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <Ic path={draftDerivedIcon} size={17} stroke="#fff" sw={2.2} />
+              </div>
+              <div style={{ flexGrow: 1, minWidth: 0 }}>
+                <div style={{ fontSize: 14.5, lineHeight: 1.55, color: draftDerivedColor }}>{draftDerivedText}</div>
               </div>
             </div>
           )}
 
           {isStandalone && (
             <div style={{ display: 'flex', gap: 14, marginTop: 20 }}>
-              <div onClick={() => { setView('flow'); setStep(6); setOpenGoal(null); }} style={{ padding: '19px 30px', borderRadius: 11, background: '#fff', border: '1px solid #E7E5E4', fontSize: 15, fontWeight: 700, cursor: 'pointer', flexShrink: 0 }}>Cancel</div>
               <div
                 onClick={() => {
+                  if (editingGoalId) {
+                    setView('goal');
+                    setOpenGoal(editingGoalId);
+                  } else if (standaloneEntry === 'wizard') {
+                    go(0);
+                  } else {
+                    setView('flow');
+                    setStep(6);
+                    setOpenGoal(null);
+                  }
+                }}
+                style={{ padding: '19px 30px', borderRadius: 11, background: '#fff', border: '1px solid #E7E5E4', fontSize: 15, fontWeight: 700, cursor: 'pointer', flexShrink: 0 }}
+              >
+                Cancel
+              </div>
+              <div
+                onClick={() => {
+                  if (editingGoalId) {
+                    const idx = goals.findIndex((x) => x.id === editingGoalId);
+                    if (idx > -1) {
+                      setGoalPatch(idx, { name: gDraft.name || 'Untitled goal', target: gDraft.target, months: gDraft.months, account: gDraft.account });
+                    }
+                    setView('goal');
+                    setOpenGoal(editingGoalId);
+                    return;
+                  }
                   const g: Goal = { id: 'g' + Date.now(), name: gDraft.name || 'Untitled goal', account: gDraft.account, target: gDraft.target, saved: 0, monthly: dp.needed, months: gDraft.months, contribs: [] };
                   setGoals((list) => list.concat([g]));
-                  setView('goal');
-                  setOpenGoal(g.id);
+                  if (standaloneEntry === 'wizard') {
+                    setSelectedGoalId(g.id);
+                    go(3);
+                  } else {
+                    setView('goal');
+                    setOpenGoal(g.id);
+                  }
                 }}
                 style={{ flexGrow: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 10, padding: 19, borderRadius: 11, background: '#D71E28', color: '#fff', fontSize: 15, fontWeight: 700, cursor: 'pointer' }}
               >
-                Create this savings plan
+                {editingGoalId ? 'Save changes' : 'Create this savings plan'}
                 <Ic path="M4 12h15M13 6l6 6-6 6" size={17} stroke="#fff" sw={2} />
               </div>
             </div>
@@ -1169,7 +1272,7 @@ export default function WFBudgetPrototype({ startStep, onStep }: WFBudgetPrototy
                 <div style={{ width: 232, flexShrink: 0, background: '#fff', border: '1px solid #E7E5E4', borderRadius: 12, padding: 20 }}>
                   <div style={label12}>My savings</div>
                   <div style={{ fontSize: 14.5, lineHeight: 1.55, color: '#57534E', marginTop: 10 }}>Saving for school, a vacation, or a home?</div>
-                  <div onClick={openStandalone} style={{ display: 'inline-flex', alignItems: 'center', gap: 8, marginTop: 14, fontSize: 13.5, fontWeight: 700, color: '#D71E28', cursor: 'pointer' }}>
+                  <div onClick={() => openStandalone('dashboard')} style={{ display: 'inline-flex', alignItems: 'center', gap: 8, marginTop: 14, fontSize: 13.5, fontWeight: 700, color: '#D71E28', cursor: 'pointer' }}>
                     Create a savings plan
                     <Ic path="M4 12h15M13 6l6 6-6 6" size={15} stroke="currentColor" sw={2} />
                   </div>
@@ -1266,7 +1369,7 @@ export default function WFBudgetPrototype({ startStep, onStep }: WFBudgetPrototy
                     </div>
                   </div>
                 ))}
-                <div onClick={openStandalone} style={{ border: '1.5px dashed #DAD5CB', borderRadius: 12, padding: 16, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 9, cursor: 'pointer', color: '#78716C', fontSize: 14, fontWeight: 500 }}>
+                <div onClick={() => openStandalone('dashboard')} style={{ border: '1.5px dashed #DAD5CB', borderRadius: 12, padding: 16, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 9, cursor: 'pointer', color: '#78716C', fontSize: 14, fontWeight: 500 }}>
                   <Ic path="M12 5v14M5 12h14" size={15} stroke="currentColor" sw={2} />Add a goal
                 </div>
               </div>
@@ -1399,10 +1502,35 @@ export default function WFBudgetPrototype({ startStep, onStep }: WFBudgetPrototy
               {dOngoing && (
                 <>
                   <div style={{ display: 'flex', flexWrap: 'wrap', gap: 11, marginTop: 18 }}>
-                    <div onClick={openStandalone} style={{ padding: '12px 18px', background: '#fff', border: '1px solid #E7E5E4', borderRadius: 10, cursor: 'pointer', fontSize: 14, fontWeight: 700 }}>Edit goal</div>
+                    <div onClick={() => { if (gi > -1) openEditGoal(og.id); }} style={{ padding: '12px 18px', background: '#fff', border: '1px solid #E7E5E4', borderRadius: 10, cursor: 'pointer', fontSize: 14, fontWeight: 700 }}>Edit goal</div>
                     <div onClick={() => { if (gi > -1) setGoalPatch(gi, { monthly: og.monthly > 0 ? 0 : op.needed }); }} style={{ padding: '12px 18px', background: '#fff', border: '1px solid #E7E5E4', borderRadius: 10, cursor: 'pointer', fontSize: 14, fontWeight: 700 }}>{dPauseLabel}</div>
-                    <div onClick={() => { if (gi > -1) setGoalPatch(gi, { saved: 0, monthly: 250, months: 12 }); }} style={{ padding: '12px 18px', background: '#fff', border: '1px solid #E7E5E4', borderRadius: 10, cursor: 'pointer', fontSize: 14, fontWeight: 700 }}>Withdraw for this goal</div>
+                    <div onClick={() => { setWithdrawForGoal((cur) => (cur === og.id ? null : og.id)); setWithdrawAmt(''); }} style={{ padding: '12px 18px', background: withdrawOpen ? '#F5F3EE' : '#fff', border: `1px solid ${withdrawOpen ? '#292524' : '#E7E5E4'}`, borderRadius: 10, cursor: 'pointer', fontSize: 14, fontWeight: 700 }}>Withdraw for this goal</div>
                   </div>
+                  {withdrawOpen && (
+                    <div style={{ background: '#fff', border: '1px solid #E7E5E4', borderRadius: 12, padding: '16px 18px', marginTop: 11 }}>
+                      <div style={label12}>Withdraw amount</div>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginTop: 8 }}>
+                        <div style={{ display: 'flex', alignItems: 'baseline', flexGrow: 1, minWidth: 0 }}>
+                          <span style={{ fontFamily: 'Poppins, sans-serif', fontSize: 22, fontWeight: 700 }}>$</span>
+                          <input type="text" placeholder="0" value={withdrawAmt} onChange={(e) => setWithdrawAmt(e.target.value)} style={{ fontFamily: 'Poppins, sans-serif', fontSize: 22, fontWeight: 700, width: '100%' }} />
+                        </div>
+                        <div
+                          onClick={() => {
+                            if (gi > -1) {
+                              const amt = Math.min(Math.max(0, parse(withdrawAmt)), og.saved);
+                              setGoalPatch(gi, { saved: og.saved - amt });
+                            }
+                            setWithdrawForGoal(null);
+                            setWithdrawAmt('');
+                          }}
+                          style={{ padding: '11px 18px', borderRadius: 9, background: '#D71E28', color: '#fff', fontSize: 13.5, fontWeight: 700, cursor: 'pointer', flexShrink: 0 }}
+                        >
+                          Confirm withdrawal
+                        </div>
+                      </div>
+                      <div style={{ fontSize: 12, color: '#A8A29E', marginTop: 8 }}>Up to {fmt(og.saved)} available in this goal.</div>
+                    </div>
+                  )}
                   <div onClick={() => { if (gi > -1) setGoalPatch(gi, { monthly: op.needed }); }} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 10, padding: 19, borderRadius: 11, background: '#D71E28', color: '#fff', fontSize: 15, fontWeight: 700, cursor: 'pointer', marginTop: 13 }}>
                     Adjust monthly amount
                     <Ic path="M4 12h15M13 6l6 6-6 6" size={17} stroke="#fff" sw={2} />
@@ -1416,7 +1544,7 @@ export default function WFBudgetPrototype({ startStep, onStep }: WFBudgetPrototy
                     Use these funds
                     <Ic path="M4 12h15M13 6l6 6-6 6" size={17} stroke="#fff" sw={2} />
                   </div>
-                  <div onClick={openStandalone} style={{ padding: '19px 30px', borderRadius: 11, background: '#fff', border: '1px solid #E7E5E4', fontSize: 15, fontWeight: 700, cursor: 'pointer', flexShrink: 0 }}>Start a new goal</div>
+                  <div onClick={() => openStandalone('dashboard')} style={{ padding: '19px 30px', borderRadius: 11, background: '#fff', border: '1px solid #E7E5E4', fontSize: 15, fontWeight: 700, cursor: 'pointer', flexShrink: 0 }}>Start a new goal</div>
                 </div>
               )}
             </div>
