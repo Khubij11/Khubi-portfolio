@@ -102,8 +102,8 @@ export default function WFFinancialHealthFlow({
     banner: '',
     goals: (seeded
       ? [
-          { name: 'Emergency fund', saved: 2000, target: 12000, monthly: 350, dueMonths: 30, paused: false },
-          { name: 'Mauritius trip', saved: 640, target: 3000, monthly: 90, dueMonths: 22, paused: false },
+          { name: 'Emergency fund', saved: 2000, target: 12000, monthly: 350, dueMonths: 30 },
+          { name: 'Mauritius trip', saved: 640, target: 3000, monthly: 90, dueMonths: 22 },
         ]
       : []) as Goal[],
     accounts: [true, false, true, false],
@@ -402,7 +402,7 @@ export default function WFFinancialHealthFlow({
   /* ------------------------------------------------------------------ *
    * Render
    * ------------------------------------------------------------------ */
-  const navItems = compact
+  const navItems: { label: string; caret: boolean; on?: boolean }[] = compact
     ? []
     : [
         { label: 'Accounts', caret: true },
