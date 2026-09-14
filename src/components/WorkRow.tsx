@@ -13,7 +13,16 @@ export interface WorkRowData {
   tags?: string[];
 }
 
+// Tinted like EvidenceChip, but a separate hue family so the two kinds of pill
+// on a row — outcome evidence vs. kind-of-work tag — read as different things.
+const TAG_STYLES: Record<string, { color: string; bg: string; border: string }> = {
+  'Complex data': { color: '#8A3620', bg: '#F6E4DE', border: '#E8BDAE' },
+  '0 → 1': { color: '#2C4F6B', bg: '#E4EDF3', border: '#BCD3E2' },
+  'Systems & scale': { color: '#6B5B1F', bg: '#F3EFDE', border: '#DCD2A8' },
+};
+
 function CategoryTag({ label }: { label: string }) {
+  const s = TAG_STYLES[label] ?? { color: 'var(--muted)', bg: 'transparent', border: 'var(--hairline)' };
   return (
     <span
       style={{
@@ -23,8 +32,9 @@ function CategoryTag({ label }: { label: string }) {
         fontWeight: 600,
         textTransform: 'uppercase',
         letterSpacing: '0.08em',
-        color: 'var(--muted)',
-        border: '1px solid var(--hairline)',
+        color: s.color,
+        background: s.bg,
+        border: `1px solid ${s.border}`,
         borderRadius: 999,
         padding: '3px 10px',
       }}
