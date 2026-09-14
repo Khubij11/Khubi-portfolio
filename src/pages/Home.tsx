@@ -1,7 +1,8 @@
 import { Link } from 'react-router-dom';
 import WorkRow, { WorkTableHeader, type WorkRowData } from '../components/WorkRow';
 
-const complexData: WorkRowData[] = [
+// Catalogued date-wise — most recent first — rather than grouped by kind of work.
+const allWork: WorkRowData[] = [
   {
     year: '2024 — 26',
     title: 'Wells Fargo — financial health tools',
@@ -21,39 +22,6 @@ const complexData: WorkRowData[] = [
     to: '/work/wells-fargo-ai-tool',
   },
   {
-    year: '2021 — 22',
-    title: 'Klub — syndicates on the patron platform',
-    owned: 'Productised the syndicate flow inside the existing patrons app, without disrupting it.',
-    platform: 'Web app',
-    outcome: 'Offline syndicate deals made self-serve',
-    evidence: 'Shipped',
-    to: '/work/klub',
-  },
-];
-
-const systemsScale: WorkRowData[] = [
-  {
-    year: '2019 — 21',
-    title: 'Spottabl — three sides, one pipeline',
-    owned: 'Design across the admin platform, the SaaS hiring product and the consumer site.',
-    platform: 'Web',
-    outcome: 'One vocabulary across three products',
-    evidence: 'Shipped',
-    to: '/work/spottabl',
-  },
-];
-
-const zeroToOne: WorkRowData[] = [
-  {
-    year: '2025',
-    title: 'Wells Fargo — AI tool for PMs',
-    owned: 'What it could claim, how it showed uncertainty, where a human had to decide.',
-    platform: 'Web · Internal',
-    outcome: 'First internal tool built by the India team',
-    evidence: 'Shipped',
-    to: '/work/wells-fargo-ai-tool',
-  },
-  {
     year: '2023',
     title: 'Cars24 — Refer & Earn',
     owned: 'Owned lead submission and the status system — not rates or valuation.',
@@ -70,6 +38,24 @@ const zeroToOne: WorkRowData[] = [
     outcome: '16,193 visitors in the first 8 days; 4,422 challans paid',
     evidence: 'Shipped · measured',
     to: '/work/cars24-challans',
+  },
+  {
+    year: '2021 — 22',
+    title: 'Klub — syndicates on the patron platform',
+    owned: 'Productised the syndicate flow inside the existing patrons app, without disrupting it.',
+    platform: 'Web app',
+    outcome: 'Offline syndicate deals made self-serve',
+    evidence: 'Shipped',
+    to: '/work/klub',
+  },
+  {
+    year: '2019 — 21',
+    title: 'Spottabl — three sides, one pipeline',
+    owned: 'Design across the admin platform, the SaaS hiring product and the consumer site.',
+    platform: 'Web',
+    outcome: 'One vocabulary across three products',
+    evidence: 'Shipped',
+    to: '/work/spottabl',
   },
 ];
 
@@ -233,15 +219,6 @@ function IllustrationCard() {
   );
 }
 
-function GroupHeading({ title, note }: { title: string; note: string }) {
-  return (
-    <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', gap: 24, flexWrap: 'wrap' }}>
-      <h2 style={{ fontSize: 'clamp(22px, 2.2vw, 27px)', fontWeight: 500, letterSpacing: '-0.025em', margin: 0 }}>{title}</h2>
-      <span style={{ fontSize: 14, color: 'var(--muted)', maxWidth: '62ch' }}>{note}</span>
-    </div>
-  );
-}
-
 export default function Home() {
   return (
     <main style={{ margin: '0 auto', maxWidth: 1344, padding: '0 clamp(20px, 5vw, 72px) 96px' }}>
@@ -362,26 +339,9 @@ export default function Home() {
         </div>
 
         <div style={{ paddingTop: 44 }}>
-          <GroupHeading title="Making complex data legible" note="Dense information, made actionable" />
           <WorkTableHeader />
-          {complexData.map((r) => (
+          {allWork.map((r) => (
             <WorkRow key={r.title} row={r} />
-          ))}
-        </div>
-
-        <div style={{ paddingTop: 56 }}>
-          <GroupHeading title="Systems and scale" note="Across teams, not inside one feature" />
-          <WorkTableHeader />
-          {systemsScale.map((r) => (
-            <WorkRow key={r.title} row={r} />
-          ))}
-        </div>
-
-        <div style={{ paddingTop: 56 }}>
-          <GroupHeading title="0 → 1 under constraint" note="No existing product, usually no time" />
-          <WorkTableHeader />
-          {zeroToOne.map((r) => (
-            <WorkRow key={r.title + r.owned} row={r} />
           ))}
         </div>
 
