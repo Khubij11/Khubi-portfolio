@@ -182,7 +182,7 @@ const sections: CSSection[] = [
           Onboarding asks for two different things, and only one of them is required. Sign-up itself is a name, an
           OTP and a choice of voice — the minimum any phone app needs to exist, and nothing a user hasn't given a
           dozen other apps. Getting Tanya answering calls then takes three technical steps — turn off Live Voicemail
-          so she can pick up what's missed, activate call forwarding with a one-time carrier code, allow
+          so we can pick up what's missed, activate call forwarding with a one-time carrier code, allow
           notifications so a handled call surfaces back to the user. None of this asks the user to trust the AI yet.
           It asks them to configure a phone.
         </p>
@@ -265,7 +265,7 @@ export default function OsmoAiCallAssistant() {
               <ScaledPhone width={230} height={484} scale={0.56}>
                 <OsmoOnboardingFlow startView="welcome" />
               </ScaledPhone>
-              <div style={caption}>01 · The value prop, before any ask. One claim, one proof — Tanya mid-call, saying the line she actually says — and nothing on the screen to choose.</div>
+              <div style={caption}>01 · The value prop, before any ask. One claim, one proof — Tanya mid-call, saying the line we actually use — and nothing on the screen to choose.</div>
             </div>
             <div>
               <ScaledPhone width={230} height={484} scale={0.56}>
@@ -281,15 +281,9 @@ export default function OsmoAiCallAssistant() {
             </div>
             <div>
               <ScaledPhone width={230} height={484} scale={0.56}>
-                <OsmoOnboardingFlow startView="done" />
+                <OsmoOnboardingFlow startView="concierge" />
               </ScaledPhone>
-              <div style={caption}>04 · The end of onboarding. Tanya is already answering; the three things that need trust sit below as optional cards, with "I'll do these later" as a first-class exit.</div>
-            </div>
-            <div>
-              <ScaledPhone width={230} height={484} scale={0.56}>
-                <OsmoOnboardingFlow startView="rules" />
-              </ScaledPhone>
-              <div style={caption}>05 · Tanya proposes rules from calls she has already taken. The user only accepts or declines — and can undo either way.</div>
+              <div style={caption}>04 · Picking a voice agent — English or Hindi, Rahul or Tanya. Identity and verification only; nothing here asks the user to trust an AI yet.</div>
             </div>
           </div>
 
@@ -303,19 +297,19 @@ export default function OsmoAiCallAssistant() {
               <div style={{ flex: '1 1 280px', minWidth: 260, paddingTop: 4, display: 'flex', flexDirection: 'column', gap: 24 }}>
                 <p style={serifP}>
                   Start at the splash. The value-prop screen makes one claim and proves it — Tanya mid-call, saying
-                  the line she actually says — with nothing on it to choose. Then a first name, an OTP and a voice
+                  the line we actually use — with nothing on it to choose. Then a first name, an OTP and a voice
                   pick: identity and verification, the table stakes any phone app needs. Then three technical steps,
                   each a phone setting rather than a question about you.
                 </p>
                 <p style={serifP}>
-                  Onboarding ends with OsmO already answering — before a single thing about how you want her to
+                  Onboarding ends with OsmO already answering — before a single thing about how you want us to
                   behave has been asked — and hands you into Ask AI, where the suggested asks sit at the top of the
                   screen instead of hiding beside the input. The Teach Tanya rows stay optional either way; the rules
-                  screen proposes from calls Tanya has already handled, so accepting or declining is the whole job.
+                  screen proposes from calls we have already handled, so accepting or declining is the whole job.
                 </p>
                 <p style={serifP}>
                   Carry on to Calls, where "Needs you" holds only the calls still waiting on a decision — accept or
-                  decline each one — and "All calls" is the full log. The Tanya tab is where her voice, rules and
+                  decline each one — and "All calls" is the full log. The Tanya tab is where our voice, rules and
                   facts live permanently: the optional layer keeps a front door long after onboarding ends.
                 </p>
               </div>
