@@ -30,6 +30,21 @@ function avatarSwatch(seed: number): CSSProperties {
   };
 }
 
+/* Stand-in for the voice/caller photos the design export didn't include —
+ * a gradient tile with a simple head-and-shoulders silhouette, so it still
+ * reads as a person rather than an empty swatch. */
+function PersonAvatar({ seed, size, style }: { seed: number; size: number; style: CSSProperties }) {
+  const iconSize = Math.round(size * 0.42);
+  return (
+    <div style={{ position: 'relative', overflow: 'hidden', display: 'flex', alignItems: 'flex-end', justifyContent: 'center', ...avatarSwatch(seed), ...style }}>
+      <svg width={iconSize} height={iconSize} viewBox="0 0 24 24" fill="rgba(255,255,255,0.55)" style={{ marginBottom: -iconSize * 0.12 }}>
+        <circle cx="12" cy="8.2" r="4.2" />
+        <path d="M3.5 22c0-4.7 3.8-8.5 8.5-8.5s8.5 3.8 8.5 8.5" />
+      </svg>
+    </div>
+  );
+}
+
 type ViewKey =
   | 'splash'
   | 'welcome'
@@ -296,7 +311,7 @@ export default function OsmoOnboardingFlow({
 
           <div style={{ position: 'absolute', left: 24, top: 324, width: 342, borderRadius: 18, padding: 18, ...cssObj(glass) }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-              <div style={{ width: 38, height: 38, borderRadius: 12, flexShrink: 0, ...avatarSwatch(0) }} />
+              <PersonAvatar seed={0} size={38} style={{ width: 38, height: 38, borderRadius: 12, flexShrink: 0 }} />
               <div style={{ flex: '1 1 auto', minWidth: 0 }}>
                 <div style={{ fontSize: 15, fontWeight: 600, letterSpacing: '-0.015em', color: '#FFFFFF' }}>Tanya is on a call</div>
                 <div style={{ fontSize: 12.5, color: '#9B9CA7', marginTop: 2 }}>Unknown number · 00:42</div>
@@ -315,7 +330,7 @@ export default function OsmoOnboardingFlow({
           <div style={{ position: 'absolute', left: 24, top: 522, width: 342, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 10 }}>
             <div style={{ display: 'flex', alignItems: 'center' }}>
               {[0, 1, 2].map((i) => (
-                <div key={i} style={{ width: 30, height: 30, borderRadius: 999, flexShrink: 0, boxShadow: '0 0 0 2px #262834', marginLeft: i === 0 ? 0 : -9, ...avatarSwatch(i) }} />
+                <PersonAvatar key={i} seed={i} size={30} style={{ width: 30, height: 30, borderRadius: 999, flexShrink: 0, boxShadow: '0 0 0 2px #262834', marginLeft: i === 0 ? 0 : -9 }} />
               ))}
             </div>
             <div style={{ fontSize: 13, fontWeight: 600, color: '#C0A895' }}>2k+ on board</div>
@@ -440,7 +455,7 @@ export default function OsmoOnboardingFlow({
                 onClick={() => setS((p) => ({ ...p, voice: i }))}
                 style={{ flex: '1 1 0', minWidth: 0, borderRadius: 18, padding: 12, cursor: 'pointer', background: s.voice === i ? 'rgba(200,175,155,0.10)' : 'rgba(255,255,255,0.04)', boxShadow: `inset 0 0 0 ${s.voice === i ? '1.5px rgba(200,175,155,0.75)' : '1px rgba(255,255,255,0.07)'}` }}
               >
-                <div style={{ width: '100%', height: 124, borderRadius: 12, ...avatarSwatch(v.seed) }} />
+                <PersonAvatar seed={v.seed} size={124} style={{ width: '100%', height: 124, borderRadius: 12 }} />
                 <div style={{ fontSize: 17, fontWeight: 600, textAlign: 'center', letterSpacing: '-0.01em', color: '#FFFFFF', marginTop: 14 }}>{v.name}</div>
                 <div style={{ fontSize: 12, lineHeight: 1.45, textAlign: 'center', color: '#B8B9C2', marginTop: 6 }}>{v.desc}</div>
                 <div style={{ height: 38, borderRadius: 999, boxShadow: 'inset 0 0 0 1px rgba(200,175,155,0.45)', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 6, fontSize: 13, fontWeight: 600, color: '#C8AF9B', marginTop: 14, cursor: 'pointer' }}>
@@ -988,7 +1003,7 @@ export default function OsmoOnboardingFlow({
                 return (
                   <div key={ci} style={{ position: 'relative', width: '100%', borderRadius: 16, background: 'rgba(255,255,255,0.055)', backdropFilter: 'blur(24px) saturate(140%)', boxShadow: 'inset 0 0 0 1px rgba(255,255,255,0.04), 0 8px 20px rgba(0,0,0,0.18)', padding: 14, flexShrink: 0 }}>
                     <div style={{ display: 'flex', alignItems: 'flex-start', gap: 12 }}>
-                      <div style={{ width: 32, height: 32, borderRadius: '50%', flexShrink: 0, ...avatarSwatch(ci) }} />
+                      <PersonAvatar seed={ci} size={32} style={{ width: 32, height: 32, borderRadius: '50%', flexShrink: 0 }} />
                       <div style={{ flex: '1 1 auto', minWidth: 0, fontSize: 13, fontWeight: 600, lineHeight: 1.35, letterSpacing: '-0.01em', color: '#FFFFFF' }}>{c.title}</div>
                       <div style={{ flexShrink: 0, height: 22, padding: '0 8px', borderRadius: 8, fontSize: 12, fontWeight: 500, display: 'flex', alignItems: 'center', ...pillColor }}>{pill}</div>
                     </div>
@@ -1135,7 +1150,7 @@ export default function OsmoOnboardingFlow({
           <div className="osmo-scroll" style={{ position: 'absolute', left: 0, top: 122, width: 390, height: 600, overflowY: 'auto', overflowX: 'hidden' }}>
             <div style={{ padding: '0 20px 24px 20px' }}>
               <div style={{ borderRadius: 16, ...cssObj(glass), padding: 18, display: 'flex', alignItems: 'center', gap: 14 }}>
-                <div style={{ width: 48, height: 48, borderRadius: 14, flexShrink: 0, boxShadow: '0 3px 7px rgba(172,148,130,0.18)', ...avatarSwatch(0) }} />
+                <PersonAvatar seed={0} size={48} style={{ width: 48, height: 48, borderRadius: 14, flexShrink: 0, boxShadow: '0 3px 7px rgba(172,148,130,0.18)' }} />
                 <div style={{ flex: '1 1 auto', minWidth: 0 }}>
                   <div style={{ fontSize: 17, fontWeight: 600, letterSpacing: '-0.015em', color: '#FFFFFF' }}>We're answering</div>
                   <div style={{ fontSize: 13, lineHeight: 1.4, color: '#7FD9BC', marginTop: 2 }}>Forwarding active · {doneCount} of 3 personal touches added</div>
