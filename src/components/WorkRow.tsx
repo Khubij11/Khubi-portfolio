@@ -9,6 +9,29 @@ export interface WorkRowData {
   outcome: string;
   evidence: string;
   to?: string;
+  /** Kind-of-work tags — the old category groupings, kept as chips once the list went date-wise. */
+  tags?: string[];
+}
+
+function CategoryTag({ label }: { label: string }) {
+  return (
+    <span
+      style={{
+        display: 'inline-block',
+        fontFamily: 'var(--font-ui)',
+        fontSize: 11,
+        fontWeight: 600,
+        textTransform: 'uppercase',
+        letterSpacing: '0.08em',
+        color: 'var(--muted)',
+        border: '1px solid var(--hairline)',
+        borderRadius: 999,
+        padding: '3px 10px',
+      }}
+    >
+      {label}
+    </span>
+  );
 }
 
 export function WorkTableHeader() {
@@ -71,6 +94,13 @@ export default function WorkRow({ row }: { row: WorkRowData }) {
         >
           {row.owned}
         </span>
+        {row.tags && row.tags.length > 0 && (
+          <span style={{ display: 'flex', flexWrap: 'wrap', gap: 6, marginTop: 9 }}>
+            {row.tags.map((t) => (
+              <CategoryTag key={t} label={t} />
+            ))}
+          </span>
+        )}
       </span>
       <span
         style={{
