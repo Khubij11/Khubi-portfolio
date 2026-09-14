@@ -11,6 +11,7 @@ import Klub from './case-studies/Klub';
 import Spottabl from './case-studies/Spottabl';
 import WellsFargoFinancialHealth from './case-studies/WellsFargoFinancialHealth';
 import WellsFargoAITool from './case-studies/WellsFargoAITool';
+import OsmoAiCallAssistant from './case-studies/OsmoAiCallAssistant';
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -37,6 +38,7 @@ export default function App() {
           <Route path="/work/spottabl" element={<Spottabl />} />
           <Route path="/work/wells-fargo-financial-health" element={<WellsFargoFinancialHealth />} />
           <Route path="/work/wells-fargo-ai-tool" element={<WellsFargoAITool />} />
+          <Route path="/work/osmo-ai-call-assistant" element={<OsmoAiCallAssistant />} />
         </Routes>
       </div>
     </BrowserRouter>

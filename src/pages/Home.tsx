@@ -4,6 +4,16 @@ import WorkRow, { WorkTableHeader, type WorkRowData } from '../components/WorkRo
 // Catalogued date-wise — most recent first — rather than grouped by kind of work.
 const allWork: WorkRowData[] = [
   {
+    year: '2026',
+    title: 'OsmO — AI call assistant',
+    owned: 'Owned the product model, the IA, onboarding and every screen — not the voice engine or call infrastructure.',
+    platform: 'iOS · Android',
+    outcome: '90% onboarding completion; 4.65% free-to-paid conversion',
+    evidence: 'Shipped · measured',
+    to: '/work/osmo-ai-call-assistant',
+    tags: ['0 → 1'],
+  },
+  {
     year: '2024 — 26',
     title: 'Wells Fargo — financial health tools',
     owned: 'Owned the financial health surfaces end to end — not the scoring behind them.',
@@ -341,7 +351,7 @@ export default function Home() {
       <section style={{ padding: '88px 0 0 0' }}>
         <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', gap: 24, flexWrap: 'wrap', borderBottom: '1px solid var(--ink)', paddingBottom: 14 }}>
           <span style={kicker}>Selected work</span>
-          <span style={{ ...kicker, color: 'var(--muted)' }}>6 projects · 2019 — 2026</span>
+          <span style={{ ...kicker, color: 'var(--muted)' }}>7 projects · 2019 — 2026</span>
         </div>
 
         <div style={{ paddingTop: 44 }}>
