@@ -11,6 +11,7 @@ const allWork: WorkRowData[] = [
     outcome: 'A redesign approved and queued for release',
     evidence: 'Approved',
     to: '/work/wells-fargo-financial-health',
+    tags: ['Complex data'],
   },
   {
     year: '2025',
@@ -20,6 +21,7 @@ const allWork: WorkRowData[] = [
     outcome: 'An answer a PM can repeat out loud',
     evidence: 'Shipped internally',
     to: '/work/wells-fargo-ai-tool',
+    tags: ['Complex data', '0 → 1'],
   },
   {
     year: '2023',
@@ -29,6 +31,7 @@ const allWork: WorkRowData[] = [
     outcome: 'Cars on platform up 21%',
     evidence: 'Shipped · measured',
     to: '/work/cars24-refer-earn',
+    tags: ['0 → 1'],
   },
   {
     year: '2022',
@@ -38,6 +41,7 @@ const allWork: WorkRowData[] = [
     outcome: '16,193 visitors in the first 8 days; 4,422 challans paid',
     evidence: 'Shipped · measured',
     to: '/work/cars24-challans',
+    tags: ['0 → 1'],
   },
   {
     year: '2021 — 22',
@@ -47,6 +51,7 @@ const allWork: WorkRowData[] = [
     outcome: 'Offline syndicate deals made self-serve',
     evidence: 'Shipped',
     to: '/work/klub',
+    tags: ['Complex data'],
   },
   {
     year: '2019 — 21',
@@ -56,6 +61,7 @@ const allWork: WorkRowData[] = [
     outcome: 'One vocabulary across three products',
     evidence: 'Shipped',
     to: '/work/spottabl',
+    tags: ['Systems & scale'],
   },
 ];
 
