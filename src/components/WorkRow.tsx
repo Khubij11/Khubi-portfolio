@@ -9,6 +9,39 @@ export interface WorkRowData {
   outcome: string;
   evidence: string;
   to?: string;
+  /** Kind-of-work tags — the old category groupings, kept as chips once the list went date-wise. */
+  tags?: string[];
+}
+
+// Tinted like EvidenceChip, but a separate hue family so the two kinds of pill
+// on a row — outcome evidence vs. kind-of-work tag — read as different things.
+const TAG_STYLES: Record<string, { color: string; bg: string; border: string }> = {
+  'Complex data': { color: '#8A3620', bg: '#F6E4DE', border: '#E8BDAE' },
+  '0 → 1': { color: '#2C4F6B', bg: '#E4EDF3', border: '#BCD3E2' },
+  'Systems & scale': { color: '#6B5B1F', bg: '#F3EFDE', border: '#DCD2A8' },
+};
+
+function CategoryTag({ label }: { label: string }) {
+  const s = TAG_STYLES[label] ?? { color: 'var(--muted)', bg: 'transparent', border: 'var(--hairline)' };
+  return (
+    <span
+      style={{
+        display: 'inline-block',
+        fontFamily: 'var(--font-ui)',
+        fontSize: 11,
+        fontWeight: 600,
+        textTransform: 'uppercase',
+        letterSpacing: '0.08em',
+        color: s.color,
+        background: s.bg,
+        border: `1px solid ${s.border}`,
+        borderRadius: 999,
+        padding: '3px 10px',
+      }}
+    >
+      {label}
+    </span>
+  );
 }
 
 export function WorkTableHeader() {
@@ -71,6 +104,13 @@ export default function WorkRow({ row }: { row: WorkRowData }) {
         >
           {row.owned}
         </span>
+        {row.tags && row.tags.length > 0 && (
+          <span style={{ display: 'flex', flexWrap: 'wrap', gap: 6, marginTop: 9 }}>
+            {row.tags.map((t) => (
+              <CategoryTag key={t} label={t} />
+            ))}
+          </span>
+        )}
       </span>
       <span
         style={{
