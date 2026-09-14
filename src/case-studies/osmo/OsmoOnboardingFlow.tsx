@@ -225,8 +225,8 @@ export default function OsmoOnboardingFlow({
 
   const teachDefs = [
     { label: 'Record your voice', hint: vcDone === 3 ? 'Three lines recorded' : 'Three lines, about a minute', icon: 'VuesaxBoldMicrophone2' as const, to: 'voice' as ViewKey, done: vcDone === 3 },
-    { label: 'Set her rules', hint: added ? `${added} rule${added === 1 ? '' : 's'} added` : 'Who gets through, what she declines', icon: 'VuesaxBoldSetting2' as const, to: 'rules' as ViewKey, done: added > 0 },
-    { label: 'Teach her the facts', hint: factsKnown ? `${factsKnown} saved` : 'Hours, address, prices', icon: 'VuesaxBoldMessageText' as const, to: 'facts' as ViewKey, done: factsKnown > 0 },
+    { label: 'Set our rules', hint: added ? `${added} rule${added === 1 ? '' : 's'} added` : 'Who gets through, what we decline', icon: 'VuesaxBoldSetting2' as const, to: 'rules' as ViewKey, done: added > 0 },
+    { label: 'Teach us the facts', hint: factsKnown ? `${factsKnown} saved` : 'Hours, address, prices', icon: 'VuesaxBoldMessageText' as const, to: 'facts' as ViewKey, done: factsKnown > 0 },
   ].map((t) => ({
     ...t,
     pending: !t.done,
@@ -287,7 +287,7 @@ export default function OsmoOnboardingFlow({
             <div style={{ fontSize: 20, fontWeight: 700, letterSpacing: '-0.05em', color: '#C8AF9B' }}>Osmo</div>
           </div>
           <div style={{ position: 'absolute', left: 24, top: 140, width: 342, textAlign: 'center', fontFamily: "'Instrument Serif', Georgia, serif", fontSize: 50, fontWeight: 400, lineHeight: 0.98, letterSpacing: '-0.025em', color: '#F5EFE8' }}>
-            She answers
+            We answer
             <br />
             the calls,
             <br />
@@ -349,7 +349,7 @@ export default function OsmoOnboardingFlow({
       {s.view === 'profile' && (
         <div style={{ position: 'absolute', left: 0, top: 0, width: 390, height: 844, zIndex: 2 }}>
           <div style={{ position: 'absolute', left: 40, top: 104, width: 310, fontSize: 34, fontWeight: 600, lineHeight: 1.06, letterSpacing: '-0.042em', color: '#FFFFFF' }}>Complete profile</div>
-          <div style={{ position: 'absolute', left: 40, top: 176, width: 310, fontSize: 15, lineHeight: 1.53, color: '#ADAEB9' }}>Just a first name. It's how Tanya introduces herself when she answers.</div>
+          <div style={{ position: 'absolute', left: 40, top: 176, width: 310, fontSize: 15, lineHeight: 1.53, color: '#ADAEB9' }}>Just a first name. It's how we introduce ourselves when we answer.</div>
 
           <div
             onClick={() => setS((p) => ({ ...p, name: p.name ? '' : 'Priya' }))}
@@ -428,7 +428,7 @@ export default function OsmoOnboardingFlow({
               </div>
             ))}
           </div>
-          <div style={{ position: 'absolute', left: 40, top: 298, width: 310, textAlign: 'center', fontSize: 12, lineHeight: 1.4, color: '#9B9CA7' }}>She can still switch between English and Hindi mid-call.</div>
+          <div style={{ position: 'absolute', left: 40, top: 298, width: 310, textAlign: 'center', fontSize: 12, lineHeight: 1.4, color: '#9B9CA7' }}>We can still switch between English and Hindi mid-call.</div>
 
           <div style={{ position: 'absolute', left: 40, top: 348, width: 310, display: 'flex', gap: 14 }}>
             {[
@@ -451,7 +451,7 @@ export default function OsmoOnboardingFlow({
             ))}
           </div>
 
-          <div style={{ position: 'absolute', left: 40, top: 684, width: 310, textAlign: 'center', fontSize: 12, lineHeight: 1.4, color: '#9B9CA7' }}>Want your own voice? Add it in Settings → Her voice.</div>
+          <div style={{ position: 'absolute', left: 40, top: 684, width: 310, textAlign: 'center', fontSize: 12, lineHeight: 1.4, color: '#9B9CA7' }}>Want your own voice? Add it in Settings → Our voice.</div>
 
           <button onClick={() => go('step', 0)} style={cssObj(`position: absolute; left: 40px; top: 730px; width: 310px; height: 58px; font-size: 17px; display: flex; align-items: center; justify-content: center; gap: 10px; ${primaryBtn}`)}>
             Hire {s.voice === 0 ? 'Rahul' : 'Tanya'}
@@ -628,7 +628,7 @@ export default function OsmoOnboardingFlow({
                   <span style={{ flexGrow: 1 }} />
                   <div style={{ fontSize: 12, fontWeight: 500, color: '#B8B9C2' }}>{doneCount} of 3</div>
                 </div>
-                <div style={{ fontSize: 13, lineHeight: 1.5, color: '#B8B9C2', marginTop: 8 }}>She already works. These make her sound more like you.</div>
+                <div style={{ fontSize: 13, lineHeight: 1.5, color: '#B8B9C2', marginTop: 8 }}>We already work. These make us sound more like you.</div>
                 {doneCount > 0 && (
                   <div style={{ height: 4, borderRadius: 999, background: 'rgba(255,255,255,0.08)', marginTop: 16, overflow: 'hidden' }}>
                     <div style={{ height: 4, borderRadius: 999, background: 'linear-gradient(90deg, #C8AF9B 0%, #AC9482 100%)', boxShadow: '0 0 10px rgba(172,148,130,0.5)', width: `${Math.round((doneCount / 3) * 100)}%`, transition: 'width 260ms' }} />
@@ -694,7 +694,7 @@ export default function OsmoOnboardingFlow({
 
             <div style={{ borderRadius: 16, ...cssObj(glass), padding: '24px 20px' }}>
               <div style={{ fontSize: 13, lineHeight: 1.5, color: '#B8B9C2' }}>
-                {vcDone === 3 ? 'She has everything she needs to sound like you.' : `Line ${vcDone + 1} of 3 — say it the way you normally would.`}
+                {vcDone === 3 ? 'We have everything we need to sound like you.' : `Line ${vcDone + 1} of 3 — say it the way you normally would.`}
               </div>
               <div style={{ fontSize: 20, fontWeight: 500, lineHeight: 1.45, letterSpacing: '-0.015em', color: '#FFFFFF', marginTop: 12 }}>
                 {VC_LINES[Math.min(2, vcDone)].replace('{name}', s.name || 'Priya')}
@@ -761,7 +761,7 @@ export default function OsmoOnboardingFlow({
           <div className="osmo-scroll" style={{ position: 'absolute', left: 0, top: 126, width: 390, height: 556, overflowY: 'auto', overflowX: 'hidden' }}>
             <div style={{ padding: 24 }}>
               <div style={{ fontSize: 14, lineHeight: 1.5, color: '#B8B9C2' }}>
-                {factsOnCount === 0 ? 'Things callers ask you all the time. She answers them so you don’t have to.' : `${factsOnCount} saved. She can answer these without ringing you.`}
+                {factsOnCount === 0 ? 'Things callers ask you all the time. We answer them so you don’t have to.' : `${factsOnCount} saved. We can answer these without ringing you.`}
               </div>
 
               <div style={{ display: 'flex', flexDirection: 'column', gap: 12, marginTop: 20 }}>
@@ -786,7 +786,7 @@ export default function OsmoOnboardingFlow({
                 })}
               </div>
 
-              <div style={{ fontSize: 12, fontWeight: 600, letterSpacing: '0.09em', textTransform: 'uppercase', color: '#C0A895', marginTop: 28 }}>Or let her read it herself</div>
+              <div style={{ fontSize: 12, fontWeight: 600, letterSpacing: '0.09em', textTransform: 'uppercase', color: '#C0A895', marginTop: 28 }}>Or let us read it ourselves</div>
               <div style={{ borderRadius: 16, ...cssObj(glass), marginTop: 12, overflow: 'hidden' }}>
                 {SOURCES.map((x, i) => {
                   const on = s.srcOn[i];
@@ -818,7 +818,7 @@ export default function OsmoOnboardingFlow({
               onClick={() => go('done')}
               style={cssObj(`width: 100%; height: 58px; font-size: 17px; display: flex; align-items: center; justify-content: center; ${factsKnown > 0 ? primaryBtn : 'border: none; border-radius: 999px; background: transparent; box-shadow: inset 0 0 0 1px rgba(255,255,255,0.18); color: rgba(255,255,255,0.78); cursor: pointer;'}`)}
             >
-              {factsKnown > 0 ? 'Save what she knows' : 'Skip for now'}
+              {factsKnown > 0 ? 'Save what we know' : 'Skip for now'}
             </button>
           </div>
         </div>
@@ -847,7 +847,7 @@ export default function OsmoOnboardingFlow({
                   if (decided === 0) parts.push('4 suggestions to decide on');
                   else if (decided < 4) parts.push(`${suggAdded} of 4 suggested added · ${4 - decided} left to decide`);
                   else parts.push(`${suggAdded} of 4 suggested added`);
-                  return parts.join(' · ') + (added ? '. She follows these on every call.' : '. From the calls she has already taken.');
+                  return parts.join(' · ') + (added ? '. We follow these on every call.' : '. From the calls we have already taken.');
                 })()}
               </div>
 
@@ -914,7 +914,7 @@ export default function OsmoOnboardingFlow({
               <div style={{ position: 'absolute', left: 0, bottom: 0, width: 390, borderRadius: '24px 24px 0 0', background: '#292B36', boxShadow: '0 -12px 40px rgba(0,0,0,0.4)', padding: '12px 24px 32px 24px', zIndex: 11 }}>
                 <div style={{ width: 40, height: 4, borderRadius: 999, background: 'rgba(255,255,255,0.25)', margin: '0 auto 20px auto' }} />
                 <div style={{ fontSize: 20, fontWeight: 700, letterSpacing: '-0.02em', color: '#FFFFFF' }}>Teach Tanya a rule</div>
-                <div style={{ fontSize: 14, lineHeight: 1.5, color: '#B8B9C2', marginTop: 8 }}>Say it the way you'd say it to a person. She follows it on every call.</div>
+                <div style={{ fontSize: 14, lineHeight: 1.5, color: '#B8B9C2', marginTop: 8 }}>Say it the way you'd say it to a person. We follow it on every call.</div>
 
                 <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, marginTop: 20 }}>
                   {['Never give out…', 'Always tell callers…', 'If they ask about…'].map((p) => (
@@ -1029,7 +1029,7 @@ export default function OsmoOnboardingFlow({
                         <>
                           <div style={{ flex: '1 1 auto', minWidth: 0, height: 44, display: 'flex', alignItems: 'center', gap: 8, fontSize: 13, color: '#C0A895' }}>
                             <div style={{ width: 7, height: 7, borderRadius: 999, flexShrink: 0, background: '#C8AF9B', animation: 'osmo-halo 1.4s ease-out infinite' }} />
-                            <span>She'll tell you when it's done</span>
+                            <span>We'll tell you when it's done</span>
                           </div>
                           <div style={{ flex: '1 1 0', minWidth: 0, height: 44, padding: '0 12px', borderRadius: 8, background: 'rgba(255,255,255,0.10)', backdropFilter: 'blur(16px)', boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.12)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 13, fontWeight: 500, color: '#FFFFFF', whiteSpace: 'nowrap', overflow: 'hidden', cursor: 'pointer' }}>Cancel</div>
                         </>
@@ -1137,14 +1137,14 @@ export default function OsmoOnboardingFlow({
               <div style={{ borderRadius: 16, ...cssObj(glass), padding: 18, display: 'flex', alignItems: 'center', gap: 14 }}>
                 <div style={{ width: 48, height: 48, borderRadius: 14, flexShrink: 0, boxShadow: '0 3px 7px rgba(172,148,130,0.18)', ...avatarSwatch(0) }} />
                 <div style={{ flex: '1 1 auto', minWidth: 0 }}>
-                  <div style={{ fontSize: 17, fontWeight: 600, letterSpacing: '-0.015em', color: '#FFFFFF' }}>She's answering</div>
+                  <div style={{ fontSize: 17, fontWeight: 600, letterSpacing: '-0.015em', color: '#FFFFFF' }}>We're answering</div>
                   <div style={{ fontSize: 13, lineHeight: 1.4, color: '#7FD9BC', marginTop: 2 }}>Forwarding active · {doneCount} of 3 personal touches added</div>
                 </div>
               </div>
 
-              <div style={{ fontSize: 12, fontWeight: 600, letterSpacing: '0.09em', textTransform: 'uppercase', color: '#C0A895', marginTop: 28 }}>Make her yours</div>
+              <div style={{ fontSize: 12, fontWeight: 600, letterSpacing: '0.09em', textTransform: 'uppercase', color: '#C0A895', marginTop: 28 }}>Make us yours</div>
               <div style={{ fontSize: 13, lineHeight: 1.5, color: '#B8B9C2', marginTop: 8 }}>
-                {doneCount === 0 ? 'Nothing here is required. These just make her sound less like software.' : doneCount === 3 ? 'All three done. She sounds like you.' : `${doneCount} of 3 done. The rest can wait.`}
+                {doneCount === 0 ? 'Nothing here is required. These just make us sound less like software.' : doneCount === 3 ? 'All three done. We sound like you.' : `${doneCount} of 3 done. The rest can wait.`}
               </div>
 
               <div style={{ display: 'flex', flexDirection: 'column', gap: 10, marginTop: 16 }}>
@@ -1168,7 +1168,7 @@ export default function OsmoOnboardingFlow({
                 ))}
               </div>
 
-              <div style={{ fontSize: 12, lineHeight: 1.5, color: '#9B9CA7', marginTop: 16 }}>None of this is required. She works without any of it.</div>
+              <div style={{ fontSize: 12, lineHeight: 1.5, color: '#9B9CA7', marginTop: 16 }}>None of this is required. We work without any of it.</div>
             </div>
           </div>
         </div>
@@ -1190,15 +1190,15 @@ export default function OsmoOnboardingFlow({
 
               {(
                 [
-                  { label: 'How she sounds', rows: [
-                    { label: 'Her voice', value: vcDone === 3 ? 'Recorded' : 'Not yet', hint: '', go: () => go('voice') },
-                    { label: 'Rules', value: added ? String(added) : 'None yet', hint: 'What she does before she answers', go: () => go('rules') },
+                  { label: 'How we sound', rows: [
+                    { label: 'Our voice', value: vcDone === 3 ? 'Recorded' : 'Not yet', hint: '', go: () => go('voice') },
+                    { label: 'Rules', value: added ? String(added) : 'None yet', hint: 'What we do before we answer', go: () => go('rules') },
                     { label: 'Facts about you', value: factsKnown ? `${factsKnown} saved` : 'None yet', hint: '', go: () => go('facts') },
                   ]},
                   { label: 'Calls', rows: [
                     { label: 'Call forwarding', value: 'Active', hint: '', go: undefined },
                     { label: 'Blocked numbers', value: '12', hint: '', go: undefined },
-                    { label: 'Live Voicemail', value: 'Off', hint: 'Has to stay off for her to pick up', go: undefined },
+                    { label: 'Live Voicemail', value: 'Off', hint: 'Has to stay off for us to pick up', go: undefined },
                   ]},
                   { label: 'Account', rows: [
                     { label: 'Plan', value: '$10/month', hint: '', go: undefined },
