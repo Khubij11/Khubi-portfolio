@@ -20,7 +20,7 @@ const experience: Row[] = [
   {
     date: 'May 2026 — now',
     title: 'Independent product design',
-    place: 'Bangalore · Freelance',
+    place: 'Freelance · Bengaluru',
     desc: 'Taking selected freelance projects. Available immediately for full-time roles.',
   },
   {
@@ -44,13 +44,13 @@ const experience: Row[] = [
   {
     date: 'Nov 2019 — Apr 2021',
     title: 'UI/UX designer',
-    place: 'Spottabl',
+    place: 'Spottabl · Bengaluru',
     desc: 'Led design across the admin platform, the SaaS hiring product and the consumer site, plus a full website revamp and marketing design.',
   },
   {
     date: 'Jun 2019 — Oct 2019',
     title: 'UI/UX designer',
-    place: 'Grexter',
+    place: 'Grexter · Bengaluru',
     desc: 'Conceived and designed a tenant dashboard for a co-living platform: rent monitoring, amenities, events and community.',
   },
 ];
@@ -74,7 +74,7 @@ export default function Resume() {
           <h1 style={{ fontFamily: 'var(--font-serif)', fontWeight: 300, fontSize: 'clamp(32px, 3.8vw, 50px)', lineHeight: 1.06, letterSpacing: '-0.035em', margin: 0 }}>
             <span style={{ color: 'var(--accent)' }}>Résumé</span>
           </h1>
-          <p style={{ fontSize: 16, color: 'var(--secondary)', margin: '14px 0 0 0' }}>Product designer · Bangalore · Seven years</p>
+          <p style={{ fontSize: 16, color: 'var(--secondary)', margin: '14px 0 0 0' }}>Product designer · Bengaluru · Seven years</p>
         </div>
         <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: 16 }}>
           <span style={kicker}>Updated September 2026</span>
