@@ -30,11 +30,21 @@ function avatarSwatch(seed: number): CSSProperties {
   };
 }
 
-/* Stand-in for the voice/caller photos the design export didn't include —
- * a gradient tile with a simple head-and-shoulders silhouette, so it still
- * reads as a person rather than an empty swatch. */
+/* Tanya and Rahul are the only two named voice agents, so their photos are
+ * keyed by the seed used at each call site (0 = Tanya, 2 = Rahul). Every
+ * other seed — generic callers, "N on board" faces — falls back to the
+ * gradient-and-silhouette placeholder below. */
+const SEED_PHOTOS: Record<number, string> = {
+  0: '/assets/osmo/voice-tanya.jpg',
+  2: '/assets/osmo/voice-rahul.jpg',
+};
+
 function PersonAvatar({ seed, size, style }: { seed: number; size: number; style: CSSProperties }) {
   const iconSize = Math.round(size * 0.42);
+  const photo = SEED_PHOTOS[seed];
+  if (photo) {
+    return <div style={{ backgroundImage: `url(${photo})`, backgroundSize: 'cover', backgroundPosition: 'center', ...style }} />;
+  }
   return (
     <div style={{ position: 'relative', overflow: 'hidden', display: 'flex', alignItems: 'flex-end', justifyContent: 'center', ...avatarSwatch(seed), ...style }}>
       <svg width={iconSize} height={iconSize} viewBox="0 0 24 24" fill="rgba(255,255,255,0.55)" style={{ marginBottom: -iconSize * 0.12 }}>
