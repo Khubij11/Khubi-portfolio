@@ -30,11 +30,22 @@ function avatarSwatch(seed: number): CSSProperties {
   };
 }
 
-/* Stand-in for the voice/caller photos the design export didn't include —
- * a gradient tile with a simple head-and-shoulders silhouette, so it still
- * reads as a person rather than an empty swatch. */
+/* Tanya and Rahul are the only two named voice agents, so their photos are
+ * keyed by the seed used at each call site (0 = Tanya, 2 = Rahul). Every
+ * other seed — generic callers, "N on board" faces — falls back to the
+ * gradient-and-silhouette placeholder below. */
+const SEED_PHOTOS: Record<number, string> = {
+  0: '/assets/osmo/voice-tanya.jpg',
+  1: '/assets/osmo/caller.jpg',
+  2: '/assets/osmo/voice-rahul.jpg',
+};
+
 function PersonAvatar({ seed, size, style }: { seed: number; size: number; style: CSSProperties }) {
   const iconSize = Math.round(size * 0.42);
+  const photo = SEED_PHOTOS[seed];
+  if (photo) {
+    return <div style={{ backgroundImage: `url(${photo})`, backgroundSize: 'cover', backgroundPosition: 'center', ...style }} />;
+  }
   return (
     <div style={{ position: 'relative', overflow: 'hidden', display: 'flex', alignItems: 'flex-end', justifyContent: 'center', ...avatarSwatch(seed), ...style }}>
       <svg width={iconSize} height={iconSize} viewBox="0 0 24 24" fill="rgba(255,255,255,0.55)" style={{ marginBottom: -iconSize * 0.12 }}>
@@ -273,6 +284,14 @@ export default function OsmoOnboardingFlow({
         WebkitFontSmoothing: 'antialiased',
       }}
     >
+      {/* noise + vignette + the bottom-right decorative circle pair, present under every view */}
+      <div style={{ position: 'absolute', inset: 0, pointerEvents: 'none', zIndex: 40, backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='0.55'/%3E%3C/svg%3E")`, backgroundSize: '140px 140px', opacity: 0.055, mixBlendMode: 'overlay' }} />
+      <div style={{ position: 'absolute', inset: 0, pointerEvents: 'none', zIndex: 39, background: 'radial-gradient(100% 55% at 50% 0%, rgba(255,255,255,0.055) 0%, rgba(255,255,255,0) 70%)' }} />
+      <div style={{ position: 'absolute', left: 236, top: 724, width: 300, height: 300, overflow: 'hidden', pointerEvents: 'none' }}>
+        <div style={{ position: 'absolute', left: 0, top: 0, transform: 'matrix(0.454,-0.891,-0.891,-0.454,198.762,300.177)', transformOrigin: '0 0', width: 223.14, height: 223.14, borderRadius: '50%', background: 'linear-gradient(180deg, rgba(172,148,130,0.25) 0%, rgba(183,166,153,0.0975) 100%)' }} />
+        <div style={{ position: 'absolute', left: 0, top: 0, transform: 'matrix(0.454,-0.891,-0.891,-0.454,142.411,76.132)', transformOrigin: '0 0', width: 56.594, height: 56.594, borderRadius: '50%', background: 'linear-gradient(180deg, rgba(172,148,130,0.25) 0%, rgba(183,166,153,0.0975) 100%)' }} />
+      </div>
+
       {/* status bar */}
       <div style={{ position: 'absolute', left: 0, top: 0, right: 0, height: 54, display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '0 28px', fontSize: 15, fontWeight: 600, color: '#FFFFFF', letterSpacing: '-0.01em', zIndex: 4 }}>
         <span>9:41</span>
@@ -285,8 +304,16 @@ export default function OsmoOnboardingFlow({
       {/* ---- splash ---- */}
       {s.view === 'splash' && (
         <div style={{ position: 'absolute', left: 0, top: 0, width: 390, height: 844, zIndex: 2 }}>
+          <div style={{ position: 'absolute', left: 0, top: 0, transform: 'matrix(-0.961,0.278,-0.278,-0.961,217.829,273.172)', transformOrigin: '0 0', width: 294.025, height: 289.545, overflow: 'hidden', pointerEvents: 'none' }}>
+            <div style={{ position: 'absolute', left: 0, top: 0, transform: 'matrix(0.441,-0.897,-0.884,-0.468,199.715,289.545)', transformOrigin: '0 0', width: 213.662, height: 209.126, borderRadius: '50%', background: 'linear-gradient(180deg, rgba(172,148,130,0.25) 0%, rgba(183,166,153,0.0975) 100%)' }} />
+            <div style={{ position: 'absolute', left: 0, top: 0, transform: 'matrix(0.441,-0.897,-0.884,-0.468,77.220,143.150)', transformOrigin: '0 0', width: 89.263, height: 87.368, borderRadius: '50%', background: 'linear-gradient(180deg, rgba(172,148,130,0.25) 0%, rgba(183,166,153,0.0975) 100%)' }} />
+          </div>
           <div style={{ position: 'absolute', left: 106, top: 353, width: 205, height: 78, overflow: 'hidden' }}>
             <div style={{ position: 'absolute', left: -2.8, top: 7.3, fontSize: 64, fontWeight: 700, whiteSpace: 'nowrap', lineHeight: 1, letterSpacing: '-0.05em', color: '#FFFFFF' }}>Osmo</div>
+            <div style={{ position: 'absolute', left: 0, top: 0, transform: 'matrix(-0.961,0.278,-0.278,-0.961,204.914,46.485)', transformOrigin: '0 0', width: 48.109, height: 42.14, overflow: 'hidden' }}>
+              <div style={{ position: 'absolute', left: 0, top: 0, transform: 'matrix(0.441,-0.897,-0.884,-0.468,34.383,42.140)', transformOrigin: '0 0', width: 31.096, height: 30.436, borderRadius: '50%', background: 'linear-gradient(180deg, rgba(172,148,130,0.4) 0%, rgba(183,166,153,0.156) 100%)' }} />
+              <div style={{ position: 'absolute', left: 0, top: 0, transform: 'matrix(0.441,-0.897,-0.884,-0.468,19.113,41.356)', transformOrigin: '0 0', width: 22.094, height: 21.625, borderRadius: '50%', background: 'linear-gradient(180deg, rgba(172,148,130,0.4) 0%, rgba(183,166,153,0.156) 100%)' }} />
+            </div>
           </div>
           <div style={{ position: 'absolute', left: 92, top: 452, width: 206, fontSize: 24, fontWeight: 700, whiteSpace: 'nowrap', lineHeight: 1, letterSpacing: '-0.05em', color: '#FFFFFF' }}>reclaim your peace</div>
           <button onClick={() => go('welcome')} style={cssObj(`position: absolute; left: 40px; top: 730px; width: 310px; height: 58px; font-size: 17px; ${primaryBtn}`)}>
