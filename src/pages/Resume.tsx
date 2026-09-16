@@ -130,12 +130,15 @@ export default function Resume() {
         <div className="r-label" style={{ flex: '0 0 200px', ...kicker, paddingTop: 4 }}>
           Profile
         </div>
-        <p className="r-desc" style={{ flex: '1 1 620px', fontSize: 16, lineHeight: 1.65, color: 'var(--secondary)', margin: 0, maxWidth: '68ch' }}>
-          Product Designer with 7+ years shipping polished, end-to-end product experiences across web and mobile in fintech, marketplace, and SaaS.
-          Operating at senior scope — owning 0-to-1 initiatives, mentoring designers, and driving design system decisions across cross-functional teams.
-          Fluent with modern AI-native design workflows, and recently designed an AI-powered internal tool at Wells Fargo. Based in Bengaluru and
-          available immediately.
-        </p>
+        <div style={{ flex: '1 1 620px', display: 'flex', flexWrap: 'wrap', gap: '8px 32px' }}>
+          <div style={{ flex: '0 0 150px' }} />
+          <p className="r-desc" style={{ flex: '1 1 400px', fontSize: 16, lineHeight: 1.65, color: 'var(--secondary)', margin: 0, maxWidth: 580 }}>
+            Product Designer with 7+ years shipping polished, end-to-end product experiences across web and mobile in fintech, marketplace, and SaaS.
+            Operating at senior scope — owning 0-to-1 initiatives, mentoring designers, and driving design system decisions across cross-functional teams.
+            Fluent with modern AI-native design workflows, and recently designed an AI-powered internal tool at Wells Fargo. Based in Bengaluru and
+            available immediately.
+          </p>
+        </div>
       </section>
 
       <section className="r-sec" style={{ display: 'flex', flexWrap: 'wrap', gap: '24px 40px', padding: '10px 0 0 0' }}>
@@ -161,7 +164,7 @@ export default function Resume() {
                   {row.title}
                 </div>
                 <div style={{ fontSize: 15, color: 'var(--muted)', marginTop: 8 }}>{row.place}</div>
-                <ul className="r-desc" style={{ fontSize: 15, lineHeight: 1.6, color: 'var(--secondary)', margin: '8px 0 0 0', paddingLeft: 18, maxWidth: '62ch' }}>
+                <ul className="r-desc" style={{ fontSize: 15, lineHeight: 1.6, color: 'var(--secondary)', margin: '8px 0 0 0', paddingLeft: 18, maxWidth: 598 }}>
                   {row.desc.map((line) => (
                     <li key={line} style={{ marginTop: 4 }}>
                       {line}
@@ -182,7 +185,7 @@ export default function Resume() {
           {skills.map((s) => (
             <div key={s.label} style={{ display: 'flex', flexWrap: 'wrap', gap: '4px 32px' }}>
               <div style={{ flex: '0 0 150px', fontSize: 15, color: 'var(--muted)' }}>{s.label}</div>
-              <div style={{ flex: '1 1 400px', fontSize: 15, lineHeight: 1.6, color: 'var(--secondary)', maxWidth: '62ch' }}>{s.value}</div>
+              <div style={{ flex: '1 1 400px', fontSize: 15, lineHeight: 1.6, color: 'var(--secondary)', maxWidth: 580 }}>{s.value}</div>
             </div>
           ))}
         </div>
