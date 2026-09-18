@@ -28,7 +28,7 @@ export default function Nav() {
         }}
       >
         <Link to="/" style={{ fontSize: 15, fontWeight: 600, letterSpacing: '-0.005em', color: 'var(--ink)' }}>
-          Khubi Brahmbhatt
+          Khubi Joshi
         </Link>
 
         <nav className="nav-links" style={{ display: 'flex', alignItems: 'baseline', gap: 'clamp(18px, 3vw, 40px)' }}>
