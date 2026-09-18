@@ -428,7 +428,7 @@ export default function Home() {
             khubi.brahmbhatt@gmail.com
           </a>
           <div style={{ fontFamily: 'var(--font-ui)', fontSize: 13, fontWeight: 600, letterSpacing: '0.05em', color: 'var(--muted)', marginTop: 18 }}>
-            © 2026 Khubi Brahmbhatt
+            © 2026 Khubi Joshi
           </div>
         </div>
       </footer>
