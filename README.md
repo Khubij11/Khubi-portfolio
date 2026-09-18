@@ -1,4 +1,4 @@
-# Khubi Brahmbhatt — Portfolio
+# Khubi Joshi — Portfolio
 
 A product design portfolio: five core pages (Work, About, Résumé, Contact) plus six case studies, two of which
 embed fully interactive prototypes rebuilt in React (a Wells Fargo budgeting flow with live arithmetic, and an

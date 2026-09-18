@@ -64,7 +64,7 @@ export default function Contact() {
           </Link>
           <span style={{ flex: '1 1 auto' }} />
           <span style={{ fontFamily: 'var(--font-ui)', fontSize: 13, fontWeight: 600, letterSpacing: '0.05em', color: 'var(--muted)' }}>
-            © 2026 Khubi Brahmbhatt
+            © 2026 Khubi Joshi
           </span>
         </div>
       </section>
