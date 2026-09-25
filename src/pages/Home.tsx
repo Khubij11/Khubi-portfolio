@@ -407,6 +407,36 @@ export default function Home() {
           <span style={{ flex: '0 0 150px', fontFamily: 'var(--font-mono)', fontSize: 12, color: 'var(--secondary)', paddingTop: 4 }}>4 min read</span>
           <span style={{ flex: '0 0 20px', color: 'var(--muted)', paddingTop: 3 }}>↗</span>
         </a>
+        <a
+          href="https://medium.com/@khubi.brahmbhatt/in-defense-of-the-pause-b879b994d081"
+          target="_blank"
+          rel="noopener"
+          style={{ display: 'flex', flexWrap: 'wrap', gap: '12px 24px', alignItems: 'flex-start', padding: '24px 0', borderBottom: '1px solid var(--hairline)', color: 'var(--ink)' }}
+        >
+          <span style={{ flex: '0 0 72px', fontFamily: 'var(--font-mono)', fontSize: 12, color: 'var(--muted)', paddingTop: 4 }}>Sep 2026</span>
+          <span style={{ flex: '1 1 420px' }}>
+            <span style={{ display: 'block', fontSize: 19, fontWeight: 500, letterSpacing: '-0.02em' }}>
+              In Defense of Friction: Why the Best Products Make You Pause
+            </span>
+          </span>
+          <span style={{ flex: '0 0 150px', fontFamily: 'var(--font-mono)', fontSize: 12, color: 'var(--secondary)', paddingTop: 4 }}>5 min read</span>
+          <span style={{ flex: '0 0 20px', color: 'var(--muted)', paddingTop: 3 }}>↗</span>
+        </a>
+        <a
+          href="https://medium.com/@khubi.brahmbhatt/designing-before-the-prompt-8d61b0341161"
+          target="_blank"
+          rel="noopener"
+          style={{ display: 'flex', flexWrap: 'wrap', gap: '12px 24px', alignItems: 'flex-start', padding: '24px 0', borderBottom: '1px solid var(--hairline)', color: 'var(--ink)' }}
+        >
+          <span style={{ flex: '0 0 72px', fontFamily: 'var(--font-mono)', fontSize: 12, color: 'var(--muted)', paddingTop: 4 }}>Sep 2026</span>
+          <span style={{ flex: '1 1 420px' }}>
+            <span style={{ display: 'block', fontSize: 19, fontWeight: 500, letterSpacing: '-0.02em' }}>
+              Designing Before the Prompt
+            </span>
+          </span>
+          <span style={{ flex: '0 0 150px', fontFamily: 'var(--font-mono)', fontSize: 12, color: 'var(--secondary)', paddingTop: 4 }}>6 min read</span>
+          <span style={{ flex: '0 0 20px', color: 'var(--muted)', paddingTop: 3 }}>↗</span>
+        </a>
       </section>
 
       {/* Footer */}
