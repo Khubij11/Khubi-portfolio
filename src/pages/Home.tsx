@@ -399,10 +399,6 @@ export default function Home() {
             <span style={{ display: 'block', fontSize: 19, fontWeight: 500, letterSpacing: '-0.02em' }}>
               Designing in the Age of Instant Answers
             </span>
-            <span style={{ display: 'block', fontFamily: 'var(--font-serif)', fontWeight: 300, fontSize: 17, lineHeight: 1.6, color: 'var(--secondary)', marginTop: 8, maxWidth: '58ch' }}>
-              On losing tolerance for the blank page — and the rule I now keep: no AI in the first 20 minutes of a
-              project, so I still have an opinion before the tool offers one.
-            </span>
           </span>
           <span style={{ flex: '0 0 150px', fontFamily: 'var(--font-mono)', fontSize: 12, color: 'var(--secondary)', paddingTop: 4 }}>4 min read</span>
           <span style={{ flex: '0 0 20px', color: 'var(--muted)', paddingTop: 3 }}>↗</span>
