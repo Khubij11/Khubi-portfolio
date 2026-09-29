@@ -88,11 +88,6 @@ const sections: CSSection[] = [
     body: (
       <>
         <p style={serifP}>
-          [Where this came from: how many PMs you spoke to, what you asked, what you watched them do. If you sat
-          with someone during a scoping cycle, say so — the observation that they had the answer but wouldn't commit
-          to it is the strongest thing you have.]
-        </p>
-        <p style={serifP}>
           Before this, the answer lived in whatever channel you could reach: Confluence pages that documented a
           decision at the time it was made, and engineers you asked directly about what had changed since. Neither
           is wrong — both just put the burden on knowing who to ask, and on that person being free.
@@ -131,6 +126,8 @@ const sections: CSSection[] = [
           Index scope and permission rules sat with engineering, so I won't characterise them here — the design
           assumed every answer had to carry its source so a PM could check it against what they were allowed to see.
         </p>
+        <h3 style={h3}>Three weeks.</h3>
+        <p style={p10}>The tool went from brief to shipped in under three weeks.</p>
         <p style={{ ...serifP, marginTop: 24 }}>
           Together those ruled out the shape this product usually takes: one box, one answer, phrased with
           confidence. What was left was a tool that shows its work.
@@ -194,14 +191,19 @@ const sections: CSSection[] = [
     body: (
       <>
         <p style={serifP}>
-          It shipped internally right before I left. PMs across India and the US were using it, and it was the
-          first internal tool built by the India team — I left too early to have usage numbers for it.
+          It shipped internally right before I left, and it was the first internal tool built by the India team. PM
+          teams across India and the US were using it when I left — by my estimate more than 50 people — though
+          adoption was never formally measured. What I can honestly claim is the design and the reasoning behind it,
+          not a measured result.
         </p>
-        <p style={serifP}>
-          I have no numbers for it. It was an internal tool shipped shortly before I left, and nobody was
-          instrumenting adoption — so what I can honestly claim is the design and the reasoning behind it, not a
-          measured result.
-        </p>
+        <h3 style={h3}>How I'd measure it</h3>
+        <p style={p10}>Without instrumentation, this is what I'd have tracked to know whether it worked:</p>
+        <ul style={{ ...p10, paddingLeft: 20 }}>
+          <li>Fewer implementation questions from PMs reaching engineers in Slack and queues</li>
+          <li>Time from a PM's question to an answer they'd act on</li>
+          <li>Whether PMs came back to the tool after their first week</li>
+          <li>How often people opened the source file versus stopping at the result list</li>
+        </ul>
       </>
     ),
   },
@@ -248,9 +250,9 @@ export default function WellsFargoAITool() {
         { label: '', value: 'Screens redrawn and repository names replaced under NDA.' },
       ]}
       metrics={[
+        { value: '50+', label: 'Estimated users when I left' },
         { value: '4', label: 'Modes before one question' },
         { value: '0', label: 'Answers without a source' },
-        { value: '1', label: 'Freshness stamp, always in view' },
       ]}
       hero={
         <>
