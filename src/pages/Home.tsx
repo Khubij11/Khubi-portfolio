@@ -130,11 +130,47 @@ function IllustrationCard() {
         <span style={{ color: 'var(--sky-deep)' }}>bake</span> &amp; <span style={{ color: 'var(--green)' }}>garden</span>.
       </div>
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 20, marginTop: 26, alignItems: 'end' }}>
-        <div>
+        <a
+          className="bake-link"
+          href="https://www.instagram.com/pixiedust.bakery/"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Pixie Dust Bakery on Instagram, @pixiedust.bakery"
+          style={{ position: 'relative', display: 'block', color: 'inherit' }}
+        >
+          <div
+            className="bake-card"
+            aria-hidden="true"
+            style={{
+              position: 'absolute',
+              left: -6,
+              top: 'calc(100% + 10px)',
+              zIndex: 3,
+              width: 190,
+              padding: '10px 12px',
+              background: 'linear-gradient(168deg, #FBFAF7 0%, #F1EFE9 100%)',
+              border: '1px solid var(--hairline)',
+              borderRadius: 3,
+              boxShadow: '0 18px 30px -18px rgba(23,26,24,0.45), inset 0 1px 0 rgba(255,255,255,0.9)',
+            }}
+          >
+            <svg width={22} height={22} viewBox="0 0 24 24" fill="none" stroke="var(--sky-deep)" strokeWidth={1.6} style={{ flex: '0 0 auto' }}>
+              <rect x={3} y={3} width={18} height={18} rx={5} />
+              <circle cx={12} cy={12} r={4} />
+              <circle cx={17.3} cy={6.7} r={0.9} fill="var(--sky-deep)" stroke="none" />
+            </svg>
+            <div style={{ minWidth: 0 }}>
+              <div style={{ fontSize: 13, fontWeight: 500, color: 'var(--ink)', lineHeight: 1.3 }}>@pixiedust.bakery</div>
+              <div style={{ fontFamily: 'var(--font-mono)', fontSize: 10, letterSpacing: '0.04em', color: 'var(--sky-deep)', marginTop: 2 }}>
+                View on Instagram ↗
+              </div>
+            </div>
+          </div>
           <div style={{ position: 'relative', height: 84, display: 'flex', alignItems: 'flex-end', justifyContent: 'center', gap: 6 }}>
             <img
+              className="bake-whisk"
               src="/assets/illo-whisk.png"
-              alt="Whisk in a mixing bowl"
+              alt=""
               style={{ display: 'block', height: 84, width: 'auto', objectFit: 'contain', filter: 'drop-shadow(0 8px 10px rgba(23,26,24,0.14))' }}
             />
             <div
@@ -169,6 +205,7 @@ function IllustrationCard() {
                 }}
               />
               <div
+                className="bake-hand"
                 style={{
                   position: 'absolute',
                   left: '50%',
@@ -209,10 +246,11 @@ function IllustrationCard() {
               />
             </div>
           </div>
-          <div style={{ fontFamily: 'var(--font-mono)', fontSize: 10, lineHeight: 1.5, letterSpacing: '0.04em', color: 'var(--secondary)', marginTop: 8 }}>
-            Timer's on. The cakes rise.
+          <div className="bake-caption" style={{ fontFamily: 'var(--font-mono)', fontSize: 10, lineHeight: 1.5, letterSpacing: '0.04em', color: 'var(--secondary)', marginTop: 8 }}>
+            <span className="bake-cap">Timer's on. The cakes rise.</span>
+            <span className="bake-handle">@pixiedust.bakery</span>
           </div>
-        </div>
+        </a>
         <div>
           <div style={{ height: 84, display: 'flex', alignItems: 'flex-end', justifyContent: 'center', gap: 4 }}>
             <img
@@ -231,6 +269,34 @@ function IllustrationCard() {
           </div>
         </div>
       </div>
+      <style>{`
+        .bake-whisk { transform-origin: 50% 85%; transition: transform 300ms ease; }
+        .bake-caption { display: grid; }
+        .bake-cap, .bake-handle { grid-area: 1 / 1; transition: opacity 200ms ease, transform 200ms ease; }
+        .bake-handle { color: var(--sky-deep); opacity: 0; transform: translateY(4px); text-decoration: underline; text-underline-offset: 3px; text-decoration-thickness: 1px; }
+        .bake-card { display: flex; align-items: center; gap: 10px; opacity: 0; transform: translateY(-6px) rotate(0.7deg); pointer-events: none; transition: opacity 180ms ease, transform 220ms ease; }
+        .bake-link:hover .bake-card, .bake-link:focus-visible .bake-card { opacity: 1; transform: translateY(0) rotate(0.7deg); }
+        .bake-link:hover .bake-whisk, .bake-link:focus-visible .bake-whisk { animation: bake-whisk 0.5s ease-in-out infinite alternate; }
+        .bake-link:hover .bake-hand, .bake-link:focus-visible .bake-hand { animation: bake-hand 1.6s linear infinite; }
+        .bake-link:hover .bake-cap, .bake-link:focus-visible .bake-cap { opacity: 0; transform: translateY(-4px); }
+        .bake-link:hover .bake-handle, .bake-link:focus-visible .bake-handle { opacity: 1; transform: none; }
+        @keyframes bake-whisk { from { transform: rotate(-7deg); } to { transform: rotate(7deg); } }
+        @keyframes bake-hand {
+          from { transform: translate(-50%, -100%) rotate(48deg); }
+          to { transform: translate(-50%, -100%) rotate(408deg); }
+        }
+        @media (hover: none) {
+          .bake-card { display: none; }
+          .bake-caption { display: block; }
+          .bake-cap, .bake-handle { display: block; }
+          .bake-handle, .bake-link:hover .bake-handle { opacity: 1; transform: none; }
+          .bake-link:hover .bake-cap { opacity: 1; transform: none; }
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .bake-link:hover .bake-whisk, .bake-link:focus-visible .bake-whisk,
+          .bake-link:hover .bake-hand, .bake-link:focus-visible .bake-hand { animation: none; }
+        }
+      `}</style>
     </div>
   );
 }
