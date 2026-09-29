@@ -1,4 +1,3 @@
-import type { ReactNode } from 'react';
 import CaseStudyLayout, { type CSSection } from '../components/CaseStudyLayout';
 import WFCodeDiscovery from './wells-fargo-ai/WFCodeDiscovery';
 
@@ -15,23 +14,6 @@ const serifP: React.CSSProperties = {
 const h3: React.CSSProperties = { fontSize: 17, fontWeight: 600, letterSpacing: '-0.01em', margin: '26px 0 0 0' };
 const p10: React.CSSProperties = { ...serifP, margin: '10px 0 0 0' };
 const mono15: React.CSSProperties = { fontFamily: 'var(--font-mono)', fontSize: 15 };
-
-function Todo({ children }: { children: ReactNode }) {
-  return (
-    <span
-      style={{
-        background: '#FBEEDC',
-        color: '#8A5410',
-        border: '1px solid #E8CFA4',
-        borderRadius: 3,
-        padding: '1px 6px',
-        fontWeight: 600,
-      }}
-    >
-      [[{children}]]
-    </span>
-  );
-}
 
 const sections: CSSection[] = [
   {
@@ -106,12 +88,6 @@ const sections: CSSection[] = [
     body: (
       <>
         <p style={serifP}>
-          <Todo>
-            TODO: roughly how many PMs I spoke to, what I asked them, and one specific moment where a PM had
-            researched an answer but still wouldn't commit to it without an engineer
-          </Todo>
-        </p>
-        <p style={serifP}>
           Before this, the answer lived in whatever channel you could reach: Confluence pages that documented a
           decision at the time it was made, and engineers you asked directly about what had changed since. Neither
           is wrong — both just put the burden on knowing who to ask, and on that person being free.
@@ -151,10 +127,7 @@ const sections: CSSection[] = [
           assumed every answer had to carry its source so a PM could check it against what they were allowed to see.
         </p>
         <h3 style={h3}>Three weeks.</h3>
-        <p style={p10}>
-          The tool went from brief to shipped in under three weeks.{' '}
-          <Todo>TODO: what I chose to leave out to hit that</Todo>
-        </p>
+        <p style={p10}>The tool went from brief to shipped in under three weeks.</p>
         <p style={{ ...serifP, marginTop: 24 }}>
           Together those ruled out the shape this product usually takes: one box, one answer, phrased with
           confidence. What was left was a tool that shows its work.
