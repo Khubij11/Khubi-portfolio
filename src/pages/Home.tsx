@@ -91,6 +91,12 @@ const GARDEN_PHOTOS = [
   { src: '/assets/garden-poinsettia.jpg', alt: 'Poinsettia leaves turning red' },
 ];
 
+const BAKE_PHOTOS = [
+  { src: '/assets/bake-chocolate.jpg', alt: 'Chocolate cake topped with strawberries and wafer rolls' },
+  { src: '/assets/bake-cheesecake.jpg', alt: 'Baked cheesecake with strawberry compote and mint' },
+  { src: '/assets/bake-muffins.jpg', alt: 'Strawberry cream cheese muffins with fresh strawberries' },
+];
+
 function IllustrationCard() {
   const [gardenOpen, setGardenOpen] = useState(false);
   return (
@@ -146,14 +152,19 @@ function IllustrationCard() {
           aria-label="Pixie Dust Bakery on Instagram, @pixiedust.bakery"
           style={{ position: 'relative', display: 'block', color: 'inherit' }}
         >
+          <div className="bake-photos" aria-hidden="true">
+            {BAKE_PHOTOS.map((p) => (
+              <img key={p.src} className="polaroid bake-photo" src={p.src} alt={p.alt} loading="lazy" />
+            ))}
+          </div>
           <div
             className="bake-card"
             aria-hidden="true"
             style={{
               position: 'absolute',
-              left: -6,
-              top: 'calc(100% + 10px)',
-              zIndex: 3,
+              left: 10,
+              top: 'calc(100% + 104px)',
+              zIndex: 4,
               width: 190,
               padding: '10px 12px',
               background: 'linear-gradient(168deg, #FBFAF7 0%, #F1EFE9 100%)',
@@ -282,7 +293,7 @@ function IllustrationCard() {
         >
           <div className="garden-photos">
             {GARDEN_PHOTOS.map((p) => (
-              <img key={p.src} className="garden-photo" src={p.src} alt={p.alt} loading="lazy" />
+              <img key={p.src} className="polaroid garden-photo" src={p.src} alt={p.alt} loading="lazy" />
             ))}
           </div>
           <div style={{ height: 84, display: 'flex', alignItems: 'flex-end', justifyContent: 'center', gap: 4 }}>
@@ -296,7 +307,7 @@ function IllustrationCard() {
               className="garden-spade"
               src="/assets/illo-spade.png"
               alt=""
-              style={{ display: 'block', height: 56, width: 'auto', flex: '0 0 auto', marginBottom: 3, marginLeft: -12, objectFit: 'contain', filter: 'drop-shadow(0 6px 8px rgba(23,26,24,0.16))' }}
+              style={{ display: 'block', height: 56, width: 'auto', flex: '0 0 auto', marginBottom: 3, marginLeft: -20, objectFit: 'contain', filter: 'drop-shadow(0 6px 8px rgba(23,26,24,0.16))' }}
             />
           </div>
           <div className="garden-caption" style={{ fontFamily: 'var(--font-mono)', fontSize: 10, lineHeight: 1.5, letterSpacing: '0.04em', color: 'var(--secondary)', marginTop: 8 }}>
@@ -333,19 +344,24 @@ function IllustrationCard() {
         @keyframes garden-sway { from { transform: rotate(-4deg); } to { transform: rotate(4deg); } }
         @keyframes garden-dig { from { transform: rotate(-10deg); } to { transform: rotate(8deg) translateY(-3px); } }
         .garden-photos { position: absolute; right: -6px; top: calc(100% + 12px); z-index: 3; display: flex; pointer-events: none; }
-        .garden-photo {
+        .polaroid {
           display: block; box-sizing: content-box; width: 84px; height: 84px; object-fit: cover;
           padding: 5px 5px 16px; background: #FFFFFF; border-radius: 2px;
           box-shadow: 0 14px 22px -14px rgba(23,26,24,0.5), 0 0 0 1px rgba(23,26,24,0.06);
           opacity: 0; transform: translateY(-8px); transition: opacity 200ms ease, transform 280ms cubic-bezier(.2,.8,.2,1);
         }
-        .garden-photo + .garden-photo { margin-left: -24px; }
+        .polaroid + .polaroid { margin-left: -24px; }
+        .bake-photos { position: absolute; left: -6px; top: calc(100% + 12px); z-index: 3; display: flex; pointer-events: none; }
+        .bake-link:hover .bake-photo, .bake-link:focus-visible .bake-photo { opacity: 1; }
+        .bake-link:hover .bake-photo:nth-child(1), .bake-link:focus-visible .bake-photo:nth-child(1) { transform: translateY(4px) rotate(-10deg); }
+        .bake-link:hover .bake-photo:nth-child(2), .bake-link:focus-visible .bake-photo:nth-child(2) { transform: translateY(-4px) rotate(-3deg); transition-delay: 40ms; }
+        .bake-link:hover .bake-photo:nth-child(3), .bake-link:focus-visible .bake-photo:nth-child(3) { transform: translateY(2px) rotate(8deg); transition-delay: 80ms; }
         .garden-btn:hover .garden-photo, .garden-btn:focus-visible .garden-photo, .garden-btn.is-open .garden-photo { opacity: 1; }
         .garden-btn:hover .garden-photo:nth-child(1), .garden-btn:focus-visible .garden-photo:nth-child(1), .garden-btn.is-open .garden-photo:nth-child(1) { transform: translateY(2px) rotate(-8deg); }
         .garden-btn:hover .garden-photo:nth-child(2), .garden-btn:focus-visible .garden-photo:nth-child(2), .garden-btn.is-open .garden-photo:nth-child(2) { transform: translateY(-4px) rotate(3deg); transition-delay: 40ms; }
         .garden-btn:hover .garden-photo:nth-child(3), .garden-btn:focus-visible .garden-photo:nth-child(3), .garden-btn.is-open .garden-photo:nth-child(3) { transform: translateY(4px) rotate(10deg); transition-delay: 80ms; }
         @media (hover: none) {
-          .bake-card { display: none; }
+          .bake-card, .bake-photos { display: none; }
           .bake-caption { display: block; }
           .bake-cap, .bake-handle { display: block; }
           .bake-handle, .bake-link:hover .bake-handle { opacity: 1; transform: none; }
@@ -371,7 +387,7 @@ export default function Home() {
   return (
     <main style={{ margin: '0 auto', maxWidth: 1344, padding: '0 clamp(20px, 5vw, 72px) 96px' }}>
       {/* Hero */}
-      <section style={{ position: 'relative', padding: '64px 24px 64px 0', marginRight: 'calc(-1 * clamp(20px, 5vw, 72px))', overflow: 'hidden' }}>
+      <section style={{ position: 'relative', padding: '64px 24px 64px 0', marginRight: 'calc(-1 * clamp(20px, 5vw, 72px))', overflowX: 'clip', overflowY: 'visible' }}>
         <div
           className="hero-circle"
           style={{
