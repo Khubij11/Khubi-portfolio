@@ -1,6 +1,7 @@
 import type { ReactNode } from 'react';
 import CaseStudyLayout, { type CSSection } from '../components/CaseStudyLayout';
 import OsmoOnboardingFlow from './osmo/OsmoOnboardingFlow';
+import EvidenceChip from '../components/EvidenceChip';
 
 const serifP: React.CSSProperties = {
   fontFamily: 'var(--font-serif)',
@@ -32,6 +33,8 @@ const caption: React.CSSProperties = {
   lineHeight: 1.5,
 };
 
+const h3Style: React.CSSProperties = { fontSize: 17, fontWeight: 600, letterSpacing: '-0.01em', margin: '26px 0 0 0' };
+
 function PhoneBezel({ children }: { children: ReactNode }) {
   return (
     <div style={{ position: 'relative', width: 410, height: 864, borderRadius: 54, background: '#0B0C10', boxShadow: '0 30px 70px rgba(0,0,0,0.35), inset 0 0 0 1px rgba(255,255,255,0.08)', padding: 10 }}>
@@ -51,6 +54,17 @@ function ScaledPhone({ width, height, scale, children }: { width: number; height
   );
 }
 
+const handledScenarios = [
+  {
+    title: 'The caller switches between Hindi and English mid-call',
+    body: 'Tanya can switch languages mid-call, so the caller never has to adapt to the assistant.',
+  },
+  {
+    title: 'Setting up call forwarding',
+    body: "The activation code is copyable, works on all carriers, and the screen says plainly that it's free and reversible, with \"How it works?\" explaining how to undo it. Any step can be skipped. Every irreversible-looking action shows how to undo it.",
+  },
+];
+
 const sections: CSSection[] = [
   {
     id: 'os-01',
@@ -67,6 +81,12 @@ const sections: CSSection[] = [
           What we designed separates two kinds of asking. Identity and verification — a name, an OTP, a voice to
           answer in — are table stakes, and they stay short. Everything that requires real trust is left for the user
           to add in their own time, once the thing already works.
+        </p>
+        <p style={serifP}>
+          <strong style={{ color: 'var(--ink)', fontWeight: 500 }}>My role:</strong> I was the sole designer on a
+          three-person team — one PM, one designer, one developer. I audited the generated screens, rebuilt the
+          information architecture, and designed the onboarding and call-blocking flows, then scheduling and
+          appointments, phase by phase.
         </p>
       </>
     ),
@@ -127,12 +147,59 @@ const sections: CSSection[] = [
           never reaches a paywall, so onboarding completion is the ceiling on everything that comes after it —
           including the users who convert to the paid tier. It now sits at 90%.
         </p>
+
+        <h3 style={h3Style}>What I didn't do</h3>
+        <p style={{ ...serifP, marginTop: 10, maxWidth: '62ch' }}>
+          A few directions looked reasonable and got cut once weighed against the same question: does this ask for
+          trust before the product has earned any?
+        </p>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 14, marginTop: 18, maxWidth: '62ch' }}>
+          <div style={{ borderLeft: '2px solid var(--hairline)', paddingLeft: 18 }}>
+            <div style={{ fontSize: 15, color: 'var(--ink)' }}>A full setup questionnaire up front</div>
+            <div style={{ ...serifP, fontSize: 15, margin: '4px 0 0 0' }}>
+              It would have asked for trust before Tanya had answered a single call. Every field was a trust
+              withdrawal, and a user who abandons onboarding never reaches the point where the product proves itself.
+            </div>
+          </div>
+          <div style={{ borderLeft: '2px solid var(--hairline)', paddingLeft: 18 }}>
+            <div style={{ fontSize: 15, color: 'var(--ink)' }}>More explanation before setup</div>
+            <div style={{ ...serifP, fontSize: 15, margin: '4px 0 0 0' }}>
+              The instinct with a low-trust product is to explain more. I did the opposite. The "How it works?" link
+              stays on each step for anyone who wants it, but no one has to read anything before the app works.
+            </div>
+          </div>
+          <div style={{ borderLeft: '2px solid var(--hairline)', paddingLeft: 18 }}>
+            <div style={{ fontSize: 15, color: 'var(--ink)' }}>Asking for setup before showing the value</div>
+            <div style={{ ...serifP, fontSize: 15, margin: '4px 0 0 0' }}>
+              The first screen makes one claim and proves it — Tanya mid-call — with nothing on it to choose. Every
+              technical step comes after, so each one has a reason.
+            </div>
+          </div>
+        </div>
       </>
     ),
   },
   {
     id: 'os-04',
     number: '04',
+    title: 'Changing the brief',
+    heading: 'Designing for the product underneath the reference',
+    body: (
+      <>
+        <p style={serifP}>
+          The founders started with Truecaller in mind: dark, premium, built around blocking calls. The real ambition
+          underneath was different — an app that answers, takes messages and books on the user's behalf.
+        </p>
+        <p style={serifP}>
+          That's a different product with a different risk: it doesn't just filter calls, it speaks for you.
+          Designing for that second product, rather than the reference, is what shaped everything that follows.
+        </p>
+      </>
+    ),
+  },
+  {
+    id: 'os-05',
+    number: '05',
     title: 'Evidence',
     heading: 'Small sample, real behaviour',
     body: (
@@ -148,12 +215,17 @@ const sections: CSSection[] = [
           trust pattern showed up repeatedly — not as something people said outright, but in where they paused, or
           asked "wait, why do you need this," before continuing.
         </p>
+        <p style={serifP}>
+          There was no measured baseline for the earlier flow, so the 90% completion can't be shown as a
+          before-and-after. What testing did show was where people hesitated — and those moments are what the
+          redesign removed.
+        </p>
       </>
     ),
   },
   {
-    id: 'os-05',
-    number: '05',
+    id: 'os-06',
+    number: '06',
     title: 'Constraints',
     heading: 'Three people, no research function',
     body: (
@@ -172,8 +244,8 @@ const sections: CSSection[] = [
     ),
   },
   {
-    id: 'os-06',
-    number: '06',
+    id: 'os-07',
+    number: '07',
     title: 'The design',
     heading: 'Required is technical. Optional is personal.',
     body: (
@@ -211,8 +283,127 @@ const sections: CSSection[] = [
     ),
   },
   {
-    id: 'os-07',
-    number: '07',
+    id: 'os-08',
+    number: '08',
+    title: 'After Tanya picks up',
+    heading: 'Onboarding gets Tanya answering. The harder problem is what she does next.',
+    body: (
+      <>
+        <div className="os-fail-grid" style={{ display: 'grid', gridTemplateColumns: '1fr', gap: 16, marginTop: 24 }}>
+          {handledScenarios.map((s) => (
+            <div key={s.title} style={{ border: '1px solid var(--hairline)', padding: '18px 20px' }}>
+              <div style={{ fontSize: 15, fontWeight: 500, color: 'var(--ink)', lineHeight: 1.5 }}>{s.title}</div>
+              <div style={{ fontSize: 15, color: 'var(--secondary)', marginTop: 8, lineHeight: 1.5 }}>{s.body}</div>
+            </div>
+          ))}
+        </div>
+        <style>{`
+          @media (min-width: 560px) {
+            .os-fail-grid { grid-template-columns: 1fr 1fr !important; }
+          }
+        `}</style>
+
+        <h3 style={h3Style}>Open questions for the next phase</h3>
+        <p style={{ ...serifP, marginTop: 10 }}>
+          Onboarding solved getting Tanya answering. What she does in harder moments is the next design problem: what
+          she says when she doesn't understand a caller, how she handles a question she can't answer, and how an
+          urgent call reaches the user faster than the log. Each needs the same principle as onboarding — when in
+          doubt, hand back to the user rather than guess.
+        </p>
+      </>
+    ),
+  },
+  {
+    id: 'os-09',
+    number: '09',
+    title: 'Keeping the user in the loop',
+    heading: 'In control, without having to configure anything up front',
+    body: (
+      <>
+        <p style={serifP}>
+          "Needs you" holds only the calls still waiting on a decision — the user accepts or declines each one. "All
+          calls" is the full log, so nothing is hidden, but nothing demands attention that doesn't need it.
+        </p>
+        <p style={serifP}>
+          The rules screen proposes rules from calls Tanya has already handled, so accepting or declining a proposed
+          rule is the whole job — the user is never asked to write a rule from a blank screen. The Tanya tab is the
+          permanent home for voice, rules and facts, so the optional layer from onboarding stays reachable long after
+          onboarding ends.
+        </p>
+        <p style={serifP}>
+          The idea running through all of it: the user stays in control without having to configure anything up
+          front. Control is available whenever they want it, never required before the app is useful.
+        </p>
+        <p style={serifP}>
+          The next step is letting users correct Tanya directly from a call — so fixing a mistake works the same way
+          as accepting a proposed rule.
+        </p>
+      </>
+    ),
+  },
+  {
+    id: 'os-10',
+    number: '10',
+    title: 'The other person on the call',
+    heading: "The caller didn't choose any of this",
+    body: (
+      <>
+        <p style={serifP}>
+          Every design decision so far is about the person who owns the phone. The other person on the call didn't
+          choose OsmO, didn't set it up, and doesn't see any of the screens above.
+        </p>
+        <p style={serifP}>
+          Tanya answers as the user's assistant, not as the user: "He's busy right now — can I take a message?" The
+          caller hears someone speaking on the user's behalf, not an imitation of them.
+        </p>
+        <p style={serifP}>
+          How callers are told they're speaking to an AI, and how call recordings and consent are handled, are
+          questions I'd want answered before any wider launch — they matter as much as anything the user sees.
+        </p>
+      </>
+    ),
+  },
+  {
+    id: 'os-11',
+    number: '11',
+    title: "What's next: a trust ladder",
+    heading: 'Autonomy the user grants, one step at a time',
+    tinted: true,
+    body: (
+      <>
+        <div style={{ marginTop: -4, marginBottom: 4 }}>
+          <EvidenceChip label="Exploration — not shipped" />
+        </div>
+        <p style={{ ...serifP, maxWidth: '62ch' }}>
+          Tanya starts with limited autonomy — taking messages only. As the user reviews and approves how she handles
+          calls, she's offered more: declining sales calls on her own, then booking appointments. Each step up is
+          offered, never forced, and always reversible.
+        </p>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 14, marginTop: 18, maxWidth: '62ch' }}>
+          <div style={{ borderLeft: '2px solid var(--accent)', paddingLeft: 18 }}>
+            <div style={{ fontSize: 15, color: 'var(--ink)', fontWeight: 500 }}>Take over</div>
+            <div style={{ ...serifP, fontSize: 15, margin: '4px 0 0 0' }}>
+              A live notification during a call with an option to jump in.
+            </div>
+          </div>
+          <div style={{ borderLeft: '2px solid var(--accent)', paddingLeft: 18 }}>
+            <div style={{ fontSize: 15, color: 'var(--ink)', fontWeight: 500 }}>Activity log</div>
+            <div style={{ ...serifP, fontSize: 15, margin: '4px 0 0 0' }}>
+              Every action Tanya took, why, and how to undo it.
+            </div>
+          </div>
+        </div>
+        <p style={{ ...serifP, maxWidth: '62ch' }}>
+          This is the same principle as onboarding, extended past it: <em>prove it works before asking for anything
+          personal.</em> Onboarding proves it works before asking for trust. The trust ladder proves each new level of
+          autonomy works before asking for the next one.
+        </p>
+      </>
+    ),
+  },
+  {
+    id: 'os-12',
+    number: '12',
     title: 'Status',
     heading: 'Shipped, and the conversion held',
     body: (
@@ -228,6 +419,14 @@ const sections: CSSection[] = [
           for a two-month-old consumer app, but with a three-person team and no instrumentation beyond the basics I
           can't isolate onboarding from everything else that shipped in the same window.
         </p>
+
+        <h3 style={h3Style}>What I'd measure next</h3>
+        <ul style={{ ...serifP, margin: '10px 0 0 0', paddingLeft: 20 }}>
+          <li>Whether users keep call forwarding switched on after 7 and 30 days</li>
+          <li>How often users correct or overrule Tanya</li>
+          <li>How often they take over a live call</li>
+          <li>How many optional "Teach Tanya" steps get completed after onboarding</li>
+        </ul>
       </>
     ),
   },
