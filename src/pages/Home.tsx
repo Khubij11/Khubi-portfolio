@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import WorkRow, { WorkTableHeader, type WorkRowData } from '../components/WorkRow';
 
@@ -84,7 +85,14 @@ const kicker: React.CSSProperties = {
   color: 'var(--muted)',
 };
 
+const GARDEN_PHOTOS = [
+  { src: '/assets/garden-hibiscus.jpg', alt: 'Pink hibiscus in a terracotta pot' },
+  { src: '/assets/garden-lily.jpg', alt: 'White lily in bloom on the balcony' },
+  { src: '/assets/garden-poinsettia.jpg', alt: 'Poinsettia leaves turning red' },
+];
+
 function IllustrationCard() {
+  const [gardenOpen, setGardenOpen] = useState(false);
   return (
     <div
       style={{
@@ -251,23 +259,51 @@ function IllustrationCard() {
             <span className="bake-handle">@pixiedust.bakery</span>
           </div>
         </a>
-        <div>
+        <button
+          type="button"
+          className={`garden-btn${gardenOpen ? ' is-open' : ''}`}
+          aria-expanded={gardenOpen}
+          aria-label="Show photos of my plants"
+          onClick={() => setGardenOpen((o) => !o)}
+          onBlur={() => setGardenOpen(false)}
+          style={{
+            position: 'relative',
+            display: 'block',
+            width: '100%',
+            margin: 0,
+            padding: 0,
+            border: 0,
+            background: 'none',
+            font: 'inherit',
+            color: 'inherit',
+            textAlign: 'inherit',
+            cursor: 'pointer',
+          }}
+        >
+          <div className="garden-photos">
+            {GARDEN_PHOTOS.map((p) => (
+              <img key={p.src} className="garden-photo" src={p.src} alt={p.alt} loading="lazy" />
+            ))}
+          </div>
           <div style={{ height: 84, display: 'flex', alignItems: 'flex-end', justifyContent: 'center', gap: 4 }}>
             <img
+              className="garden-plant"
               src="/assets/illo-plant.png"
-              alt="Monstera in a two-tone pot"
+              alt=""
               style={{ display: 'block', height: 92, width: 'auto', objectFit: 'contain', filter: 'drop-shadow(0 8px 10px rgba(23,26,24,0.14))' }}
             />
             <img
+              className="garden-spade"
               src="/assets/illo-spade.png"
-              alt="Garden spade"
-              style={{ display: 'block', height: 50, width: 'auto', flex: '0 0 auto', marginBottom: 4, objectFit: 'contain', filter: 'drop-shadow(0 6px 8px rgba(23,26,24,0.16))' }}
+              alt=""
+              style={{ display: 'block', height: 56, width: 'auto', flex: '0 0 auto', marginBottom: 3, marginLeft: -12, objectFit: 'contain', filter: 'drop-shadow(0 6px 8px rgba(23,26,24,0.16))' }}
             />
           </div>
-          <div style={{ fontFamily: 'var(--font-mono)', fontSize: 10, lineHeight: 1.5, letterSpacing: '0.04em', color: 'var(--secondary)', marginTop: 8 }}>
-            My plants keep me humble.
+          <div className="garden-caption" style={{ fontFamily: 'var(--font-mono)', fontSize: 10, lineHeight: 1.5, letterSpacing: '0.04em', color: 'var(--secondary)', marginTop: 8 }}>
+            <span className="garden-cap">My plants keep me humble.</span>
+            <span className="garden-hint">The survivors.</span>
           </div>
-        </div>
+        </button>
       </div>
       <style>{`
         .bake-whisk { transform-origin: 50% 85%; transition: transform 300ms ease; }
@@ -285,16 +321,46 @@ function IllustrationCard() {
           from { transform: translate(-50%, -100%) rotate(48deg); }
           to { transform: translate(-50%, -100%) rotate(408deg); }
         }
+        .garden-plant { transform-origin: 50% 100%; }
+        .garden-spade { transform-origin: 50% 90%; }
+        .garden-caption { display: grid; }
+        .garden-cap, .garden-hint { grid-area: 1 / 1; transition: opacity 200ms ease, transform 200ms ease; }
+        .garden-hint { color: var(--green); opacity: 0; transform: translateY(4px); text-decoration: underline; text-underline-offset: 3px; text-decoration-thickness: 1px; }
+        .garden-btn:hover .garden-plant, .garden-btn:focus-visible .garden-plant, .garden-btn.is-open .garden-plant { animation: garden-sway 1.1s ease-in-out infinite alternate; }
+        .garden-btn:hover .garden-spade, .garden-btn:focus-visible .garden-spade, .garden-btn.is-open .garden-spade { animation: garden-dig 0.55s ease-in-out infinite alternate; }
+        .garden-btn:hover .garden-cap, .garden-btn:focus-visible .garden-cap, .garden-btn.is-open .garden-cap { opacity: 0; transform: translateY(-4px); }
+        .garden-btn:hover .garden-hint, .garden-btn:focus-visible .garden-hint, .garden-btn.is-open .garden-hint { opacity: 1; transform: none; }
+        @keyframes garden-sway { from { transform: rotate(-4deg); } to { transform: rotate(4deg); } }
+        @keyframes garden-dig { from { transform: rotate(-10deg); } to { transform: rotate(8deg) translateY(-3px); } }
+        .garden-photos { position: absolute; right: -6px; top: calc(100% + 12px); z-index: 3; display: flex; pointer-events: none; }
+        .garden-photo {
+          display: block; box-sizing: content-box; width: 84px; height: 84px; object-fit: cover;
+          padding: 5px 5px 16px; background: #FFFFFF; border-radius: 2px;
+          box-shadow: 0 14px 22px -14px rgba(23,26,24,0.5), 0 0 0 1px rgba(23,26,24,0.06);
+          opacity: 0; transform: translateY(-8px); transition: opacity 200ms ease, transform 280ms cubic-bezier(.2,.8,.2,1);
+        }
+        .garden-photo + .garden-photo { margin-left: -24px; }
+        .garden-btn:hover .garden-photo, .garden-btn:focus-visible .garden-photo, .garden-btn.is-open .garden-photo { opacity: 1; }
+        .garden-btn:hover .garden-photo:nth-child(1), .garden-btn:focus-visible .garden-photo:nth-child(1), .garden-btn.is-open .garden-photo:nth-child(1) { transform: translateY(2px) rotate(-8deg); }
+        .garden-btn:hover .garden-photo:nth-child(2), .garden-btn:focus-visible .garden-photo:nth-child(2), .garden-btn.is-open .garden-photo:nth-child(2) { transform: translateY(-4px) rotate(3deg); transition-delay: 40ms; }
+        .garden-btn:hover .garden-photo:nth-child(3), .garden-btn:focus-visible .garden-photo:nth-child(3), .garden-btn.is-open .garden-photo:nth-child(3) { transform: translateY(4px) rotate(10deg); transition-delay: 80ms; }
         @media (hover: none) {
           .bake-card { display: none; }
           .bake-caption { display: block; }
           .bake-cap, .bake-handle { display: block; }
           .bake-handle, .bake-link:hover .bake-handle { opacity: 1; transform: none; }
           .bake-link:hover .bake-cap { opacity: 1; transform: none; }
+          .garden-caption { display: block; }
+          .garden-cap, .garden-hint { display: block; }
+          .garden-hint, .garden-btn:hover .garden-hint { opacity: 1; transform: none; }
+          .garden-btn .garden-cap, .garden-btn:hover .garden-cap, .garden-btn.is-open .garden-cap { opacity: 1; transform: none; }
+          .garden-btn:hover:not(.is-open) .garden-photo { opacity: 0; }
+          .garden-btn:hover:not(.is-open) .garden-plant, .garden-btn:hover:not(.is-open) .garden-spade { animation: none; }
         }
         @media (prefers-reduced-motion: reduce) {
           .bake-link:hover .bake-whisk, .bake-link:focus-visible .bake-whisk,
-          .bake-link:hover .bake-hand, .bake-link:focus-visible .bake-hand { animation: none; }
+          .bake-link:hover .bake-hand, .bake-link:focus-visible .bake-hand,
+          .garden-btn .garden-plant, .garden-btn .garden-spade { animation: none !important; }
         }
       `}</style>
     </div>
