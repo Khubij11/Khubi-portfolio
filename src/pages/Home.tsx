@@ -130,11 +130,19 @@ function IllustrationCard() {
         <span style={{ color: 'var(--sky-deep)' }}>bake</span> &amp; <span style={{ color: 'var(--green)' }}>garden</span>.
       </div>
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 20, marginTop: 26, alignItems: 'end' }}>
-        <div>
+        <a
+          className="bake-link"
+          href="https://www.instagram.com/pixiedust.bakery/"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Pixie Dust Bakery on Instagram, @pixiedust.bakery"
+          style={{ display: 'block', color: 'inherit' }}
+        >
           <div style={{ position: 'relative', height: 84, display: 'flex', alignItems: 'flex-end', justifyContent: 'center', gap: 6 }}>
             <img
+              className="bake-whisk"
               src="/assets/illo-whisk.png"
-              alt="Whisk in a mixing bowl"
+              alt=""
               style={{ display: 'block', height: 84, width: 'auto', objectFit: 'contain', filter: 'drop-shadow(0 8px 10px rgba(23,26,24,0.14))' }}
             />
             <div
@@ -169,6 +177,7 @@ function IllustrationCard() {
                 }}
               />
               <div
+                className="bake-hand"
                 style={{
                   position: 'absolute',
                   left: '50%',
@@ -209,10 +218,11 @@ function IllustrationCard() {
               />
             </div>
           </div>
-          <div style={{ fontFamily: 'var(--font-mono)', fontSize: 10, lineHeight: 1.5, letterSpacing: '0.04em', color: 'var(--secondary)', marginTop: 8 }}>
-            Timer's on. The cakes rise.
+          <div className="bake-caption" style={{ fontFamily: 'var(--font-mono)', fontSize: 10, lineHeight: 1.5, letterSpacing: '0.04em', color: 'var(--secondary)', marginTop: 8 }}>
+            <span className="bake-cap">Timer's on. The cakes rise.</span>
+            <span className="bake-handle">@pixiedust.bakery ↗</span>
           </div>
-        </div>
+        </a>
         <div>
           <div style={{ height: 84, display: 'flex', alignItems: 'flex-end', justifyContent: 'center', gap: 4 }}>
             <img
@@ -231,6 +241,31 @@ function IllustrationCard() {
           </div>
         </div>
       </div>
+      <style>{`
+        .bake-whisk { transform-origin: 50% 85%; transition: transform 300ms ease; }
+        .bake-caption { display: grid; }
+        .bake-cap, .bake-handle { grid-area: 1 / 1; transition: opacity 200ms ease, transform 200ms ease; }
+        .bake-handle { color: var(--sky-deep); opacity: 0; transform: translateY(4px); }
+        .bake-link:hover .bake-whisk, .bake-link:focus-visible .bake-whisk { animation: bake-whisk 0.5s ease-in-out infinite alternate; }
+        .bake-link:hover .bake-hand, .bake-link:focus-visible .bake-hand { animation: bake-hand 1.6s linear infinite; }
+        .bake-link:hover .bake-cap, .bake-link:focus-visible .bake-cap { opacity: 0; transform: translateY(-4px); }
+        .bake-link:hover .bake-handle, .bake-link:focus-visible .bake-handle { opacity: 1; transform: none; }
+        @keyframes bake-whisk { from { transform: rotate(-7deg); } to { transform: rotate(7deg); } }
+        @keyframes bake-hand {
+          from { transform: translate(-50%, -100%) rotate(48deg); }
+          to { transform: translate(-50%, -100%) rotate(408deg); }
+        }
+        @media (hover: none) {
+          .bake-caption { display: block; }
+          .bake-cap, .bake-handle { display: block; }
+          .bake-handle, .bake-link:hover .bake-handle { opacity: 1; transform: none; }
+          .bake-link:hover .bake-cap { opacity: 1; transform: none; }
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .bake-link:hover .bake-whisk, .bake-link:focus-visible .bake-whisk,
+          .bake-link:hover .bake-hand, .bake-link:focus-visible .bake-hand { animation: none; }
+        }
+      `}</style>
     </div>
   );
 }
