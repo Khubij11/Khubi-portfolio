@@ -65,6 +65,55 @@ const handledScenarios = [
   },
 ];
 
+type FlowLine = { who: 'Caller' | 'Tanya'; text: string; aside?: boolean };
+
+const failureFlows: { title: string; lines: FlowLine[]; notes: string[] }[] = [
+  {
+    title: 'She takes a message.',
+    lines: [
+      { who: 'Caller', text: "Hi, is Rohan there? It's about the quote he sent Tuesday." },
+      { who: 'Tanya', text: "He's busy right now — can I take a message?" },
+      { who: 'Caller', text: "Sure. It's Priya, from Lighthouse." },
+      { who: 'Tanya', text: 'Priya, from Lighthouse — is that P-R-I-Y-A?' },
+      { who: 'Caller', text: "That's it." },
+      { who: 'Tanya', text: "Got it. I'll pass this on and he'll see it shortly." },
+    ],
+    notes: [
+      "She identifies as the assistant, never as Rohan — the caller always knows they're not speaking to him.",
+      'She confirms the name explicitly, because a name is the one detail where an error is unrecoverable.',
+      "She never promises when he'll reply, because she doesn't know his calendar.",
+    ],
+  },
+  {
+    title: "She doesn't catch it.",
+    lines: [
+      { who: 'Caller', text: 'On a poor line, switching between Hindi and English.', aside: true },
+      { who: 'Tanya', text: "Sorry, I didn't catch that — could you say your name again?" },
+      { who: 'Caller', text: 'Repeats, still unclear.', aside: true },
+      { who: 'Tanya', text: "I've got your number, so I'll make sure he calls you back." },
+    ],
+    notes: [
+      'She asks twice at most — a third attempt turns an assistant into an interrogation.',
+      "She closes on what she does have rather than what she's missing.",
+      'The message reaches the user marked "name unclear," with the audio attached, instead of being tidied into a confident guess.',
+    ],
+  },
+  {
+    title: "She's asked something she wasn't taught.",
+    lines: [
+      { who: 'Caller', text: "What's your rate for a half-day shoot?" },
+      { who: 'Tanya', text: 'A half-day is twelve thousand.' },
+      { who: 'Caller', text: 'And if it ran two days, with travel to Pune?' },
+      { who: 'Tanya', text: "I can only give you the rates he's set, and that isn't one of them — let me take your details and he'll quote you properly." },
+    ],
+    notes: [
+      'She quotes taught facts verbatim and never calculates from them, because a plausible invented number is a commercial problem, not a UX one.',
+      "The boundary isn't the topic, it's whether the specific answer exists.",
+      'The gap becomes a product signal — the call surfaces in "Needs you," and the rules screen can then propose adding a two-day rate.',
+    ],
+  },
+];
+
 const sections: CSSection[] = [
   {
     id: 'os-01',
@@ -305,17 +354,58 @@ const sections: CSSection[] = [
 
         <h3 style={h3Style}>Open questions for the next phase</h3>
         <p style={{ ...serifP, marginTop: 10 }}>
-          Onboarding solved getting Tanya answering. What she does in harder moments is the next design problem: what
-          she says when she doesn't understand a caller, how she handles a question she can't answer, and how an
-          urgent call reaches the user faster than the log. Each needs the same principle as onboarding — when in
-          doubt, hand back to the user rather than guess.
+          Onboarding solved getting Tanya answering, and the next section sketches what she says when a call goes
+          wrong. One question is still open: how an urgent call reaches the user faster than the log. It needs the
+          same principle as onboarding — when in doubt, hand back to the user rather than guess.
         </p>
       </>
     ),
   },
   {
-    id: 'os-09',
+    id: 'os-08b',
     number: '09',
+    title: 'What Tanya says when it goes wrong',
+    heading: 'When in doubt, hand back to the user rather than guess',
+    body: (
+      <>
+        <div style={{ marginTop: -4, marginBottom: 4 }}>
+          <EvidenceChip label="Proposed call flows — exploration, not shipped" />
+        </div>
+        {failureFlows.map((f) => (
+          <div key={f.title}>
+            <h3 style={h3Style}>{f.title}</h3>
+            <div className="os-flow-grid" style={{ display: 'grid', gridTemplateColumns: '1fr', gap: 16, marginTop: 14 }}>
+              <div style={{ border: '1px solid var(--hairline)', padding: '18px 20px', display: 'flex', flexDirection: 'column', gap: 12 }}>
+                {f.lines.map((l, i) => (
+                  <div key={i}>
+                    <div style={kicker}>{l.who}</div>
+                    <div style={{ fontSize: 15, color: l.who === 'Tanya' ? 'var(--ink)' : 'var(--secondary)', fontStyle: l.aside ? 'italic' : 'normal', marginTop: 4, lineHeight: 1.5 }}>
+                      {l.aside ? l.text : `“${l.text}”`}
+                    </div>
+                  </div>
+                ))}
+              </div>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
+                {f.notes.map((n) => (
+                  <div key={n} style={{ borderLeft: '2px solid var(--accent)', paddingLeft: 18 }}>
+                    <div style={{ ...serifP, fontSize: 15, margin: 0 }}>{n}</div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        ))}
+        <style>{`
+          @media (min-width: 640px) {
+            .os-flow-grid { grid-template-columns: 3fr 2fr !important; }
+          }
+        `}</style>
+      </>
+    ),
+  },
+  {
+    id: 'os-09',
+    number: '10',
     title: 'Keeping the user in the loop',
     heading: 'In control, without having to configure anything up front',
     body: (
@@ -343,7 +433,7 @@ const sections: CSSection[] = [
   },
   {
     id: 'os-10',
-    number: '10',
+    number: '11',
     title: 'The other person on the call',
     heading: "The caller didn't choose any of this",
     body: (
@@ -365,7 +455,7 @@ const sections: CSSection[] = [
   },
   {
     id: 'os-11',
-    number: '11',
+    number: '12',
     title: "What's next: a trust ladder",
     heading: 'Autonomy the user grants, one step at a time',
     tinted: true,
@@ -403,7 +493,7 @@ const sections: CSSection[] = [
   },
   {
     id: 'os-12',
-    number: '12',
+    number: '13',
     title: 'Status',
     heading: 'Shipped, and the conversion held',
     body: (
