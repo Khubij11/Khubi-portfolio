@@ -6,8 +6,8 @@ import WorkRow, { WorkTableHeader, type WorkRowData } from '../components/WorkRo
 const allWork: WorkRowData[] = [
   {
     year: '2026',
-    title: 'OsmO — AI call assistant',
-    owned: 'Owned the product model, the IA, onboarding and every screen — not the voice engine or call infrastructure.',
+    title: 'OsmO: AI call assistant',
+    owned: 'Owned the product model, the IA, onboarding and every screen, not the voice engine or call infrastructure.',
     platform: 'iOS · Android',
     outcome: '90% onboarding completion; 4.65% free-to-paid conversion',
     evidence: 'Shipped · measured',
@@ -15,9 +15,9 @@ const allWork: WorkRowData[] = [
     tags: ['0 → 1'],
   },
   {
-    year: '2024 — 26',
-    title: 'Wells Fargo — financial health tools',
-    owned: 'Owned the financial health surfaces end to end — not the scoring behind them.',
+    year: '2024–26',
+    title: 'Wells Fargo: financial health tools',
+    owned: 'Owned the financial health surfaces end to end, not the scoring behind them.',
     platform: 'Web · Enterprise',
     outcome: 'A redesign approved and queued for release',
     evidence: 'Approved',
@@ -26,8 +26,8 @@ const allWork: WorkRowData[] = [
   },
   {
     year: '2025',
-    title: 'Wells Fargo — AI tool for PMs',
-    owned: 'Owned the flow and the screens — not retrieval, indexing or model behaviour.',
+    title: 'Wells Fargo: AI tool for PMs',
+    owned: 'Owned the flow and the screens, not retrieval, indexing or model behaviour.',
     platform: 'Web · Internal',
     outcome: 'An answer a PM can repeat out loud',
     evidence: 'Shipped internally',
@@ -36,8 +36,8 @@ const allWork: WorkRowData[] = [
   },
   {
     year: '2023',
-    title: 'Cars24 — Refer & Earn',
-    owned: 'Owned lead submission and the status system — not rates or valuation.',
+    title: 'Cars24: Refer & Earn',
+    owned: 'Owned lead submission and the status system, not rates or valuation.',
     platform: 'iOS · Android',
     outcome: 'Cars on platform up 21%',
     evidence: 'Shipped · measured',
@@ -46,7 +46,7 @@ const allWork: WorkRowData[] = [
   },
   {
     year: '2022',
-    title: 'Cars24 — Challan payments',
+    title: 'Cars24: Challan payments',
     owned: 'Owned the payment flow end to end, including trust states.',
     platform: 'iOS · Android',
     outcome: '16,193 visitors in the first 8 days; 4,422 challans paid',
@@ -55,8 +55,8 @@ const allWork: WorkRowData[] = [
     tags: ['0 → 1'],
   },
   {
-    year: '2021 — 22',
-    title: 'Klub — syndicates on the patron platform',
+    year: '2021–22',
+    title: 'Klub: syndicates on the patron platform',
     owned: 'Productised the syndicate flow inside the existing patrons app, without disrupting it.',
     platform: 'Web app',
     outcome: 'Offline syndicate deals made self-serve',
@@ -65,8 +65,8 @@ const allWork: WorkRowData[] = [
     tags: ['Complex data'],
   },
   {
-    year: '2019 — 21',
-    title: 'Spottabl — three sides, one pipeline',
+    year: '2019–21',
+    title: 'Spottabl: three sides, one pipeline',
     owned: 'Design across the admin platform, the SaaS hiring product and the consumer site.',
     platform: 'Web',
     outcome: 'One vocabulary across three products',
@@ -486,7 +486,7 @@ export default function Home() {
                 maxWidth: '52ch',
               }}
             >
-              Seven years of taking products from messy questions to usable interfaces — most useful when the
+              Seven years of taking products from messy questions to usable interfaces, most useful when the
               constraint isn't visual, but the system is complicated and the stakes are real.
             </div>
           </div>
@@ -499,7 +499,7 @@ export default function Home() {
       <section style={{ padding: '88px 0 0 0' }}>
         <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', gap: 24, flexWrap: 'wrap', borderBottom: '1px solid var(--ink)', paddingBottom: 14 }}>
           <span style={kicker}>Selected work</span>
-          <span style={{ ...kicker, color: 'var(--muted)' }}>7 projects · 2019 — 2026</span>
+          <span style={{ ...kicker, color: 'var(--muted)' }}>7 projects · 2019–2026</span>
         </div>
 
         <div style={{ paddingTop: 44 }}>
@@ -513,19 +513,19 @@ export default function Home() {
           <span style={{ ...kicker, flex: '0 0 88px' }}>Evidence key</span>
           <span style={{ fontSize: 13, color: 'var(--secondary)' }}>
             <span style={{ display: 'inline-block', width: 9, height: 9, borderRadius: 999, background: '#DCF0E4', border: '1px solid #A8D5BC', marginRight: 7, verticalAlign: 'baseline' }} />
-            <span style={{ color: 'var(--ink)' }}>Shipped · measured</span> — live, with numbers
+            <span style={{ color: 'var(--ink)' }}>Shipped · measured</span>: live, with numbers
           </span>
           <span style={{ fontSize: 13, color: 'var(--secondary)' }}>
             <span style={{ display: 'inline-block', width: 9, height: 9, borderRadius: 999, background: '#DDF0F4', border: '1px solid #A6D4DE', marginRight: 7, verticalAlign: 'baseline' }} />
-            <span style={{ color: 'var(--ink)' }}>Shipped</span> — live, not instrumented
+            <span style={{ color: 'var(--ink)' }}>Shipped</span>: live, not instrumented
           </span>
           <span style={{ fontSize: 13, color: 'var(--secondary)' }}>
             <span style={{ display: 'inline-block', width: 9, height: 9, borderRadius: 999, background: '#FBEEDC', border: '1px solid #E8CFA4', marginRight: 7, verticalAlign: 'baseline' }} />
-            <span style={{ color: 'var(--ink)' }}>Approved</span> — signed off, not yet live
+            <span style={{ color: 'var(--ink)' }}>Approved</span>: signed off, not yet live
           </span>
           <span style={{ fontSize: 13, color: 'var(--secondary)' }}>
             <span style={{ display: 'inline-block', width: 9, height: 9, borderRadius: 999, background: '#F0EAF7', border: '1px solid #D5C4E8', marginRight: 7, verticalAlign: 'baseline' }} />
-            <span style={{ color: 'var(--ink)' }}>Concept</span> — self-initiated
+            <span style={{ color: 'var(--ink)' }}>Concept</span>: self-initiated
           </span>
         </div>
       </section>

@@ -18,7 +18,7 @@ interface Row {
 
 const experience: Row[] = [
   {
-    date: 'May 2026 — now',
+    date: 'May 2026 – now',
     title: 'Independent Product Design',
     place: 'Freelance · Bengaluru',
     desc: [
@@ -26,27 +26,27 @@ const experience: Row[] = [
     ],
   },
   {
-    date: 'Feb 2024 — May 2026',
+    date: 'Feb 2024 – May 2026',
     title: 'Product Designer',
     place: 'Wells Fargo · Bengaluru',
     desc: [
-      'Designed and shipped an AI-powered internal tool (0 → 1) for Product Managers to search code and documentation, with clear uncertainty states and source transparency — delivered in under 3 weeks.',
+      'Designed and shipped an AI-powered internal tool (0 → 1) for Product Managers to search code and documentation, with clear uncertainty states and source transparency, delivered in under 3 weeks.',
       'Owned end-to-end redesign of financial health surfaces on the public site and contributed to the enterprise design system, ensuring consistency at scale.',
       'Enhanced bill payments UX and mentored designers while supporting the legacy-to-modern platform migration.',
     ],
   },
   {
-    date: 'Jun 2022 — Jan 2024',
+    date: 'Jun 2022 – Jan 2024',
     title: 'Product Designer',
     place: 'Cars24 · Bengaluru',
     desc: [
-      'Led end-to-end design for the Cars24 dealer app — research through high-fidelity delivery across iOS and Android — improving TAT, NPS, and conversion.',
-      'Designed and shipped a secure Challan payment flow (0 → 1) with strong trust states — 16k+ visitors and 4.4k payments in the first 8 days.',
+      'Led end-to-end design for the Cars24 dealer app (research through high-fidelity delivery across iOS and Android), improving TAT, NPS, and conversion.',
+      'Designed and shipped a secure Challan payment flow (0 → 1) with strong trust states: 16k+ visitors and 4.4k payments in the first 8 days.',
       'Owned the Refer & Earn system (0 → 1, mobile) and optimized the Sell Online flow, contributing to a 21% increase in cars listed on the platform.',
     ],
   },
   {
-    date: 'Apr 2021 — Jun 2022',
+    date: 'Apr 2021 – Jun 2022',
     title: 'Product Designer',
     place: 'Klubworks · Bengaluru',
     desc: [
@@ -55,16 +55,16 @@ const experience: Row[] = [
     ],
   },
   {
-    date: 'Nov 2019 — Apr 2021',
+    date: 'Nov 2019 – Apr 2021',
     title: 'UI/UX Designer',
     place: 'Spottabl · Bengaluru',
     desc: [
-      'Led design across the admin platform, SaaS hiring product, and consumer platform — establishing one consistent design vocabulary and system across three products.',
+      'Led design across the admin platform, SaaS hiring product, and consumer platform, establishing one consistent design vocabulary and system across three products.',
       'Owned end-to-end design for social media, marketing assets, and a full website revamp.',
     ],
   },
   {
-    date: 'Jun 2019 — Oct 2019',
+    date: 'Jun 2019 – Oct 2019',
     title: 'UI/UX Designer',
     place: 'Grexter · Bengaluru',
     desc: [
@@ -134,7 +134,7 @@ export default function Resume() {
           <div style={{ flex: '0 0 150px' }} />
           <p className="r-desc" style={{ flex: '1 1 400px', fontSize: 16, lineHeight: 1.65, color: 'var(--secondary)', margin: 0, maxWidth: 580 }}>
             Product Designer with 7+ years shipping polished, end-to-end product experiences across web and mobile in fintech, marketplace, and SaaS.
-            Operating at senior scope — owning 0-to-1 initiatives, mentoring designers, and driving design system decisions across cross-functional teams.
+            Operating at senior scope, owning 0-to-1 initiatives, mentoring designers, and driving design system decisions across cross-functional teams.
             Fluent with modern AI-native design workflows, and recently designed an AI-powered internal tool at Wells Fargo. Based in Bengaluru and
             available immediately.
           </p>
@@ -196,7 +196,7 @@ export default function Resume() {
           Education
         </div>
         <div style={{ flex: '1 1 620px', display: 'flex', flexWrap: 'wrap', gap: '8px 32px' }}>
-          <div style={{ flex: '0 0 150px', fontFamily: 'var(--font-mono)', fontSize: 12, color: 'var(--muted)', paddingTop: 5 }}>2015 — 2019</div>
+          <div style={{ flex: '0 0 150px', fontFamily: 'var(--font-mono)', fontSize: 12, color: 'var(--muted)', paddingTop: 5 }}>2015–2019</div>
           <div style={{ flex: '1 1 400px' }}>
             <div className="r-title" style={{ fontSize: 20, fontWeight: 500, letterSpacing: '-0.02em' }}>
               B.Des, Communication Design
@@ -217,7 +217,7 @@ export default function Resume() {
               <a href="https://medium.com/@khubi.brahmbhatt/designing-in-the-age-of-instant-answers-9fb5a3dec812" target="_blank" rel="noopener">
                 Designing in the age of instant answers
               </a>{' '}
-              — <span style={{ color: 'var(--muted)' }}>Medium</span>
+              · <span style={{ color: 'var(--muted)' }}>Medium</span>
             </div>
           </div>
         </div>
