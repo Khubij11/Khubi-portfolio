@@ -55,7 +55,7 @@ const sections: CSSection[] = [
     body: (
       <p style={serifP}>
         The route we took was to solve a core problem car owners already face, rather than to advertise harder. Do
-        that and you establish loyalty and stickiness with people who will be selling a car in the future — which
+        that and you establish loyalty and stickiness with people who will be selling a car in the future, which
         is the only audience the business actually needs.
       </p>
     ),
@@ -69,7 +69,7 @@ const sections: CSSection[] = [
       <p style={serifP}>
         "Create a user-centric platform that simplifies and expedites the process of settling challans, providing a
         hassle-free experience for users." Two verbs worth separating: <em>simplify</em> is a design problem,{' '}
-        <em>expedite</em> is an operations one — and only one of them was mine to solve.
+        <em>expedite</em> is an operations one, and only one of them was mine to solve.
       </p>
     ),
   },
@@ -82,7 +82,7 @@ const sections: CSSection[] = [
       <p style={serifP}>
         Challan payment products serve individuals, businesses, government agencies, legal bodies and non-profits.
         They all rely on the same thing: settling fines, taxes, bills and fees without a physical visit and without
-        paperwork. The breadth is the design constraint — a fleet manager and a first-time owner have to be served
+        paperwork. The breadth is the design constraint: a fleet manager and a first-time owner have to be served
         by the same screen.
       </p>
     ),
@@ -151,13 +151,13 @@ const sections: CSSection[] = [
         <p style={serifP}>
           The banner carries the three USPs so someone can decide in a glance whether this page is for them. Below
           it, a single field: only the vehicle number is required, because the phone number is already registered.
-          Verification then happens without asking for that number again — one tap on the number Truecaller already
+          Verification then happens without asking for that number again: one tap on the number Truecaller already
           knows.
         </p>
         <TwoUp
           screens={['landing', 'verify']}
           notes={[
-            { title: 'USPs', body: 'Check status, pay and manage, get assistance — on the banner, not buried in a features list.' },
+            { title: 'USPs', body: 'Check status, pay and manage, get assistance. On the banner, not buried in a features list.' },
             { title: 'Easy login', body: 'Vehicle number only; the phone number is already on file.' },
             { title: 'Easy verification', body: 'No re-entering the mobile number, so login costs one tap.' },
           ]}
@@ -174,14 +174,14 @@ const sections: CSSection[] = [
       <>
         <p style={serifP}>
           Users can access and pay both outstanding and new challans in the app. And when a challan goes unpaid for
-          90 days and becomes a court challan, they keep the ability to pay through the app — the service extends
+          90 days and becomes a court challan, they keep the ability to pay through the app; the service extends
           past the online-challan stage, which is exactly where most products hand you back to a queue.
         </p>
         <TwoUp
           screens={['pending', 'paid']}
           notes={[
             { title: 'Reg no', body: "Kept at the top and editable, so checking a second vehicle doesn't mean logging out and back in." },
-            { title: 'Card design', body: 'Fine, offence, issue date and the one action — in that order, so the card is readable at a glance.' },
+            { title: 'Card design', body: 'Fine, offence, issue date and the one action, in that order, so the card is readable at a glance.' },
           ]}
         />
         <p style={{ ...serifP, marginTop: 32 }}>
@@ -200,14 +200,14 @@ const sections: CSSection[] = [
     body: (
       <>
         <p style={serifP}>
-          Cars24 charges an agent fee, so the summary shows it as a line rather than folding it into a total — with
+          Cars24 charges an agent fee, so the summary shows it as a line rather than folding it into a total, with
           "Why agent fee?" right there for anyone who wants the reasoning. VRN and WhatsApp number sit at the top for
           verification before money moves.
         </p>
         <p style={serifP}>
           Selecting several challans and paying once saves real time. But online challans settle in two days and
           court challans take around thirty, so a combined payment splits into two labelled groups with their own
-          timelines — one total, two honest promises.
+          timelines: one total, two honest promises.
         </p>
         <TwoUp screens={['select', 'summary1', 'summary2']} note="Select, review, and the split-settlement summary for a mixed batch." />
       </>
@@ -222,7 +222,7 @@ const sections: CSSection[] = [
       <>
         <p style={serifP}>
           An empty state here is the best possible result, so it isn't treated as an error. Users can share their
-          challan-free status with friends and family — a small piece of pride, and the only place in the flow where
+          challan-free status with friends and family: a small piece of pride, and the only place in the flow where
           the product asks for something instead of giving.
         </p>
         <TwoUp screens={['empty']} notes={[{ title: 'WhatsApp updates', body: 'Challans arrive on a schedule nobody controls, so the product offers to tell you instead of asking you to check. Opt-in sits on the registration card, where the number already is.' }]} />
@@ -241,10 +241,10 @@ export default function Cars24Challans() {
           a car
         </>
       }
-      summary="Cars24 needed more organic visits from people who might sell a car one day. Traffic challans turned out to be the way in: a real problem car owners already have, on a schedule nobody controls. Solve it well and the app earns a reason to be opened between transactions — which is where loyalty and stickiness actually come from."
+      summary="Cars24 needed more organic visits from people who might sell a car one day. Traffic challans turned out to be the way in: a real problem car owners already have, on a schedule nobody controls. Solve it well and the app earns a reason to be opened between transactions, which is where loyalty and stickiness actually come from."
       meta={[
-        { label: 'Role', value: 'Product designer — owned the challan flow end to end' },
-        { label: 'Team', value: '2 designers — me and an intern — with a PM and engineering' },
+        { label: 'Role', value: 'Product designer, owned the challan flow end to end' },
+        { label: 'Team', value: '2 designers (me and an intern) with a PM and engineering' },
         { label: 'Timeframe', value: '2022' },
         { label: 'Platform', value: 'Cars24 app · iOS, Android and web' },
         { label: 'Users', value: 'Individuals, businesses, government agencies, legal bodies and non-profits' },
@@ -255,6 +255,23 @@ export default function Cars24Challans() {
         { value: '4,422', label: 'Users who paid a challan online', color: 'var(--accent)' },
         { value: '₹2,36,697', label: 'In challans settled', color: 'var(--accent)' },
       ]}
+      afterMetrics={
+        <div style={{ borderTop: '1px solid var(--ink)', paddingTop: 14, marginTop: 44, maxWidth: '58ch' }}>
+          <div style={kicker}>Still live today</div>
+          <div style={{ border: '1px solid var(--hairline)', padding: '16px 18px', marginTop: 14 }}>
+            <div style={{ fontSize: 15, lineHeight: 1.6, color: 'var(--secondary)' }}>
+              Challan payments remain a dedicated tab in the Cars24 app. The in-app banner reports ₹56 Cr+ settled, 5
+              lakh+ challans and 200+ cities.
+            </div>
+            <div style={{ fontFamily: 'var(--font-ui)', fontSize: 13, fontWeight: 600, letterSpacing: '0.05em', color: 'var(--muted)', marginTop: 10 }}>
+              Company figures as shown in the Cars24 app, viewed Oct 2026. They may be older than that date.
+            </div>
+          </div>
+          <div style={{ fontSize: 15, lineHeight: 1.6, color: 'var(--ink)', marginTop: 16 }}>
+            My launch numbers: 16,193 visitors and 4,422 challans paid in the first 8 days.
+          </div>
+        </div>
+      }
       hero={
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: 24, justifyContent: 'center' }}>
           <ScaledPhone>
@@ -273,7 +290,7 @@ export default function Cars24Challans() {
       }
       heroCaption="Entry, listing, payment, and the state everyone wants to be in."
       sections={sections}
-      prev={{ kicker: 'Next case study', label: 'Klub — syndicates on the patron platform', to: '/work/klub' }}
+      prev={{ kicker: 'Next case study', label: 'Klub: syndicates on the patron platform', to: '/work/klub' }}
       next={{ kicker: 'Back to', label: 'All work', to: '/' }}
     />
   );
