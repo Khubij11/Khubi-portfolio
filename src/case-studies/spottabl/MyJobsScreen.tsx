@@ -53,7 +53,7 @@ const jobs: JobRowData[] = [
     alt: 'Deloitte',
     title: 'Full-stack Developer',
     meta: 'Deloitte · Gurgaon · 14–18 LPA · posted 16 hours ago',
-    flag: { text: 'Sourcing in progress — first matches usually land within 48 hours', color: '#6B7089' },
+    flag: { text: 'Sourcing in progress. First matches usually land within 48 hours', color: '#6B7089' },
     matches: 2,
     qualified: { value: 0, color: '#9AA0B5' },
     inProcess: { value: 0, color: '#9AA0B5' },

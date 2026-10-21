@@ -65,8 +65,8 @@ const detailFacts: { label: string; value: string; note: string }[] = [
 const skillMatches = ['React', 'Node.js', 'System design'];
 
 const acceptSteps: { text: string; muted?: string; done?: boolean }[] = [
-  { text: 'Your profile goes to Airmeet — ', muted: 'name, resume and current CTC included', done: true },
-  { text: 'Nikhil screens you, then books round 1 — typically within 3 days' },
+  { text: 'Your profile goes to Airmeet: ', muted: 'name, resume and current CTC included', done: true },
+  { text: 'Nikhil screens you, then books round 1, typically within 3 days' },
   { text: 'Your 60-day notice period is shared up front, so no offer date slips later' },
   { text: 'You can withdraw at any stage, and Airmeet is told why' },
 ];
@@ -194,7 +194,7 @@ export default function CandidateRequestsScreen() {
                 </div>
               ))}
               <div style={{ fontSize: 11, fontWeight: 500, color: '#9AA0B5', border: '1px solid #E7E9F5', borderRadius: 6, padding: '8px 12px' }}>
-                GraphQL — nice to have
+                GraphQL (nice to have)
               </div>
             </div>
           </div>
