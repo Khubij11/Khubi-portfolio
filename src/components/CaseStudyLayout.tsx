@@ -206,7 +206,7 @@ export default function CaseStudyLayout({
               }
             >
               <div style={{ ...kickerStyle, color: s.tinted ? 'var(--accent)' : 'var(--muted)' }}>
-                {s.number} — {s.title}
+                {s.number} · {s.title}
               </div>
               <h2 style={{ fontSize: 25, fontWeight: 500, letterSpacing: '-0.025em', margin: '14px 0 0 0' }}>{s.heading}</h2>
               <div style={{ marginTop: 16 }}>{s.body}</div>
