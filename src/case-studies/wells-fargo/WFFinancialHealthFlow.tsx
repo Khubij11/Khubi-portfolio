@@ -217,7 +217,7 @@ export default function WFFinancialHealthFlow({
     const cutRows = FIXED.slice(0, 3)
       .map((f) => ({
         name: f.name,
-        note: 'Fixed cost — cannot be changed here',
+        note: 'Fixed cost, cannot be changed here',
         nameInk: '#44403C',
         locked: true,
         valueText: fmt(f.value),
@@ -244,8 +244,8 @@ export default function WFFinancialHealthFlow({
         barColor: over > 0 ? '#D71E28' : '#0E7A42',
         line:
           over > 0
-            ? fmt(SPENT[k]) + ' spent — ' + fmt(over) + ' over your ' + fmt(s.limits[k]) + ' limit'
-            : fmt(SPENT[k]) + ' spent — ' + fmt(-over) + ' left of your ' + fmt(s.limits[k]) + ' limit',
+            ? fmt(SPENT[k]) + ' spent, ' + fmt(over) + ' over your ' + fmt(s.limits[k]) + ' limit'
+            : fmt(SPENT[k]) + ' spent, ' + fmt(-over) + ' left of your ' + fmt(s.limits[k]) + ' limit',
         limitText: fmt(s.limits[k]),
         dec: () => set((p) => ({ limits: { ...p.limits, [k]: Math.max(0, p.limits[k] - 10) } })),
         inc: () => set((p) => ({ limits: { ...p.limits, [k]: p.limits[k] + 10 } })),
@@ -730,7 +730,7 @@ function SetupView({
     'Pick the accounts you spend from. Tap a row to include or leave out an account.',
     'This is the pay we can see arriving in ' + v.acctLabel + '.',
     'The recurring payments you have set up in Bill Pay, plus anything else we see leaving on the same date each month. We have added them up so you do not have to.',
-    'Pick a monthly limit for each everyday category. We suggest what you usually spend — change any of them.',
+    'Pick a monthly limit for each everyday category. We suggest what you usually spend. Change any of them.',
   ];
   const side = v.setupSide;
   const nextDisabled = (step === 1 && v.chosenCount === 0) || (step === 4 && v.setupSpare < 0);
@@ -810,7 +810,7 @@ function SetupView({
                   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0E7A42" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 19V5M5 12l7-7 7 7" /></svg>
                 </div>
                 <div>
-                  <div style={{ fontSize: 16, fontWeight: 700 }}>Payroll — Mercy General Hospital</div>
+                  <div style={{ fontSize: 16, fontWeight: 700 }}>Payroll · Mercy General Hospital</div>
                   <div style={{ fontSize: 14, color: '#78716C', marginTop: 4 }}>Paid on the 1st and the 15th, every month</div>
                 </div>
                 <span style={{ flexGrow: 1 }} />
@@ -1202,7 +1202,7 @@ function LimitsView({
       <BackLink label="Back to my budget" onClick={onBack} />
       <div style={{ ...num, fontSize: 32, fontWeight: 700, letterSpacing: '-0.02em', lineHeight: 1.15, marginTop: 16 }}>Spending limits</div>
       <div style={{ fontSize: 16, lineHeight: 1.5, color: '#57534E', marginTop: 8, maxWidth: '72ch' }}>
-        One set of limits for Everyday Checking ···4892. Change a limit whenever you like — it applies from next month. Your savings goals are separate and are not affected.
+        One set of limits for Everyday Checking ···4892. Change a limit whenever you like; it applies from next month. Your savings goals are separate and are not affected.
       </div>
 
       <div style={{ ...card, marginTop: 24 }}>

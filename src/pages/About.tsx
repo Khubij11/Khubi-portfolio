@@ -105,7 +105,7 @@ export default function About() {
                 brought those foundational design-research learnings into a space that touches millions of lives.
               </p>
               <p style={bodyP}>
-                I don't believe in rigid, cookie-cutter frameworks. I adapt the process to the problem — moving
+                I don't believe in rigid, cookie-cutter frameworks. I adapt the process to the problem, moving
                 fluidly between deep research on complex projects and fast, intuitive execution when the timeline
                 demands it.
               </p>
@@ -169,7 +169,7 @@ export default function About() {
             <div>
               <div style={{ ...kicker, borderBottom: '1px solid var(--ink)', paddingBottom: 12 }}>Sectors</div>
               <p style={{ fontSize: 15, lineHeight: 1.65, color: 'var(--secondary)', margin: '14px 0 0 0' }}>
-                Fintech, banking and marketplaces — Wells Fargo, Cars24, Klub. Regulated products and two-sided ones,
+                Fintech, banking and marketplaces: Wells Fargo, Cars24, Klub. Regulated products and two-sided ones,
                 which fail in different ways.
               </p>
             </div>
@@ -177,7 +177,7 @@ export default function About() {
             <div>
               <div style={{ ...kicker, borderBottom: '1px solid var(--ink)', paddingBottom: 12 }}>Tools</div>
               <p style={{ fontSize: 15, lineHeight: 1.65, color: 'var(--secondary)', margin: '14px 0 0 0' }}>
-                Figma · FigJam · Notion · Maze — plus an AI stack: Claude for research and system mapping, v0 and
+                Figma · FigJam · Notion · Maze, plus an AI stack: Claude for research and system mapping, v0 and
                 Lovable for putting UI concepts in front of people fast. It fast-tracks early exploration and closes
                 the gap between design and front-end, while the fundamentals stay where they belong.
               </p>

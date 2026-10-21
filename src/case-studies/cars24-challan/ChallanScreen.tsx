@@ -508,7 +508,7 @@ export default function ChallanScreen({ screen = 'pending' }: { screen?: Challan
         </div>
         <img
           src="/assets/c24-hero-banner.png"
-          alt="Check &amp; Pay Traffic eChallan Online — check status, pay and manage, get assistance"
+          alt="Check &amp; Pay Traffic eChallan Online: check status, pay and manage, get assistance"
           style={{ width: '100%', height: 'auto', display: 'block' }}
         />
         <div style={{ padding: '18px 20px 0 20px' }}>

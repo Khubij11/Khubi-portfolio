@@ -28,8 +28,8 @@ const I = {
 
 const STEPS = [
   { name: 'Setup', headline: "Let's set up your monthly budget", sub: "A few quick steps: confirm your income, lock in fixed costs, set a savings goal, then split what's left. We'll flag anything that doesn't add up." },
-  { name: 'Income', headline: "What's your monthly income?", sub: 'This is your income anchor — every other number is measured against it. Toggle off any deposit that isn\'t reliable income.' },
-  { name: 'Fixed Expenses', headline: 'Lock in your fixed costs', sub: 'These recur every month. Adjust any amount — your remaining budget updates instantly.' },
+  { name: 'Income', headline: "What's your monthly income?", sub: 'This is your income anchor: every other number is measured against it. Toggle off any deposit that isn\'t reliable income.' },
+  { name: 'Fixed Expenses', headline: 'Lock in your fixed costs', sub: 'These recur every month. Adjust any amount; your remaining budget updates instantly.' },
   { name: 'Savings', headline: 'Pay yourself first', sub: 'Set aside savings before you divide up spending money. Drag to see how it changes what\'s left.' },
   { name: 'Allocate', headline: 'Divide up your spending money', sub: '' },
   { name: 'Review', headline: 'Review your budget', sub: "Here's the whole plan. We check that everything adds up before you activate it." },
@@ -236,7 +236,7 @@ export default function WFBudgetPrototype({ startStep, onStep }: WFBudgetPrototy
       complete: remaining <= 0,
       behind: monthsAt === null || monthsAt > g.months,
       gap: monthsAt === null ? null : monthsAt - g.months,
-      completion: monthsAt === null ? '—' : monthLabel(monthsAt),
+      completion: monthsAt === null ? '–' : monthLabel(monthsAt),
       targetLabel: monthLabel(g.months),
     };
   }
@@ -445,7 +445,7 @@ export default function WFBudgetPrototype({ startStep, onStep }: WFBudgetPrototy
   const balanceColor = balances ? '#0B5030' : '#8E1B1B';
   const balanceSubColor = balances ? '#3C8A5C' : '#B14343';
   const balanceTitle = balances ? 'Your budget balances' : "Your budget doesn't balance";
-  const balanceSub = balances ? D(toAssign) + ' is still unassigned — everything adds up.' : "You've allocated " + D(Math.abs(toAssign)) + ' more than you have to spend. Adjust a category to continue.';
+  const balanceSub = balances ? D(toAssign) + ' is still unassigned; everything adds up.' : "You've allocated " + D(Math.abs(toAssign)) + ' more than you have to spend. Adjust a category to continue.';
 
   const reviewCards = [
     { label: cadence + ' income', value: D(income), color: '#292524' },
@@ -522,7 +522,7 @@ export default function WFBudgetPrototype({ startStep, onStep }: WFBudgetPrototy
       figure: fmt(g.saved) + ' of ' + fmt(g.target),
       barPct: pctStr(g.saved, g.target),
       barColor: p.complete ? '#0E7A42' : p.behind ? '#C06A0A' : '#0E7A42',
-      status: p.complete ? 'Goal reached' : p.behind ? 'Behind — needs ' + fmt(p.needed) + '/mo' : 'On pace',
+      status: p.complete ? 'Goal reached' : p.behind ? 'Behind, needs ' + fmt(p.needed) + '/mo' : 'On pace',
       pillColor: p.complete ? '#0E7A42' : p.behind ? '#C06A0A' : '#0E7A42',
       pillBg: p.complete ? '#E3EDE6' : p.behind ? '#FDF1E7' : '#E9F0EB',
       iconBg: p.complete ? '#E3EDE6' : '#EFEDE7',
@@ -546,7 +546,7 @@ export default function WFBudgetPrototype({ startStep, onStep }: WFBudgetPrototy
   const selPace = goalPace(selGoal, savingsVal);
   const selDerivedText = selPace.rate <= 0
     ? "Set an amount above and we'll tell you when you reach " + fmt(selGoal.target) + '.'
-    : 'At ' + D(savingsVal) + ' a month you reach ' + fmt(selGoal.target) + ' in ' + selPace.completion + (selPace.gap != null && selPace.gap > 0 ? ' — ' + selPace.gap + (selPace.gap === 1 ? ' month' : ' months') + ' later than your target.' : ' — on track for your ' + selPace.targetLabel + ' target.');
+    : 'At ' + D(savingsVal) + ' a month you reach ' + fmt(selGoal.target) + ' in ' + selPace.completion + (selPace.gap != null && selPace.gap > 0 ? ', ' + selPace.gap + (selPace.gap === 1 ? ' month' : ' months') + ' later than your target.' : ', on track for your ' + selPace.targetLabel + ' target.');
   const selDerivedShort = selPace.gap != null && selPace.gap > 0;
   const selShortfallLabel = 'Save ' + fmt(selPace.needed) + ' a month to hit it';
   const selDerivedBg = selPace.gap != null && selPace.gap > 0 ? '#FDF6EE' : '#E9F0EB';
@@ -578,7 +578,7 @@ export default function WFBudgetPrototype({ startStep, onStep }: WFBudgetPrototy
   const dContribs = og.contribs.map((c, i) => ({ date: c[0] + ', 2026', amount: fmt(c[1]), divider: i === 0 ? 'transparent' : '#F0EEE9' }));
   const dSummary = [
     { label: 'Monthly contribution', value: fmt(og.monthly) },
-    { label: 'Months remaining', value: op.complete ? '0' : String(op.monthsAt == null ? '—' : op.monthsAt) },
+    { label: 'Months remaining', value: op.complete ? '0' : String(op.monthsAt == null ? '–' : op.monthsAt) },
     { label: 'Projected completion', value: op.complete ? 'Complete' : op.completion },
   ];
   const dPauseLabel = og.monthly > 0 ? 'Pause contributions' : 'Resume contributions';
@@ -926,7 +926,7 @@ export default function WFBudgetPrototype({ startStep, onStep }: WFBudgetPrototy
 
                   {noBudget && (
                     <>
-                      <div style={{ fontSize: 13.5, lineHeight: 1.6, color: '#78716C', marginTop: 10 }}>You haven't set a budget yet. We'll pre-fill it from your last 12 months of spending — you can change any number.</div>
+                      <div style={{ fontSize: 13.5, lineHeight: 1.6, color: '#78716C', marginTop: 10 }}>You haven't set a budget yet. We'll pre-fill it from your last 12 months of spending. You can change any number.</div>
                       <div onClick={() => go(0)} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 9, padding: 15, borderRadius: 11, background: '#D71E28', color: '#fff', fontSize: 14.5, fontWeight: 700, cursor: 'pointer', marginTop: 16 }}>
                         Start a budget
                         <Ic path="M4 12h15M13 6l6 6-6 6" size={16} stroke="#fff" sw={2} />
@@ -1141,7 +1141,7 @@ export default function WFBudgetPrototype({ startStep, onStep }: WFBudgetPrototy
 
           {isSavings && (
             <div style={{ marginTop: 16 }}>
-              <div onClick={() => go(4)} style={{ display: 'inline-block', fontSize: 13.5, fontWeight: 700, color: '#57534E', cursor: 'pointer', textDecoration: 'underline', textUnderlineOffset: '3px' }}>Skip for now — I'll set this up later</div>
+              <div onClick={() => go(4)} style={{ display: 'inline-block', fontSize: 13.5, fontWeight: 700, color: '#57534E', cursor: 'pointer', textDecoration: 'underline', textUnderlineOffset: '3px' }}>Skip for now, I'll set this up later</div>
 
               <div style={{ background: '#fff', border: '1px solid #E7E5E4', borderRadius: 12, padding: '22px 24px', marginTop: 16 }}>
                 <div style={{ fontSize: 15, fontWeight: 700 }}>Where your income goes</div>

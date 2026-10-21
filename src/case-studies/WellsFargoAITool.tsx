@@ -25,12 +25,12 @@ const sections: CSSection[] = [
       <>
         <p style={serifP}>
           The tool's job is simple to state: let a PM ask a question about the bank's systems and get back something
-          they can act on — scope a piece of work, answer an engineer, or brief a room — without reading the
+          they can act on (scope a piece of work, answer an engineer, or brief a room) without reading the
           codebase or booking someone who has.
         </p>
         <p style={serifP}>
-          What shipped is a discovery surface with four ways in — a quick lookup, a detailed search, an API spec
-          view, and a generated mindmap — sitting over an index of the bank's repositories.
+          What shipped is a discovery surface with four ways in (a quick lookup, a detailed search, an API spec
+          view, and a generated mindmap) sitting over an index of the bank's repositories.
         </p>
       </>
     ),
@@ -43,8 +43,8 @@ const sections: CSSection[] = [
     body: (
       <>
         <p style={serifP}>
-          PMs were blocked on engineers. Any question that touched implementation — does this already exist, which
-          service owns it, what would it take — went into a queue or a Slack thread, and the alternative was hours
+          PMs were blocked on engineers. Any question that touched implementation (does this already exist, which
+          service owns it, what would it take) went into a queue or a Slack thread, and the alternative was hours
           of reading documentation that was either out of date or written for a different reader. The ask was to
           give PMs a way to answer these questions themselves.
         </p>
@@ -61,19 +61,19 @@ const sections: CSSection[] = [
     body: (
       <>
         <p style={{ ...serifP, margin: 0, maxWidth: '62ch' }}>
-          PMs weren't short of information. The documentation existed — that was the problem. There was too much of
+          PMs weren't short of information. The documentation existed. That was the problem. There was too much of
           it, written by engineers for engineers, and no way to tell which parts were still true. Hours of research
           produced a tentative answer the PM still wouldn't say out loud in front of engineering.
         </p>
         <p style={{ ...serifP, maxWidth: '62ch' }}>
-          So the thing being asked for wasn't retrieval. It was warrant — an answer solid enough to repeat in a
+          So the thing being asked for wasn't retrieval. It was warrant: an answer solid enough to repeat in a
           meeting, to put in a doc, or to build a scoping decision on. That distinction changed what the tool had to
           do: a search engine's job is to find the right thing; this tool's job was to hand back an answer{' '}
           <em>and</em> the grounds for believing it, in a form the PM could forward to an engineer as easily as act
           on.
         </p>
         <p style={{ ...serifP, maxWidth: '62ch' }}>
-          Which reframes failure too. The failure mode isn't a poor result — a PM can tell when nothing useful came
+          Which reframes failure too. The failure mode isn't a poor result; a PM can tell when nothing useful came
           back. The failure mode is a confident, plausible, slightly wrong answer that a PM repeats in a planning
           meeting. Everything in the design is arranged against that one outcome.
         </p>
@@ -90,7 +90,7 @@ const sections: CSSection[] = [
         <p style={serifP}>
           Before this, the answer lived in whatever channel you could reach: Confluence pages that documented a
           decision at the time it was made, and engineers you asked directly about what had changed since. Neither
-          is wrong — both just put the burden on knowing who to ask, and on that person being free.
+          is wrong; both just put the burden on knowing who to ask, and on that person being free.
         </p>
       </>
     ),
@@ -106,7 +106,7 @@ const sections: CSSection[] = [
         <p style={p10}>
           This is the inversion that made it different from designing a normal search product. A developer tool can
           afford to be wrong occasionally, because the developer will notice. A PM won't. So the tool couldn't be
-          allowed to summarise without showing what it summarised — the source had to travel with the claim, every
+          allowed to summarise without showing what it summarised; the source had to travel with the claim, every
           time, not behind a "view source" affordance that nobody clicks.
         </p>
         <h3 style={h3}>The index is always behind.</h3>
@@ -117,13 +117,13 @@ const sections: CSSection[] = [
         </p>
         <h3 style={h3}>It shouldn't finish the thought.</h3>
         <p style={p10}>
-          The tool could plausibly have answered "can we build this" — and it would have been wrong often enough to
+          The tool could plausibly have answered "can we build this", and it would have been wrong often enough to
           be dangerous, because that question depends on roadmap, capacity, and risk it has no view of. The design
           had to stop short of the decision and hand it over, without feeling evasive.
         </p>
         <h3 style={h3}>Access and provenance</h3>
         <p style={p10}>
-          Index scope and permission rules sat with engineering, so I won't characterise them here — the design
+          Index scope and permission rules sat with engineering, so I won't characterise them here; the design
           assumed every answer had to carry its source so a PM could check it against what they were allowed to see.
         </p>
         <h3 style={h3}>Three weeks.</h3>
@@ -144,7 +144,7 @@ const sections: CSSection[] = [
       <>
         <h3 style={h3}>Choosing the shape of the answer before asking the question.</h3>
         <p style={p10}>
-          Four modes sit above the search field — quick search, detailed search, API spec, and mindmap — and you
+          Four modes sit above the search field (quick search, detailed search, API spec, and mindmap) and you
           pick one first. The practical reason is that they return different things. The real reason is expectation:
           choosing "quick search" is the PM agreeing to a shallow answer, so a short result reads as the deal they
           made rather than the tool falling short. One box would have promised the same depth to every question.
@@ -152,7 +152,7 @@ const sections: CSSection[] = [
         <h3 style={h3}>Scope before query.</h3>
         <p style={p10}>
           Application context and repository are set before the search runs. Narrowing is partly a retrieval need,
-          but it does something else — it makes the answer attributable. A result from a named repository is a
+          but it does something else: it makes the answer attributable. A result from a named repository is a
           thing a PM can bring to the team that owns it. A result from "the codebase" is not.
         </p>
         <h3 style={h3}>Freshness sits in the filter row, not a footnote.</h3>
@@ -165,18 +165,18 @@ const sections: CSSection[] = [
         <p style={p10}>
           Results return the actual source with the relevant line highlighted, in the file it lives in. The claim
           and the evidence for it are the same object, so there's no gap between them for a summary to go wrong in.
-          A PM who can't read the code can still copy it to someone who can — which is the realistic use, and the
+          A PM who can't read the code can still copy it to someone who can, which is the realistic use, and the
           design supports it rather than pretending otherwise.
         </p>
         <h3 style={h3}>Related searches, because research is iterative.</h3>
         <p style={p10}>
           Chips at the foot of a result give the next question. The first query is rarely the right one when you
           don't yet have the vocabulary of the system you're asking about, and a dead end with no exit sends the PM
-          back to Slack — the exact behaviour the tool exists to replace.
+          back to Slack, the exact behaviour the tool exists to replace.
         </p>
         <h3 style={h3}>The mindmap is the artefact, not the answer.</h3>
         <p style={p10}>
-          Search settles a question. The mindmap produces something a PM can take into a room — a model of how
+          Search settles a question. The mindmap produces something a PM can take into a room: a model of how
           parts of a system relate, which is what they were building by hand out of documentation in the first
           place. It's the one output meant to leave the tool.
         </p>
@@ -192,7 +192,7 @@ const sections: CSSection[] = [
       <>
         <p style={serifP}>
           It shipped internally right before I left, and it was the first internal tool built by the India team. PM
-          teams across India and the US were using it when I left — by my estimate more than 50 people — though
+          teams across India and the US were using it when I left (by my estimate more than 50 people), though
           adoption was never formally measured. What I can honestly claim is the design and the reasoning behind it,
           not a measured result.
         </p>
@@ -216,14 +216,14 @@ const sections: CSSection[] = [
       <>
         <p style={serifP}>
           The search field assumes you already know the name of the thing you're looking for. Every screen I
-          designed works beautifully for a PM who can type <span style={mono15}>FormattedProcessorFactoryInitializer</span> —
+          designed works beautifully for a PM who can type <span style={mono15}>FormattedProcessorFactoryInitializer</span>,
           and that PM is the one who least needed the tool. The person the brief was actually about doesn't know the
           identifier; they know the capability, in customer language, and no amount of good retrieval bridges that
           if the entry point demands the engineering word.
         </p>
         <p style={serifP}>
-          I'd start the next version from a capability rather than an identifier — ask what the customer does, and
-          let the tool find the code — and I'd have caught it earlier by testing with a PM new to a system instead
+          I'd start the next version from a capability rather than an identifier: ask what the customer does, and
+          let the tool find the code. And I'd have caught it earlier by testing with a PM new to a system instead
           of one who already knew it.
         </p>
       </>
@@ -240,9 +240,9 @@ export default function WellsFargoAITool() {
           <span style={{ color: 'var(--accent)' }}>An</span> answer a PM can repeat out loud
         </>
       }
-      summary="Product managers at Wells Fargo were spending hours reading documentation to answer questions engineers could answer in a sentence. We built an internal tool that searches the bank's code repositories and returns an answer. I designed the surface — what it could claim, how it showed uncertainty, and where a human had to decide."
+      summary="Product managers at Wells Fargo were spending hours reading documentation to answer questions engineers could answer in a sentence. We built an internal tool that searches the bank's code repositories and returns an answer. I designed the surface: what it could claim, how it showed uncertainty, and where a human had to decide."
       meta={[
-        { label: 'Role', value: 'Product designer — designed the tool end to end' },
+        { label: 'Role', value: 'Product designer, designed the tool end to end' },
         { label: 'Team', value: 'Only designer, with a PM and the engineering team' },
         { label: 'Timeframe', value: '3 weeks' },
         { label: 'Platform', value: 'Web · Internal' },
@@ -291,7 +291,7 @@ export default function WellsFargoAITool() {
           ),
         },
       ]}
-      prev={{ kicker: 'Next case study', label: 'Cars24 — refer & earn', to: '/work/cars24-refer-earn' }}
+      prev={{ kicker: 'Next case study', label: 'Cars24: refer & earn', to: '/work/cars24-refer-earn' }}
       next={{ kicker: 'Back to', label: 'All work', to: '/' }}
     />
   );
