@@ -771,7 +771,7 @@ export default function OsmoAiCallAssistant() {
         </div>
       }
       headerAside={
-        <ScaledPhone width={205} height={432} scale={0.5}>
+        <ScaledPhone width={272} height={572} scale={0.66}>
           <OsmoOnboardingFlow startView="welcome" />
         </ScaledPhone>
       }
