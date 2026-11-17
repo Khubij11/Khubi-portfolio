@@ -248,7 +248,7 @@ const sections: CSSection[] = [
             </div>
           </div>
           <div style={{ fontSize: 15, lineHeight: 1.6, color: 'var(--ink)', marginTop: 16 }}>
-            My launch numbers: 16,193 visitors and 4,422 challans paid in the first 8 days.
+            My launch numbers: 16,193 visitors and 4,422 challans paid in the first 8 days, and ₹2,36,697 in challans settled.
           </div>
         </div>
       </>

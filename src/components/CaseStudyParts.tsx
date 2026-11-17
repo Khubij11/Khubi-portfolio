@@ -23,7 +23,7 @@ export type HeadStat = { value: string; label: string };
 export type HeadFact = { label: string; value: string };
 
 /** Stats row plus the Role / Team / Timeline / Platform strip, full width under the headline. */
-export function HeaderStatsAndFacts({ stats, facts }: { stats: HeadStat[]; facts: HeadFact[] }) {
+export function HeaderStatsAndFacts({ stats, facts, note }: { stats: HeadStat[]; facts: HeadFact[]; note?: string }) {
   return (
     <div style={{ marginTop: 48 }}>
       <div className="cs-head-grid">
@@ -34,6 +34,9 @@ export function HeaderStatsAndFacts({ stats, facts }: { stats: HeadStat[]; facts
           </div>
         ))}
       </div>
+      {note && (
+        <div style={{ fontFamily: 'var(--font-ui)', fontSize: 13, fontWeight: 600, letterSpacing: '0.05em', color: 'var(--muted)', marginTop: 16 }}>{note}</div>
+      )}
       <dl className="cs-head-grid" style={{ margin: '40px 0 0 0', padding: '18px 0', borderTop: '1px solid var(--hairline)', borderBottom: '1px solid var(--hairline)' }}>
         {facts.map((m) => (
           <div key={m.label}>

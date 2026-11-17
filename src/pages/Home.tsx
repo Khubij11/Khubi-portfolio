@@ -22,8 +22,8 @@ const allWork: WorkRowData[] = [
     owned: 'Owned the financial health surfaces end to end, not the scoring behind them.',
     platform: 'Web · Enterprise',
     domain: 'Fintech',
-    outcome: 'A redesign approved and queued for release',
-    evidence: 'Approved',
+    outcome: 'Section usage up 1.2% after launch',
+    evidence: 'Shipped · measured',
     to: '/work/wells-fargo-financial-health',
     thumb: { src: '/assets/thumbs/wf-financial-health.jpg', kind: 'web', tint: ['#F7E6E1', '#EFD3CA'] },
     tags: ['Complex data'],
@@ -111,18 +111,108 @@ const BAKE_PHOTOS = [
   { src: '/assets/bake-muffins.jpg', alt: 'Strawberry cream cheese muffins with fresh strawberries' },
 ];
 
-// Books: a small stack of 2026 reads; the full list opens on hover or tap.
+// Travel: two vintage-style postage stamps from trips, tucked above the bowl.
+const STAMPS = [
+  { place: 'Bali', src: '/assets/scene/stamp-bali.png', cls: 'otc-stamp-a' },
+  { place: 'Japan', src: '/assets/scene/stamp-japan.png', cls: 'otc-stamp-b' },
+  { place: 'Dubai', src: '/assets/scene/stamp-dubai.png', cls: 'otc-stamp-c' },
+];
+
+function TravelStamps() {
+  return (
+    <div className="otc-stamps" aria-label="Travel stamps from Bali, Japan and Dubai" role="img">
+      {STAMPS.map((t) => (
+        <img key={t.place} className={`otc-stamp ${t.cls}`} src={t.src} alt="" />
+      ))}
+    </div>
+  );
+}
+
+// Design tools: app tiles fan out of the pencil cup on hover or tap, like the photo tiles.
+const TOOL_TILES = [
+  {
+    name: 'Figma',
+    icon: (
+      <svg viewBox="0 0 38 57" width="20" height="30" aria-hidden="true">
+        <path d="M19 28.5a9.5 9.5 0 1 1 19 0 9.5 9.5 0 0 1-19 0z" fill="#1ABCFE" />
+        <path d="M0 47.5A9.5 9.5 0 0 1 9.5 38H19v9.5a9.5 9.5 0 1 1-19 0z" fill="#0ACF83" />
+        <path d="M19 0v19h9.5a9.5 9.5 0 1 0 0-19H19z" fill="#FF7262" />
+        <path d="M0 9.5A9.5 9.5 0 0 0 9.5 19H19V0H9.5A9.5 9.5 0 0 0 0 9.5z" fill="#F24E1E" />
+        <path d="M0 28.5A9.5 9.5 0 0 0 9.5 38H19V19H9.5A9.5 9.5 0 0 0 0 28.5z" fill="#A259FF" />
+      </svg>
+    ),
+  },
+  {
+    name: 'Claude',
+    icon: (
+      <svg viewBox="-12 -12 24 24" width="30" height="30" aria-hidden="true">
+        {Array.from({ length: 12 }, (_, i) => (
+          <line key={i} x1="0" y1="0" x2="0" y2={i % 2 ? -8.5 : -10.5} stroke="#D97757" strokeWidth="2.4" strokeLinecap="round" transform={`rotate(${i * 30})`} />
+        ))}
+      </svg>
+    ),
+  },
+  {
+    name: 'Notion',
+    icon: (
+      <svg viewBox="0 0 28 28" width="28" height="28" aria-hidden="true">
+        <rect x="2" y="2" width="24" height="24" rx="4" fill="#FFFFFF" stroke="#171A18" strokeWidth="2" />
+        <text x="14" y="20.5" textAnchor="middle" fontFamily="Georgia, serif" fontWeight="700" fontSize="16" fill="#171A18">N</text>
+      </svg>
+    ),
+  },
+];
+
+function DesignTools() {
+  const [open, setOpen] = useState(false);
+  return (
+    <button
+      type="button"
+      className={`otc-toolsbtn${open ? ' is-open' : ''}`}
+      aria-expanded={open}
+      aria-label={`Design tools I use: ${TOOL_TILES.map((t) => t.name).join(', ')}`}
+      onClick={() => setOpen((o) => !o)}
+      onBlur={() => setOpen(false)}
+    >
+      <span className="tool-tiles" aria-hidden="true">
+        {TOOL_TILES.map((t) => (
+          <span key={t.name} className="tool-tile">
+            <span className="tool-tile-icon">{t.icon}</span>
+            <span className="tool-tile-name">{t.name}</span>
+          </span>
+        ))}
+      </span>
+      <span className="otc-obj tools-art">
+        <img className="tools-base" src="/assets/scene/tools.png" alt="" />
+        <img className="tools-pencils" src="/assets/scene/tools.png" alt="" />
+      </span>
+    </button>
+  );
+}
+
+// Moka pot: on hover the lid flips open, steam rises and a cup slides in beside it.
+function MokaPot() {
+  return (
+    <span className="otc-mokabox" aria-hidden="true">
+      <img className="otc-cup" src="/assets/scene/cup.png" alt="" />
+      <span className="otc-obj otc-moka">
+        <img className="moka-base" src="/assets/scene/moka.png" alt="" />
+        <span className="moka-mouth" />
+        <img className="moka-lid" src="/assets/scene/moka.png" alt="" />
+        <span className="moka-steam"><i /><i /><i /></span>
+      </span>
+    </span>
+  );
+}
+
+// Books: a small stack of 2026 reads; the top six open on hover or tap.
 const BOOKS_ALL = [
   'Pachinko',
   'Butter',
   'The Kamogawa Food Detectives',
   'The Silent Patient',
-  'Verity',
-  'The Crooked House',
   'The Dust Child',
   'Then She Was Gone',
-  'The Only One Left',
-  'The September Child',
 ];
 
 function BookStack() {
@@ -141,7 +231,7 @@ function BookStack() {
         <img className="otc-book otc-book-pachinko" src="/assets/scene/pachinko.png" alt="" />
       </span>
       <span className="otc-shelf" aria-hidden="true">
-        <span className="otc-shelf-title">Read in 2026</span>
+        <span className="otc-shelf-title">Top 6 of 2026 so far</span>
         {BOOKS_ALL.map((t) => (
           <span key={t} className="otc-shelf-item">{t}</span>
         ))}
@@ -157,6 +247,9 @@ function IllustrationCard() {
       className="illo-card"
       style={{
         minWidth: 0,
+        width: '100%',
+        maxWidth: 400,
+        justifySelf: 'end',
         position: 'relative',
         zIndex: 2,
       }}
@@ -167,10 +260,12 @@ function IllustrationCard() {
       <div className="otc-stage">
         {/* Layout traced from the Figma scene: every position is a % of the stage, so it scales as one piece. */}
         <span className="otc-moon" aria-hidden="true" />
+        <span className="otc-moon otc-moon-lilac" aria-hidden="true" />
         <img className="otc-pill" src="/assets/khubi-pill.jpg" alt="Khubi in a cap, smiling, by the lake with Mount Fuji and cherry blossoms behind" />
         <BookStack />
-        <img className="otc-obj otc-moka" src="/assets/scene/moka.png" alt="" aria-hidden="true" />
-        <img className="otc-obj otc-tools" src="/assets/scene/tools.png" alt="" aria-hidden="true" />
+        <MokaPot />
+        <DesignTools />
+        <TravelStamps />
         <a
           className="bake-link otc-bake"
           href="https://www.instagram.com/pixiedust.bakery/"
@@ -190,7 +285,7 @@ function IllustrationCard() {
             style={{
               position: 'absolute',
               left: 10,
-              top: 'calc(100% + 104px)',
+              top: 'calc(100% + 84px)',
               zIndex: 4,
               width: 190,
               padding: '10px 12px',
@@ -244,23 +339,99 @@ function IllustrationCard() {
       <style>{`
         .otc-stage { position: relative; aspect-ratio: 3963 / 4718; margin-top: 14px; }
         /* Striped circle tucked behind the photo so only a crescent shows past its top-left edge. */
+        /* Striped circles tucked behind the photo so only a crescent shows: red top-left, lilac bottom-right. */
         .otc-moon {
-          position: absolute; left: 5.5%; top: -4.5%; width: 73.15%; aspect-ratio: 1; border-radius: 50%; z-index: 0;
-          background-image: repeating-linear-gradient(58deg, rgba(190,66,41,0.55) 0 7px, rgba(190,66,41,0) 7px 17px);
+          position: absolute; left: 4%; top: -3%; width: 46%; aspect-ratio: 1; border-radius: 50%; z-index: 0;
+          background-image: repeating-linear-gradient(58deg, rgba(190,66,41,0.55) 0 6px, rgba(190,66,41,0) 6px 15px);
+        }
+        .otc-moon-lilac {
+          left: auto; top: auto; right: 4%; bottom: -3%;
+          background-image: repeating-linear-gradient(58deg, rgba(139,108,207,0.6) 0 6px, rgba(139,108,207,0) 6px 15px);
         }
         .otc-pill { position: absolute; left: 13.93%; top: 0; width: 73.15%; height: 100%; object-fit: cover; border-radius: 9999px; z-index: 1; display: block; }
         .otc-obj { position: absolute; display: block; height: auto; filter: drop-shadow(0 10px 12px rgba(23,26,24,0.16)); transition: transform 300ms cubic-bezier(.2,.8,.2,1); }
         .otc-garden { position: absolute; left: 77.54%; top: 35.44%; width: 17.84%; z-index: 2; }
-        .otc-books { position: absolute; left: 51%; top: 1.36%; width: 24.47%; height: 18.9%; z-index: 3; margin: 0; padding: 0; border: 0; background: none; cursor: pointer; text-align: left; }
-        .otc-bake { position: absolute; left: 12.52%; top: 79.86%; width: 21.25%; z-index: 4; }
-        .otc-moka { left: 4.52%; top: 17.51%; width: 17.84%; z-index: 5; }
-        .otc-tools { left: 75.65%; top: 71.2%; width: 19.56%; z-index: 6; }
+        .otc-books { position: absolute; left: 56%; top: -5.5%; width: 24.47%; height: 18.9%; z-index: 3; margin: 0; padding: 0; border: 0; background: none; cursor: pointer; text-align: left; }
+        .otc-bake { position: absolute; left: 21%; top: 84.5%; width: 21.25%; z-index: 4; }
+        .otc-mokabox { position: absolute; left: 4.52%; top: 13.5%; width: 17.84%; z-index: 5; display: block; }
+        .otc-mokabox .otc-moka { position: relative; width: 100%; transform: scaleX(-1); }
+        .otc-moka img, .tools-art img { display: block; width: 100%; height: auto; }
+        /* The lid is the same picture clipped to its top, hinged by the handle. */
+        .moka-base { clip-path: polygon(0 0, 10% 0, 10% 20%, 71% 20%, 71% 0, 100% 0, 100% 100%, 0 100%); }
+        .moka-lid { position: absolute; inset: 0; clip-path: polygon(10% 0, 71% 0, 71% 20%, 10% 20%); transform-origin: 74% 17%; transition: transform 480ms cubic-bezier(.3,1.4,.5,1); }
+        .moka-mouth { position: absolute; left: 14%; top: 17%; width: 54%; height: 6%; border-radius: 50%; background: #2B2420; opacity: 0; transition: opacity 200ms ease; }
+        .otc-mokabox:hover .moka-lid { transform: translateY(-6%) rotate(70deg); }
+        .otc-mokabox:hover .moka-mouth { opacity: 1; }
+        .moka-steam { position: absolute; left: 24%; top: -14%; width: 40%; height: 32%; pointer-events: none; }
+        .moka-steam i {
+          position: absolute; bottom: 0; width: 22%; height: 80%; border-radius: 50%;
+          border-left: 2px solid rgba(110,100,92,0.5); filter: blur(0.5px); opacity: 0;
+        }
+        .moka-steam i:nth-child(1) { left: 10%; }
+        .moka-steam i:nth-child(2) { left: 40%; height: 100%; }
+        .moka-steam i:nth-child(3) { left: 70%; }
+        .otc-mokabox:hover .moka-steam i { animation: moka-steam 1.8s ease-out 320ms infinite; }
+        .otc-mokabox:hover .moka-steam i:nth-child(2) { animation-delay: 700ms; }
+        .otc-mokabox:hover .moka-steam i:nth-child(3) { animation-delay: 1050ms; }
+        @keyframes moka-steam {
+          0% { opacity: 0; transform: translateY(20%) scaleY(0.6); }
+          30% { opacity: 1; }
+          100% { opacity: 0; transform: translate(8%, -55%) scaleY(1.1); }
+        }
+        .otc-cup { position: absolute; left: 72%; top: 64%; width: 62%; opacity: 0; transform: translateX(40%) rotate(8deg); transition: opacity 220ms ease, transform 360ms cubic-bezier(.2,.8,.2,1); filter: drop-shadow(0 8px 10px rgba(23,26,24,0.18)); z-index: 1; }
+        .otc-mokabox:hover .otc-cup { opacity: 1; transform: none; }
+        .otc-toolsbtn { position: absolute; left: 75.65%; top: 71.2%; width: 19.56%; z-index: 6; margin: 0; padding: 0; border: 0; background: none; cursor: pointer; }
+        .otc-toolsbtn .otc-obj { position: relative; width: 100%; }
+        /* Pencils are the same picture clipped to what sticks out of the cup, so they can jiggle. */
+        .tools-base { clip-path: polygon(52% 0, 100% 0, 100% 100%, 0 100%, 0 40%, 41% 40%, 41% 23%, 52% 23%); }
+        .tools-pencils { position: absolute; inset: 0; clip-path: polygon(0 0, 52% 0, 52% 23%, 41% 23%, 41% 40%, 0 40%); transform-origin: 26% 42%; }
+        .otc-toolsbtn:hover .tools-art, .otc-toolsbtn:focus-visible .tools-art { transform: translateY(-4px) rotate(-2deg); }
+        .otc-toolsbtn:hover .tools-pencils, .otc-toolsbtn:focus-visible .tools-pencils { animation: pencil-jiggle 700ms ease-in-out; }
+        @keyframes pencil-jiggle {
+          0%, 100% { transform: none; }
+          25% { transform: rotate(-5deg); }
+          50% { transform: rotate(4deg); }
+          75% { transform: rotate(-2deg); }
+        }
+        .tool-tiles { position: absolute; right: 10%; bottom: calc(100% + 4px); display: flex; pointer-events: none; }
+        .tool-tile {
+          display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px;
+          width: 58px; height: 64px; background: #FFFFFF; border-radius: 12px;
+          box-shadow: 0 14px 22px -14px rgba(23,26,24,0.5), 0 0 0 1px rgba(23,26,24,0.06);
+          opacity: 0; transform: translateY(8px); transition: opacity 200ms ease, transform 280ms cubic-bezier(.2,.8,.2,1);
+        }
+        .tool-tile + .tool-tile { margin-left: -10px; }
+        .tool-tile-icon { display: flex; height: 30px; align-items: center; }
+        .tool-tile-name { font-family: var(--font-mono); font-size: 8.5px; letter-spacing: 0.06em; color: var(--secondary); }
+        .otc-toolsbtn:hover .tool-tile, .otc-toolsbtn:focus-visible .tool-tile, .otc-toolsbtn.is-open .tool-tile { opacity: 1; }
+        .otc-toolsbtn:hover .tool-tile:nth-child(1), .otc-toolsbtn:focus-visible .tool-tile:nth-child(1), .otc-toolsbtn.is-open .tool-tile:nth-child(1) { transform: translateY(4px) rotate(-9deg); }
+        .otc-toolsbtn:hover .tool-tile:nth-child(2), .otc-toolsbtn:focus-visible .tool-tile:nth-child(2), .otc-toolsbtn.is-open .tool-tile:nth-child(2) { transform: translateY(-6px) rotate(-2deg); transition-delay: 40ms; }
+        .otc-toolsbtn:hover .tool-tile:nth-child(3), .otc-toolsbtn:focus-visible .tool-tile:nth-child(3), .otc-toolsbtn.is-open .tool-tile:nth-child(3) { transform: translateY(2px) rotate(8deg); transition-delay: 80ms; }
+        .otc-toolsbtn:hover, .otc-toolsbtn:focus-visible, .otc-toolsbtn.is-open, .otc-mokabox:hover { z-index: 10; }
+        .otc-stamps { position: absolute; left: -1%; top: 50%; width: 36%; aspect-ratio: 1.4; z-index: 3; cursor: default; }
+        .otc-stamps:hover { z-index: 10; }
+        .otc-stamp {
+          position: absolute; width: 32%; height: auto; display: block;
+          filter: drop-shadow(0 6px 8px rgba(23,26,24,0.18));
+          transition: transform 320ms cubic-bezier(.2,.8,.2,1), filter 320ms ease;
+        }
+        .otc-stamp-a { left: 10%; top: 26%; transform: rotate(-8deg); }
+        .otc-stamp-b { left: 32%; top: 10%; transform: rotate(2deg); z-index: 2; }
+        .otc-stamp-c { left: 54%; top: 26%; transform: rotate(9deg); }
+        /* Hover: the stamps lift and fan apart, like peeling them off a postcard. */
+        .otc-stamps:hover .otc-stamp { filter: drop-shadow(0 14px 14px rgba(23,26,24,0.22)); }
+        .otc-stamps:hover .otc-stamp-a { transform: translate(-16%, -4%) rotate(-15deg) scale(1.06); }
+        .otc-stamps:hover .otc-stamp-b { transform: translateY(-14%) rotate(0deg) scale(1.08); }
+        .otc-stamps:hover .otc-stamp-c { transform: translate(16%, -4%) rotate(15deg) scale(1.06); }
+        /* Objects drawn 15% larger than traced, each growing from its own centre so the layout holds. */
+        .otc-mokabox, .otc-books, .otc-bake { scale: 1.15; }
+        .otc-toolsbtn, .otc-garden { scale: 1.3; }
+        .tool-tiles { scale: 0.77; transform-origin: bottom right; }
+        .otc-shelf { scale: 0.87; transform-origin: top right; }
         .otc-bake .bake-whisk, .otc-garden .garden-plant { position: static; width: 100%; }
-        .otc-moka:hover { transform: rotate(-4deg) translateY(-4px); }
-        .otc-tools:hover { transform: rotate(3deg) translateY(-4px); }
         .otc-book-pile { position: absolute; inset: 0; display: block; }
         .otc-book { position: absolute; top: 0; display: block; height: auto; filter: drop-shadow(0 10px 12px rgba(23,26,24,0.18)); transition: transform 300ms cubic-bezier(.2,.8,.2,1); }
-        .otc-book-pachinko { left: 0; width: 55.3%; }
+        .otc-book-pachinko { left: -4%; width: 60%; }
         .otc-book-silent { left: 19.6%; width: 80.4%; top: 1.6%; }
         .otc-books:hover .otc-book-pachinko, .otc-books.is-open .otc-book-pachinko { transform: rotate(-4deg) translateY(-6px); }
         .otc-books:hover .otc-book-silent, .otc-books.is-open .otc-book-silent { transform: rotate(4deg) translateX(6px); }
@@ -280,7 +451,7 @@ function IllustrationCard() {
           color: var(--muted); margin-bottom: 4px;
         }
         .otc-shelf-item { font-family: var(--font-serif); font-size: 14px; line-height: 1.35; color: var(--ink); }
-        @media (prefers-reduced-motion: reduce) { .otc-book, .otc-shelf, .otc-obj { transition: none; } }
+        @media (prefers-reduced-motion: reduce) { .otc-book, .otc-shelf, .otc-obj, .tool-tile, .otc-cup, .otc-stamp, .moka-lid { transition: none !important; } .moka-steam i, .tools-pencils { animation: none !important; } }
         .bake-whisk { transform-origin: 50% 85%; transition: transform 300ms ease; }
         .bake-caption { display: grid; }
         .bake-cap, .bake-handle { grid-area: 1 / 1; transition: opacity 200ms ease, transform 200ms ease; }
@@ -309,12 +480,12 @@ function IllustrationCard() {
         @keyframes garden-dig { from { transform: rotate(-10deg); } to { transform: rotate(8deg) translateY(-3px); } }
         .garden-photos { position: absolute; right: -6px; top: calc(100% + 12px); z-index: 3; display: flex; pointer-events: none; }
         .polaroid {
-          display: block; box-sizing: content-box; width: 84px; height: 84px; object-fit: cover;
-          padding: 5px 5px 16px; background: #FFFFFF; border-radius: 2px;
+          display: block; box-sizing: content-box; width: 64px; height: 64px; object-fit: cover;
+          padding: 4px 4px 12px; background: #FFFFFF; border-radius: 2px;
           box-shadow: 0 14px 22px -14px rgba(23,26,24,0.5), 0 0 0 1px rgba(23,26,24,0.06);
           opacity: 0; transform: translateY(-8px); transition: opacity 200ms ease, transform 280ms cubic-bezier(.2,.8,.2,1);
         }
-        .polaroid + .polaroid { margin-left: -24px; }
+        .polaroid + .polaroid { margin-left: -18px; }
         .bake-photos { position: absolute; left: -6px; top: calc(100% + 12px); z-index: 3; display: flex; pointer-events: none; }
         .bake-link:hover .bake-photo, .bake-link:focus-visible .bake-photo { opacity: 1; }
         .bake-link:hover .bake-photo:nth-child(1), .bake-link:focus-visible .bake-photo:nth-child(1) { transform: translateY(4px) rotate(-10deg); }
@@ -495,7 +666,7 @@ export default function Home() {
             display: 'grid',
             gridTemplateColumns: 'minmax(0, 1.15fr) minmax(300px, 0.85fr)',
             gap: '48px 64px',
-            alignItems: 'start',
+            alignItems: 'center',
           }}
         >
           <div style={{ minWidth: 0 }}>
