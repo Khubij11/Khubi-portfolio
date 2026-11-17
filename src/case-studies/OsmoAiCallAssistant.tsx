@@ -115,9 +115,11 @@ const failureFlows: { title: string; lines: FlowLine[]; notes: string[] }[] = [
 ];
 
 const tintBox: React.CSSProperties = {
-  background: 'var(--lilac-soft)',
-  borderLeft: '3px solid var(--accent)',
-  padding: '28px 32px',
+  background: '#FFFFFF',
+  border: '1px solid var(--hairline)',
+  borderRadius: 8,
+  padding: 'clamp(24px, 3.5vw, 36px)',
+  boxShadow: '0 1px 2px rgba(23,26,24,0.04), 0 24px 40px -32px rgba(23,26,24,0.25)',
   marginTop: 32,
 };
 
@@ -262,45 +264,56 @@ const sections: CSSection[] = [
 
         <div style={tintBox}>
           <div style={tintKicker}>The reframe</div>
-          <div style={{ borderLeft: '2px solid var(--accent)', padding: '4px 0 4px 22px', margin: '18px 0 0 0' }}>
-            <p style={{ fontFamily: 'var(--font-serif)', fontWeight: 300, fontSize: 21, lineHeight: 1.5, color: 'var(--ink)', margin: 0, maxWidth: '46ch' }}>
-              The instinct with a low-trust product is to explain more. I did the opposite: fewer questions, not more
-              explanation.
-            </p>
-          </div>
+          <p style={{ fontFamily: 'var(--font-serif)', fontWeight: 300, fontSize: 'clamp(24px, 2.8vw, 30px)', lineHeight: 1.3, letterSpacing: '-0.02em', color: 'var(--ink)', margin: '14px 0 0 0', maxWidth: '34ch' }}>
+            The instinct with a low-trust product is to explain more. I did the opposite:{' '}
+            <span style={{ color: 'var(--accent)' }}>fewer questions, not more explanation.</span>
+          </p>
           <p style={{ ...serifP, maxWidth: '62ch' }}>
             That decision sat upstream of the business's only real lever at this stage. A user who abandons onboarding
             never reaches a paywall, so onboarding completion is the ceiling on everything that comes after it,
             including the users who convert to the paid tier. It now sits at 90%.
           </p>
 
-          <h3 style={h3Style}>What I didn't do</h3>
-          <p style={{ ...serifP, marginTop: 10, maxWidth: '62ch' }}>
-            A few directions looked reasonable and got cut once weighed against the same question: does this ask for
-            trust before the product has earned any?
-          </p>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 14, marginTop: 18, maxWidth: '62ch' }}>
-            <div style={{ borderLeft: '2px solid var(--hairline)', paddingLeft: 18 }}>
-              <div style={{ fontSize: 15, color: 'var(--ink)' }}>A full setup questionnaire up front</div>
-              <div style={{ ...serifP, fontSize: 15, margin: '4px 0 0 0' }}>
-                It would have asked for trust before Tanya had answered a single call. Every field was a trust
-                withdrawal, and a user who abandons onboarding never reaches the point where the product proves itself.
-              </div>
+          <div style={{ borderTop: '1px solid var(--hairline)', marginTop: 32, paddingTop: 28 }}>
+            <h3 style={{ ...h3Style, marginTop: 0 }}>What I didn't do</h3>
+            <p style={{ ...serifP, marginTop: 10, maxWidth: '62ch' }}>
+              A few directions looked reasonable and got cut once weighed against the same question: does this ask for
+              trust before the product has earned any?
+            </p>
+            <div className="os-cut-grid">
+              {[
+                {
+                  t: 'A full setup questionnaire up front',
+                  b: 'It would have asked for trust before Tanya had answered a single call, and a user who abandons onboarding never reaches the point where the product proves itself.',
+                },
+                {
+                  t: 'More explanation before setup',
+                  b: 'The "How it works?" link stays on each step for anyone who wants it, but no one has to read anything before the app works.',
+                },
+                {
+                  t: 'Asking for setup before showing the value',
+                  b: 'The first screen makes one claim and proves it (Tanya mid-call) with nothing on it to choose. Every technical step comes after, so each one has a reason.',
+                },
+              ].map((c) => (
+                <div key={c.t} className="os-cut">
+                  <div><span className="os-cut-tag">Cut</span></div>
+                  <div>
+                    <div style={{ fontSize: 16, fontWeight: 500, color: 'var(--ink)', lineHeight: 1.35 }}>{c.t}</div>
+                    <div style={{ ...serifP, fontSize: 15, lineHeight: 1.55, margin: '6px 0 0 0', maxWidth: '60ch' }}>{c.b}</div>
+                  </div>
+                </div>
+              ))}
             </div>
-            <div style={{ borderLeft: '2px solid var(--hairline)', paddingLeft: 18 }}>
-              <div style={{ fontSize: 15, color: 'var(--ink)' }}>More explanation before setup</div>
-              <div style={{ ...serifP, fontSize: 15, margin: '4px 0 0 0' }}>
-                The instinct with a low-trust product is to explain more. I did the opposite. The "How it works?" link
-                stays on each step for anyone who wants it, but no one has to read anything before the app works.
-              </div>
-            </div>
-            <div style={{ borderLeft: '2px solid var(--hairline)', paddingLeft: 18 }}>
-              <div style={{ fontSize: 15, color: 'var(--ink)' }}>Asking for setup before showing the value</div>
-              <div style={{ ...serifP, fontSize: 15, margin: '4px 0 0 0' }}>
-                The first screen makes one claim and proves it (Tanya mid-call) with nothing on it to choose. Every
-                technical step comes after, so each one has a reason.
-              </div>
-            </div>
+            <style>{`
+              .os-cut-grid { display: grid; grid-template-columns: 1fr; gap: 10px; margin-top: 20px; }
+              .os-cut { display: grid; grid-template-columns: 1fr; gap: 10px; background: var(--paper); border-radius: 6px; padding: 18px 20px 20px; }
+              @media (min-width: 640px) { .os-cut { grid-template-columns: 64px 1fr; gap: 16px; } }
+              .os-cut-tag {
+                display: inline-block; font-family: var(--font-ui); font-size: 11px; font-weight: 600; letter-spacing: 0.08em;
+                text-transform: uppercase; color: var(--muted); border: 1px solid var(--hairline); border-radius: 999px; padding: 2px 9px;
+                text-decoration: line-through; text-decoration-color: var(--accent);
+              }
+            `}</style>
           </div>
         </div>
       </>
@@ -757,7 +770,7 @@ export default function OsmoAiCallAssistant() {
         </div>
       }
       headerAside={
-        <ScaledPhone width={272} height={572} scale={0.66}>
+        <ScaledPhone width={322} height={677} scale={0.78}>
           <OsmoOnboardingFlow startView="welcome" />
         </ScaledPhone>
       }

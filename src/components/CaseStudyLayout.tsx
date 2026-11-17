@@ -11,7 +11,7 @@ const kickerStyle: React.CSSProperties = {
 };
 
 /** Header width when a visual sits beside the headline, so text, visual and footer share edges. */
-const HEADER_WITH_ASIDE_MAX = 960;
+const HEADER_TEXT_MAX = 760;
 
 export interface MetaItem {
   label: string;
@@ -112,7 +112,8 @@ export default function CaseStudyLayout({
 
   return (
     <main style={{ margin: '0 auto', maxWidth: 1344, padding: '0 clamp(20px, 5vw, 72px) 96px' }}>
-      <div id={overview?.id} style={{ display: 'flex', flexWrap: 'wrap', gap: '32px 40px', padding: '72px 0 0 0', ...(headerAside ? { maxWidth: HEADER_WITH_ASIDE_MAX, alignItems: 'center', justifyContent: 'space-between' } : {}) }}>
+      <div className={headerAside ? 'cs-head-wrap' : undefined} style={headerAside ? { paddingTop: 72 } : undefined}>
+      <div id={overview?.id} className={headerAside ? 'cs-head-text' : undefined} style={{ display: 'flex', flexWrap: 'wrap', gap: '32px 40px', padding: headerAside ? 0 : '72px 0 0 0' }}>
         {meta.length > 0 && (
           <div style={{ flex: '0 0 200px', display: 'flex', flexDirection: 'column', gap: 22 }}>
             {meta.map((m) => (
@@ -123,7 +124,7 @@ export default function CaseStudyLayout({
             ))}
           </div>
         )}
-        <div style={headerAside ? { flex: '1 1 520px', maxWidth: 640 } : { flex: '1 1 520px' }}>
+        <div style={{ flex: '1 1 520px' }}>
           <div style={kickerStyle}>{kicker}</div>
           <h1
             style={{
@@ -167,10 +168,34 @@ export default function CaseStudyLayout({
           )}
           {afterMetrics}
         </div>
-        {headerAside && <div className="cs-header-aside" style={{ flex: '0 0 auto' }}>{headerAside}</div>}
       </div>
-
-      {headerFooter && <div style={{ maxWidth: headerAside ? HEADER_WITH_ASIDE_MAX : undefined }}>{headerFooter}</div>}
+      {headerAside && <div className="cs-header-aside">{headerAside}</div>}
+      {headerFooter && <div className={headerAside ? 'cs-head-foot' : undefined}>{headerFooter}</div>}
+      {headerAside && (
+        <style>{`
+          /* Text, stats and facts share the left column; the visual gets the right one, against the page edge. */
+          .cs-head-wrap {
+            display: grid; grid-template-columns: minmax(0, 1fr); grid-template-areas: "text" "aside" "foot"; row-gap: 32px;
+            /* Reach to the page edge so a wide browser mockup can bleed off it, cropped rather than shrunk. */
+            margin-right: calc(-1 * clamp(20px, 5vw, 72px)); padding-right: clamp(20px, 5vw, 72px); overflow-x: clip;
+          }
+          .cs-header-aside { justify-self: center; }
+          .cs-header-aside:has(.hd-web) { justify-self: start; }
+          .cs-head-text { grid-area: text; }
+          .cs-header-aside { grid-area: aside; }
+          .cs-head-foot { grid-area: foot; }
+          .cs-head-foot > div:first-child { margin-top: 0 !important; }
+          @media (min-width: 900px) {
+            .cs-head-wrap {
+              grid-template-columns: minmax(0, ${HEADER_TEXT_MAX}px) auto; justify-content: space-between; column-gap: 56px; row-gap: 40px;
+              grid-template-areas: "text aside" "foot aside";
+            }
+            .cs-header-aside { align-self: center; justify-self: end; }
+            .cs-header-aside:has(.hd-web) { justify-self: start; width: 420px; }
+          }
+        `}</style>
+      )}
+      </div>
 
       {/* The facts strip already ends on a rule, so skip the divider when it is present. */}
       {!headerFooter && <div style={{ borderTop: '1px solid var(--hairline)', marginTop: 56 }} />}
@@ -231,7 +256,7 @@ export default function CaseStudyLayout({
               }}
               style={
                 s.tinted
-                  ? { background: 'var(--lilac-soft)', borderLeft: '3px solid var(--accent)', padding: '28px 32px', marginBottom: 56 }
+                  ? { background: '#FFFFFF', border: '1px solid var(--hairline)', borderRadius: 8, padding: 'clamp(24px, 3.5vw, 36px)', boxShadow: '0 1px 2px rgba(23,26,24,0.04), 0 24px 40px -32px rgba(23,26,24,0.25)', marginBottom: 56 }
                   : { paddingBottom: 56 }
               }
             >
