@@ -200,41 +200,35 @@ const sections: CSSection[] = [
     id: 'os-problem',
     number: '02',
     title: 'The problem',
-    heading: 'Every form field is a trust withdrawal',
+    heading: 'An assistant that picks up, so you don’t have to',
     body: (
       <>
         <p style={serifP}>
-          The product's job is simple to state: let someone hand their phone over to an assistant that answers,
-          screens, and books on their behalf, and trust it enough to actually turn it on.
+          OsmO is an AI call assistant. It answers your phone, screens unknown numbers and sales calls, takes
+          messages, makes reservations, and summarises the day's calls. The calls you'd rather not deal with stop
+          taking up your time, and the ones that matter still reach you.
         </p>
         <p style={serifP}>
-          What we designed separates two kinds of asking. Identity and verification (a name, an OTP, a voice to
-          answer in) are table stakes, and they stay short. Everything that requires real trust is left for the user
-          to add in their own time, once the thing already works.
+          Most call apps stop at telling you who's calling. Caller ID and spam blocking, the Truecaller model, can
+          label or filter a call, but you still have to pick up, decline, or call back. AI made it possible to go a
+          step further: an assistant that actually answers, finds out what the caller wants, and handles it, whether
+          that's taking a message or booking an appointment.
         </p>
         <p style={serifP}>
-          <strong style={{ color: 'var(--ink)', fontWeight: 500 }}>My role:</strong> I was the sole designer on a
-          three-person team: one PM, one designer, one developer. I audited the generated screens, rebuilt the
-          information architecture, and designed the onboarding and call-blocking flows, then scheduling and
-          appointments, phase by phase.
+          <strong style={{ color: 'var(--ink)', fontWeight: 500 }}>My role:</strong> I was the only designer, working
+          with one PM and one developer over about two months. I designed the product end to end: the information
+          architecture, onboarding, call screening and blocking, then scheduling and appointments, phase by phase,
+          starting from a set of screens that had been generated one at a time with no design pass.
         </p>
         <p style={{ ...serifP, maxWidth: '62ch' }}>
-          The obvious diagnosis was structural: screens had been generated one at a time by someone without a design
-          background, each with its own idea of where the user should land next. Try to check your call log from the
-          appointments screen and there was no way back short of force-closing the app. That was real, and fixing it
-          was necessary, but it wasn't the interesting problem, and it wasn't what was actually costing the business
-          users.
-        </p>
-        <p style={{ ...serifP, maxWidth: '62ch' }}>
-          The deeper issue surfaced once onboarding was rebuilt around what OsmO actually asks of someone: not just
-          "let this app screen your calls," but "let this app speak and act as you." Every question in a longer form
-          wasn't neutral friction to push through; it was a fresh request to trust something that answers your phone
-          and talks to people on your behalf. Every form field wasn't a UX cost. It was a trust withdrawal.
+          An assistant that speaks for you asks for far more trust than one that filters calls. People need to feel
+          safe letting it answer, know what it will say on their behalf, and see what happened afterwards. So the
+          problem was never a single screen or flow. It was designing the whole product around that trust, from the
+          first minute of setup to the summary of the day's calls.
         </p>
         <blockquote style={{ borderLeft: '2px solid var(--accent)', padding: '4px 0 4px 22px', margin: '40px 0 0 0' }}>
           <p style={{ fontFamily: 'var(--font-serif)', fontWeight: 300, fontSize: 'clamp(24px, 3vw, 30px)', lineHeight: 1.3, letterSpacing: '-0.02em', color: 'var(--ink)', margin: 0, maxWidth: '30ch' }}>
-            <span style={{ color: 'var(--accent)' }}>Trust</span> isn't won by explaining more. It's won by asking
-            less.
+            Not a better spam filter. An assistant that <span style={{ color: 'var(--accent)' }}>picks up for you</span>.
           </p>
         </blockquote>
       </>

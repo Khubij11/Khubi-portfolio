@@ -89,6 +89,11 @@ table {
 
 }
 
+.work-platform-inline { display: none; }
+@media (max-width: 899px) {
+  .work-platform-inline { display: inline; }
+}
+
 .work-row:hover {
   background-color: var(--panel-tint);
   border-left-color: var(--accent) !important;
@@ -99,8 +104,11 @@ table {
   .work-table-header { display: none !important; }
   /* Stacked rows: the thumbnail fills the column, with its device centred and enlarged. */
   .work-thumb-col { flex-basis: 100% !important; }
-  .work-thumb { width: 100% !important; height: 180px !important; }
-  .work-thumb-device { left: 50% !important; margin-left: 0 !important; translate: -50% 0; scale: 1.35; transform-origin: top center; }
+  .work-thumb { width: 100% !important; height: 140px !important; }
+  /* Compact stacked rows: platform rides on the year line; the separate meta column and lone arrow go. */
+  .work-meta-col, .work-arrow { display: none !important; }
+  .work-row { padding-top: 18px !important; padding-bottom: 18px !important; row-gap: 10px !important; }
+  .work-thumb-device { left: 50% !important; margin-left: 0 !important; translate: -50% 0; scale: 1.2; transform-origin: top center; }
 }
 
 .work-thumb-device {

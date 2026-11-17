@@ -174,13 +174,16 @@ export default function WorkRow({ row }: { row: WorkRowData }) {
           {row.owned}
         </span>
         <span style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: 6, marginTop: 10 }}>
-          <span style={{ fontFamily: 'var(--font-mono)', fontSize: 12, color: 'var(--muted)', marginRight: 6 }}>{row.year}</span>
+          <span style={{ fontFamily: 'var(--font-mono)', fontSize: 12, color: 'var(--muted)', marginRight: 6 }}>
+            {row.year}
+            <span className="work-platform-inline"> · {row.platform}</span>
+          </span>
           {row.tags?.map((t) => (
             <CategoryTag key={t} label={t} />
           ))}
         </span>
       </span>
-      <span style={{ flex: '0 0 190px' }}>
+      <span className="work-meta-col" style={{ flex: '0 0 190px' }}>
         <span style={{ ...META_LINE, color: 'var(--secondary)' }}>{row.platform}</span>
         {row.domain && (
           <span style={{ display: 'block', marginTop: 6, fontSize: 14, lineHeight: 1.45, color: 'var(--secondary)' }}>{row.domain}</span>
@@ -193,7 +196,7 @@ export default function WorkRow({ row }: { row: WorkRowData }) {
         </span>
         <span style={{ display: 'block', marginTop: 6, fontSize: 15, lineHeight: 1.45, color: 'var(--ink)' }}>{row.outcome}</span>
       </span>
-      <span style={{ flex: '0 0 20px', color: 'var(--muted)', lineHeight: `${FIRST_LINE}px` }}>{row.to ? '→' : ''}</span>
+      <span className="work-arrow" style={{ flex: '0 0 20px', color: 'var(--muted)', lineHeight: `${FIRST_LINE}px` }}>{row.to ? '→' : ''}</span>
     </>
   );
 
