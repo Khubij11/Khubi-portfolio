@@ -1,16 +1,11 @@
 import CaseStudyLayout, { type CSSection } from '../components/CaseStudyLayout';
 import { HeaderStatsAndFacts, HeaderDevice, OverviewSummary, RailStats, InlineNotes, PullQuote, TintedBlock, SubsectionHead, summaryEm } from '../components/CaseStudyParts';
-import PhoneScreen from '../components/PhoneScreen';
-import {
-  BackgroundShadow,
-  Container2,
-  BackgroundShadow6,
-  Container,
-  BackgroundShadow3,
-  BackgroundShadow2,
-  BackgroundShadow5,
-  BackgroundShadow4,
-} from '../figma/cars24-components';
+
+// Screens exported from the Leads flow Figma file: each PNG includes the phone frame and its shadow.
+// In a row, neighbours overlap their transparent shadow margins so three phones fit the text column.
+function Screen({ src, alt, tight }: { src: string; alt: string; tight?: boolean }) {
+  return <img src={`/assets/refer-earn/${src}.png`} alt={alt} width={241} height={477} loading="lazy" style={{ display: 'block', flex: '0 0 auto', margin: tight ? '0 -16px' : undefined }} />;
+}
 
 const serifP: React.CSSProperties = {
   fontFamily: 'var(--font-serif)',
@@ -102,7 +97,7 @@ const sections: CSSection[] = [
           Cars24 and earn commission on them.
         </p>
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: 32, alignItems: 'flex-start', marginTop: 32 }}>
-          <PhoneScreen Component={Container} />
+          <Screen src="01-intro" alt="Refer and Earn intro: earn commission on every completed purchase" />
           <p style={{ flex: '1 1 200px', fontSize: 14, lineHeight: 1.65, color: 'var(--secondary)', margin: 0, maxWidth: '42ch' }}>
             The commission promise (up to 3% on every completed purchase, all makes accepted) was never the weak
             link. Dealers wanted it. The handover was what failed.
@@ -265,7 +260,7 @@ const sections: CSSection[] = [
           progress" without saying who is holding it.
         </p>
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: 32, alignItems: 'flex-start', marginTop: 32 }}>
-          <PhoneScreen Component={BackgroundShadow3} />
+          <Screen src="08-my-leads" alt="My leads list, each lead with a state and one next action" />
           <p style={{ flex: '1 1 200px', fontSize: 14, lineHeight: 1.65, color: 'var(--secondary)', margin: 0, maxWidth: '42ch' }}>
             My leads: five states, five colours. The state bar is the fastest read on the screen, and the button
             below it is the only thing to do.
@@ -277,10 +272,10 @@ const sections: CSSection[] = [
           shows the offer history, because "offer not accepted" is useless to a dealer who cannot see the number.
         </p>
         <div style={{ marginTop: 32 }}>
-          <div style={{ display: 'flex', flexWrap: 'wrap', gap: 16, justifyContent: 'center' }}>
-            <PhoneScreen Component={BackgroundShadow2} />
-            <PhoneScreen Component={BackgroundShadow5} />
-            <PhoneScreen Component={BackgroundShadow4} />
+          <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center' }}>
+            <Screen tight src="04-submitted" alt="Lead submitted confirmation" />
+            <Screen tight src="06-negotiation" alt="Lead status in negotiation" />
+            <Screen tight src="07-deal-closed" alt="Deal closed, commission credited" />
           </div>
         </div>
         <div style={{ fontFamily: 'var(--font-ui)', fontSize: 13, fontWeight: 600, letterSpacing: '0.05em', color: 'var(--muted)', marginTop: 12 }}>
@@ -297,12 +292,25 @@ const sections: CSSection[] = [
     heading: "Home, submission and lead status",
     body: (
       <>
-<div style={{ marginTop: 24 }}><div style={{ display: 'flex', flexWrap: 'wrap', gap: 32, justifyContent: 'center', alignItems: 'flex-end' }}>
-          <PhoneScreen Component={BackgroundShadow} />
-          <PhoneScreen Component={Container2} />
-          <PhoneScreen Component={BackgroundShadow6} />
+<div style={{ marginTop: 24 }}><div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', alignItems: 'flex-end' }}>
+          <Screen tight src="02-home" alt="Referrer home with earnings, leads and converted counts" />
+          <Screen tight src="03-add-lead" alt="Add a lead form" />
+          <Screen tight src="05-inspection-done" alt="Lead status after inspection" />
         </div></div>
 <div style={{ fontFamily: 'var(--font-ui)', fontSize: 13, fontWeight: 600, letterSpacing: '0.05em', color: 'var(--muted)', marginTop: 14 }}>{"Home, submission and lead status: the three points a dealer actually returns to."}</div>
+        <SubsectionHead label="As shipped" heading="Lead tracking in the live app" />
+        <p style={serifP}>
+          Lead details at four stages (inspection cancelled, rescheduled, done, in negotiation) and the action-first My
+          leads list with duplicate and action-required states.
+        </p>
+        <div className="re-shipped" style={{ display: 'flex', marginTop: 24, overflowX: 'auto', paddingBottom: 8 }}>
+          <Screen tight src="09-shipped-cancelled" alt="Lead details: inspection cancelled" />
+          <Screen tight src="10-shipped-rescheduled" alt="Lead details: inspection rescheduled" />
+          <Screen tight src="11-shipped-inspection-done" alt="Lead details: inspection done" />
+          <Screen tight src="12-shipped-negotiation" alt="Lead details: in negotiation" />
+          <Screen tight src="13-shipped-my-leads" alt="My leads with status filters" />
+        </div>
+        <div className="scroll-hint">Scroll to see all five →</div>
       </>
     ),
   },
