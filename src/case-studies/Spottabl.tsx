@@ -336,7 +336,7 @@ export default function Spottabl() {
       summary="Spottabl connects startups that are hiring with specialist recruiters. I designed one pipeline that the company, the recruiter and the candidate all read."
       meta={[]}
       headerAside={<HeaderDevice src="/assets/thumbs/spottabl.jpg" kind="web" alt="The My jobs screen" />}
-      headerFooter={<HeaderStatsAndFacts stats={headStats} facts={headFacts} />}
+      headerFooter={<HeaderStatsAndFacts stats={headStats} facts={headFacts} note="“Today” figures are company figures, not results of this project." />}
       hero={<OverviewSummary items={summaryItems} context={contextFacts} />}
       overview={{ id: "sp-overview", number: '01', title: 'Overview' }}
       railExtra={<RailStats stats={headStats} />}

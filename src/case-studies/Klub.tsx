@@ -307,7 +307,7 @@ export default function Klub() {
       summary="Klub's syndicates were already happening, entirely offline. I brought them into the existing patrons app without unsettling the patrons already using it."
       meta={[]}
       headerAside={<HeaderDevice src="/assets/thumbs/klub.jpg" kind="web" alt="The Syndicates discovery page" />}
-      headerFooter={<HeaderStatsAndFacts stats={headStats} facts={headFacts} />}
+      headerFooter={<HeaderStatsAndFacts stats={headStats} facts={headFacts} note="“Today” figures are company figures, not results of this project." />}
       hero={<OverviewSummary items={summaryItems} context={contextFacts} />}
       overview={{ id: "kl-overview", number: '01', title: 'Overview' }}
       railExtra={<RailStats stats={headStats} />}
