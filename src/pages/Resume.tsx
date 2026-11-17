@@ -103,7 +103,7 @@ export default function Resume() {
           <h1 style={{ fontFamily: 'var(--font-serif)', fontWeight: 300, fontSize: 'clamp(32px, 3.8vw, 50px)', lineHeight: 1.06, letterSpacing: '-0.035em', margin: 0 }}>
             <span style={{ color: 'var(--accent)' }}>Résumé</span>
           </h1>
-          <p style={{ fontSize: 16, color: 'var(--secondary)', margin: '14px 0 0 0' }}>Product Designer · Bengaluru · Seven+ years of experience</p>
+          <p style={{ fontSize: 16, color: 'var(--secondary)', margin: '14px 0 0 0' }}>Senior Product Designer · Bengaluru · 7+ years of experience</p>
         </div>
         <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: 16 }}>
           <span style={kicker}>Updated September 2026</span>
@@ -133,8 +133,8 @@ export default function Resume() {
         <div style={{ flex: '1 1 620px', display: 'flex', flexWrap: 'wrap', gap: '8px 32px' }}>
           <div style={{ flex: '0 0 150px' }} />
           <p className="r-desc" style={{ flex: '1 1 400px', fontSize: 16, lineHeight: 1.65, color: 'var(--secondary)', margin: 0, maxWidth: 580 }}>
-            Product Designer with 7+ years shipping polished, end-to-end product experiences across web and mobile in fintech, marketplace, and SaaS.
-            Operating at senior scope, owning 0-to-1 initiatives, mentoring designers, and driving design system decisions across cross-functional teams.
+            Senior Product Designer with 7+ years shipping polished, end-to-end product experiences across web and mobile in fintech, marketplace, and SaaS.
+            I own 0-to-1 initiatives, mentor designers, and drive design system decisions across cross-functional teams.
             Fluent with modern AI-native design workflows, and recently designed an AI-powered internal tool at Wells Fargo. Based in Bengaluru and
             available immediately.
           </p>

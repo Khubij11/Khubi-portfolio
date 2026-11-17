@@ -765,15 +765,13 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Writing: an editorial panel, set apart from the work table above. */}
+      {/* Writing: same header rule as Selected work; the essay cards set it apart from the table above. */}
       <section className="writing" style={{ marginTop: 88 }}>
-        <div className="writing-head">
-          <div>
-            <span style={{ ...kicker, color: 'var(--lilac-deep)' }}>Writing</span>
-            <h2 className="writing-title">On instant answers, friction and the prompt</h2>
-          </div>
+        <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', gap: 24, flexWrap: 'wrap', borderBottom: '1px solid var(--ink)', paddingBottom: 14 }}>
+          <span style={{ ...kicker, color: 'var(--lilac-deep)' }}>Writing</span>
           <span style={{ ...kicker, color: 'var(--muted)' }}>Essays on Medium</span>
         </div>
+        <h2 className="writing-title">On instant answers, friction and the prompt</h2>
         <div className="writing-grid">
           {ESSAYS.map((e, i) => (
             <a key={e.href} className="essay" href={e.href} target="_blank" rel="noopener">
@@ -790,15 +788,13 @@ export default function Home() {
           ))}
         </div>
         <style>{`
-          .writing { background: var(--lilac-soft); border-radius: 6px; padding: clamp(24px, 4vw, 44px); }
-          .writing-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 12px 24px; flex-wrap: wrap; }
-          .writing-title { font-family: var(--font-serif); font-weight: 300; font-size: clamp(26px, 3.2vw, 38px); letter-spacing: -0.02em; line-height: 1.1; margin: 10px 0 0 0; color: var(--ink); }
+          .writing-title { font-family: var(--font-serif); font-weight: 300; font-size: clamp(26px, 3.2vw, 38px); letter-spacing: -0.02em; line-height: 1.1; margin: 28px 0 0 0; color: var(--ink); }
           .writing-grid { display: grid; grid-template-columns: 1fr; gap: 16px; margin-top: 28px; }
           @media (min-width: 900px) { .writing-grid { grid-template-columns: repeat(3, 1fr); } }
           @media (max-width: 899px) { .essay { min-height: 0; } }
           .essay {
             display: flex; flex-direction: column; gap: 18px; min-height: 200px; padding: 22px 22px 20px;
-            background: #FFFFFF; border: 1px solid var(--lilac-mist); border-radius: 4px; color: var(--ink);
+            background: #FFFFFF; border: 1px solid var(--hairline); border-top: 3px solid var(--lilac); border-radius: 4px; color: var(--ink);
             box-shadow: 0 1px 2px rgba(23,26,24,0.04); transition: transform 260ms cubic-bezier(.2,.8,.2,1), box-shadow 260ms ease;
           }
           .essay:hover, .essay:focus-visible { color: var(--ink); transform: translateY(-4px); box-shadow: 0 18px 30px -20px rgba(106,75,176,0.55); }
