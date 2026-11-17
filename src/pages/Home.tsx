@@ -254,10 +254,23 @@ function IllustrationCard() {
         zIndex: 2,
       }}
     >
-      <div style={{ fontFamily: 'var(--font-mono)', fontSize: 10, textTransform: 'uppercase', letterSpacing: '0.16em', color: 'var(--muted)' }}>
+      <span className="otc-tag">
+        <span className="otc-tag-dot" aria-hidden="true" />
         Off the clock
-      </div>
-      <div className="otc-stage">
+      </span>
+      <div
+        className="otc-stage"
+        onPointerMove={(e) => {
+          if (e.pointerType !== 'mouse') return;
+          const r = e.currentTarget.getBoundingClientRect();
+          e.currentTarget.style.setProperty('--px', (((e.clientX - r.left) / r.width) * 2 - 1).toFixed(3));
+          e.currentTarget.style.setProperty('--py', (((e.clientY - r.top) / r.height) * 2 - 1).toFixed(3));
+        }}
+        onPointerLeave={(e) => {
+          e.currentTarget.style.setProperty('--px', '0');
+          e.currentTarget.style.setProperty('--py', '0');
+        }}
+      >
         {/* Layout traced from the Figma scene: every position is a % of the stage, so it scales as one piece. */}
         <span className="otc-moon" aria-hidden="true" />
         <span className="otc-moon otc-moon-lilac" aria-hidden="true" />
@@ -348,8 +361,26 @@ function IllustrationCard() {
           left: auto; top: auto; right: 4%; bottom: -3%;
           background-image: repeating-linear-gradient(58deg, rgba(139,108,207,0.6) 0 6px, rgba(139,108,207,0) 6px 15px);
         }
-        .otc-pill { position: absolute; left: 13.93%; top: 0; width: 73.15%; height: 100%; object-fit: cover; border-radius: 9999px; z-index: 1; display: block; }
-        .otc-obj { position: absolute; display: block; height: auto; filter: drop-shadow(0 10px 12px rgba(23,26,24,0.16)); transition: transform 300ms cubic-bezier(.2,.8,.2,1); }
+        .otc-pill {
+          position: absolute; left: 13.93%; top: 0; width: 73.15%; height: 100%; object-fit: cover; border-radius: 9999px; z-index: 1; display: block;
+          border: 5px solid #FFFFFF; box-sizing: border-box;
+          box-shadow: 0 2px 4px rgba(23,26,24,0.06), 0 28px 50px -22px rgba(23,26,24,0.42), 0 60px 80px -50px rgba(23,26,24,0.3);
+        }
+        .otc-tag {
+          display: inline-flex; align-items: center; gap: 7px; padding: 6px 12px 6px 10px; border-radius: 999px;
+          background: #FFFFFF; border: 1px solid var(--hairline); box-shadow: 0 6px 14px -10px rgba(23,26,24,0.35);
+          font-family: var(--font-mono); font-size: 10px; text-transform: uppercase; letter-spacing: 0.16em; color: var(--secondary);
+          position: relative; z-index: 12;
+        }
+        .otc-tag-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--lilac); box-shadow: 0 0 0 3px var(--lilac-soft); }
+        /* Depth: a gentle parallax, with front objects drifting further than the photo and circles behind it. */
+        .otc-stage { --px: 0; --py: 0; }
+        .otc-moon, .otc-pill, .otc-books, .otc-mokabox, .otc-garden, .otc-toolsbtn, .otc-stamps, .otc-bake { transition: translate 500ms cubic-bezier(.2,.8,.2,1); }
+        .otc-moon { translate: calc(var(--px) * -6px) calc(var(--py) * -6px); }
+        .otc-pill { translate: calc(var(--px) * 3px) calc(var(--py) * 3px); }
+        .otc-books, .otc-garden, .otc-stamps { translate: calc(var(--px) * 9px) calc(var(--py) * 9px); }
+        .otc-mokabox, .otc-toolsbtn, .otc-bake { translate: calc(var(--px) * 13px) calc(var(--py) * 13px); }
+        .otc-obj { position: absolute; display: block; height: auto; filter: drop-shadow(0 2px 2px rgba(23,26,24,0.16)) drop-shadow(0 16px 16px rgba(23,26,24,0.2)); transition: transform 300ms cubic-bezier(.2,.8,.2,1); }
         .otc-garden { position: absolute; left: 77.54%; top: 35.44%; width: 17.84%; z-index: 2; }
         .otc-books { position: absolute; left: 56%; top: -5.5%; width: 24.47%; height: 18.9%; z-index: 3; margin: 0; padding: 0; border: 0; background: none; cursor: pointer; text-align: left; }
         .otc-bake { position: absolute; left: 21%; top: 84.5%; width: 21.25%; z-index: 4; }
@@ -412,7 +443,7 @@ function IllustrationCard() {
         .otc-stamps:hover { z-index: 10; }
         .otc-stamp {
           position: absolute; width: 32%; height: auto; display: block;
-          filter: drop-shadow(0 6px 8px rgba(23,26,24,0.18));
+          filter: drop-shadow(0 1px 1px rgba(23,26,24,0.16)) drop-shadow(0 10px 12px rgba(23,26,24,0.22));
           transition: transform 320ms cubic-bezier(.2,.8,.2,1), filter 320ms ease;
         }
         .otc-stamp-a { left: 10%; top: 26%; transform: rotate(-8deg); }
@@ -430,7 +461,7 @@ function IllustrationCard() {
         .otc-shelf { scale: 0.87; transform-origin: top right; }
         .otc-bake .bake-whisk, .otc-garden .garden-plant { position: static; width: 100%; }
         .otc-book-pile { position: absolute; inset: 0; display: block; }
-        .otc-book { position: absolute; top: 0; display: block; height: auto; filter: drop-shadow(0 10px 12px rgba(23,26,24,0.18)); transition: transform 300ms cubic-bezier(.2,.8,.2,1); }
+        .otc-book { position: absolute; top: 0; display: block; height: auto; filter: drop-shadow(0 2px 2px rgba(23,26,24,0.18)) drop-shadow(0 16px 16px rgba(23,26,24,0.22)); transition: transform 300ms cubic-bezier(.2,.8,.2,1); }
         .otc-book-pachinko { left: -4%; width: 60%; }
         .otc-book-silent { left: 19.6%; width: 80.4%; top: 1.6%; }
         .otc-books:hover .otc-book-pachinko, .otc-books.is-open .otc-book-pachinko { transform: rotate(-4deg) translateY(-6px); }
@@ -451,7 +482,7 @@ function IllustrationCard() {
           color: var(--muted); margin-bottom: 4px;
         }
         .otc-shelf-item { font-family: var(--font-serif); font-size: 14px; line-height: 1.35; color: var(--ink); }
-        @media (prefers-reduced-motion: reduce) { .otc-book, .otc-shelf, .otc-obj, .tool-tile, .otc-cup, .otc-stamp, .moka-lid { transition: none !important; } .moka-steam i, .tools-pencils { animation: none !important; } }
+        @media (prefers-reduced-motion: reduce) { .otc-book, .otc-shelf, .otc-obj, .tool-tile, .otc-cup, .otc-stamp, .moka-lid { transition: none !important; } .moka-steam i, .tools-pencils { animation: none !important; } .otc-stage * { translate: none !important; } }
         .bake-whisk { transform-origin: 50% 85%; transition: transform 300ms ease; }
         .bake-caption { display: grid; }
         .bake-cap, .bake-handle { grid-area: 1 / 1; transition: opacity 200ms ease, transform 200ms ease; }
@@ -559,12 +590,16 @@ function Scramble({ text, delay = 250, duration = 550 }: { text: string; delay?:
   const reduce = prefersReducedMotion();
   const [settled, setSettled] = useState(reduce ? text.length : 0);
   const [noise, setNoise] = useState<string[]>(() => text.split(''));
+  // Bumped on hover so the line jumbles again once it has settled.
+  const [run, setRun] = useState(0);
   useEffect(() => {
     if (reduce) return;
+    if (run > 0) setSettled(0);
     const glyphs = 'acemnorsuvwxz';
     const pick = () => glyphs[Math.floor(Math.random() * glyphs.length)];
     setNoise(text.split('').map((ch) => (ch === ' ' ? ' ' : pick())));
-    const start = Date.now() + delay;
+    const wait = run > 0 ? 0 : delay;
+    const start = Date.now() + wait;
     let frame = 0;
     const id = window.setInterval(() => {
       frame += 1;
@@ -578,14 +613,17 @@ function Scramble({ text, delay = 250, duration = 550 }: { text: string; delay?:
     const done = window.setTimeout(() => {
       window.clearInterval(id);
       setSettled(text.length);
-    }, delay + duration);
+    }, wait + duration);
     return () => {
       window.clearInterval(id);
       window.clearTimeout(done);
     };
-  }, [text, delay, duration, reduce]);
+  }, [text, delay, duration, reduce, run]);
 
-  if (settled >= text.length) return <>{text}</>;
+  const replay = () => {
+    if (!reduce && settled >= text.length) setRun((r) => r + 1);
+  };
+  if (settled >= text.length) return <span onMouseEnter={replay}>{text}</span>;
   return (
     <span style={{ position: 'relative', display: 'inline-block' }}>
       <span aria-hidden="true" style={{ visibility: 'hidden' }}>{text}</span>
