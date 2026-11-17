@@ -62,13 +62,13 @@ export function HeaderStatsAndFacts({ stats, facts, note }: { stats: HeadStat[];
 export function HeaderDevice({ src, kind, alt }: { src: string; kind: 'phone' | 'web'; alt: string }) {
   if (kind === 'phone') {
     return (
-      <div style={{ width: 205, padding: 7, background: '#0B0C10', borderRadius: 36, boxShadow: '0 30px 60px -28px rgba(0,0,0,0.45), inset 0 0 0 1px rgba(255,255,255,0.08)' }}>
-        <img src={src} alt={alt} style={{ display: 'block', width: '100%', borderRadius: 29 }} />
+      <div className="hd-phone" style={{ width: 260, padding: 8, background: '#0B0C10', borderRadius: 42, boxShadow: '0 30px 60px -28px rgba(0,0,0,0.45), inset 0 0 0 1px rgba(255,255,255,0.08)' }}>
+        <img src={src} alt={alt} style={{ display: 'block', width: '100%', borderRadius: 34 }} />
       </div>
     );
   }
   return (
-    <div style={{ width: 340, maxWidth: 'calc(100vw - 40px)', borderRadius: 8, overflow: 'hidden', background: '#FFFFFF', boxShadow: '0 30px 60px -28px rgba(23,26,24,0.35), 0 0 0 1px rgba(23,26,24,0.08)' }}>
+    <div className="hd-web" style={{ width: 600, borderRadius: 10, overflow: 'hidden', background: '#FFFFFF', boxShadow: '0 30px 60px -28px rgba(23,26,24,0.35), 0 0 0 1px rgba(23,26,24,0.08)' }}>
       <div style={{ display: 'flex', gap: 5, padding: '8px 10px', background: '#ECEEF0' }}>
         {[0, 1, 2].map((i) => (
           <span key={i} style={{ width: 7, height: 7, borderRadius: 999, background: '#C4C8CC' }} />
@@ -164,7 +164,7 @@ export function PullQuote({ children }: { children: ReactNode }) {
 /** A former stand-alone section kept as a tinted block inside a merged section (e.g. the reframe). */
 export function TintedBlock({ label, heading, children }: { label: string; heading: string; children: ReactNode }) {
   return (
-    <div style={{ background: 'var(--lilac-soft)', borderLeft: '3px solid var(--accent)', padding: '28px 32px', marginTop: 32 }}>
+    <div style={{ background: '#FFFFFF', border: '1px solid var(--hairline)', borderRadius: 8, padding: 'clamp(24px, 3.5vw, 36px)', boxShadow: '0 1px 2px rgba(23,26,24,0.04), 0 24px 40px -32px rgba(23,26,24,0.25)', marginTop: 32 }}>
       <div style={{ ...kicker, color: 'var(--accent)' }}>{label}</div>
       <h3 style={{ fontSize: 21, fontWeight: 600, letterSpacing: '-0.01em', margin: '12px 0 0 0' }}>{heading}</h3>
       {children}
