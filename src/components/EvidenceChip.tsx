@@ -6,6 +6,11 @@ const STYLES: Record<string, { color: string; bg: string; border: string }> = {
   Concept: { color: '#5B3E82', bg: '#F0EAF7', border: '#D5C4E8' },
 };
 
+/** Deep colour for an evidence label, for a dot next to plain-text status. */
+export function evidenceColor(label: string): string {
+  return (STYLES[label] ?? STYLES.Concept).color;
+}
+
 export default function EvidenceChip({ label }: { label: string }) {
   const s = STYLES[label] ?? STYLES.Concept;
   return (

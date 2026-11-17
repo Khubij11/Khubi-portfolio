@@ -1,4 +1,5 @@
 import CaseStudyLayout, { type CSSection } from '../components/CaseStudyLayout';
+import { HeaderStatsAndFacts, HeaderDevice, OverviewSummary, RailStats, InlineNotes, PullQuote, TintedBlock, SubsectionHead, summaryEm } from '../components/CaseStudyParts';
 import FitScale from '../components/FitScale';
 import KlubSyndicate from './klub/KlubSyndicate';
 
@@ -27,11 +28,12 @@ const archNode: React.CSSProperties = { fontSize: 11, textAlign: 'center', color
 
 const sections: CSSection[] = [
   {
-    id: 'kl-01',
-    number: '01',
-    title: 'Frame',
+    id: "kl-01",
+    number: '02',
+    title: "The problem",
     heading: 'Three new people in a room built for one',
     body: (
+      <>
       <>
         <p style={serifP}>
           A <strong style={{ fontWeight: 500 }}>syndicate lead</strong> sources deals. They are usually already
@@ -46,14 +48,17 @@ const sections: CSSection[] = [
           made to care that any of this exists.
         </p>
       </>
+<PullQuote>New capability, same furniture.</PullQuote>
+      </>
     ),
   },
   {
-    id: 'kl-02',
-    number: '02',
-    title: 'The brief',
+    id: "kl-02",
+    number: '03',
+    title: "What we were asked to build",
     heading: "Digitise the syndicate, don't disturb the patron",
     body: (
+      <>
       <>
         <p style={serifP}>
           "We need a syndicate platform on the existing patrons app without disrupting the current experience of our
@@ -75,15 +80,7 @@ const sections: CSSection[] = [
           </div>
         </div>
       </>
-    ),
-  },
-  {
-    id: 'kl-03',
-    number: '03',
-    title: 'The reframe',
-    heading: 'Not a new product, a new mode of an existing one',
-    tinted: true,
-    body: (
+<TintedBlock label="The reframe" heading='Not a new product, a new mode of an existing one'>
       <p style={{ ...serifP, margin: 0, maxWidth: '62ch' }}>
         Both obvious routes were dead. Rewamping the patrons app would confuse the people already investing in it. A
         separate syndicate product would force existing patrons through a second registration and onboarding, then
@@ -91,14 +88,17 @@ const sections: CSSection[] = [
         identity, one portfolio, and treat "investing with a syndicate" as another way to commit to a deal rather
         than a different app to live in. Every screen a solo patron already knew had to keep working untouched.
       </p>
+</TintedBlock>
+      </>
     ),
   },
   {
-    id: 'kl-04',
+    id: "kl-04",
     number: '04',
-    title: 'Evidence',
+    title: "Evidence",
     heading: 'The pain points, as we heard them',
     body: (
+      <>
       <>
         <div style={{ display: 'flex', flexDirection: 'column', gap: 14, marginTop: 24 }}>
           {[
@@ -119,14 +119,42 @@ const sections: CSSection[] = [
           volume.
         </p>
       </>
+<InlineNotes notes={[
+        {
+          title: 'Sidenote',
+          body: (
+            <>
+              The real constraint was other people's habits. Most of my decisions here were subtraction: what can
+              syndicates <em>not</em> change about the app a patron already knows? That question resolved more
+              arguments than any mockup did.
+            </>
+          ),
+        },
+        {
+          title: 'Process',
+          body: "Discover → define → ideate → design over 15 weeks: research and segmentation, information architecture, flows for the lead and member journeys, wireframes, then visual design on Klub's existing system (Open Sans, brand blue).",
+        },
+        {
+          title: 'Principles',
+          body: (
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+              <div>01&nbsp; New capability, same furniture.</div>
+              <div>02&nbsp; Never make an existing user re-register.</div>
+              <div>03&nbsp; Explain the model before asking for money.</div>
+            </div>
+          ),
+        },
+      ]} />
+      </>
     ),
   },
   {
-    id: 'kl-05',
+    id: "kl-05",
     number: '05',
-    title: 'Architecture',
+    title: "The design",
     heading: 'One new branch, not a new tree',
     body: (
+      <>
       <>
         <p style={serifP}>
           Syndicates entered the app as a single sibling of the sections patrons already used: deals, brands, the
@@ -160,14 +188,7 @@ const sections: CSSection[] = [
           The whole feature is one branch deep, so a patron who ignores it never meets it.
         </div>
       </>
-    ),
-  },
-  {
-    id: 'kl-06',
-    number: '06',
-    title: 'The design',
-    heading: 'Explain it before asking anyone to join it',
-    body: (
+<SubsectionHead label="The design" heading='Explain it before asking anyone to join it' />
       <>
         <p style={serifP}>
           Revenue-based financing is unfamiliar; syndicated RBF is unfamiliar twice over. So the entry point isn't a
@@ -197,61 +218,17 @@ const sections: CSSection[] = [
           stop a signup, so they sit above the fold of the decision.
         </p>
       </>
+      </>
     ),
   },
   {
-    id: 'kl-07',
-    number: '07',
-    title: 'Status',
-    heading: 'Where this got to',
+    id: "kl-screens",
+    number: '06',
+    title: "The screens",
+    heading: "Discovery, trust and onboarding",
     body: (
-      <p style={serifP}>
-        It shipped just before I left: architecture, flows for both the syndicate lead and the member, and the
-        syndicates landing experience. I also designed the Klub website in the same stretch. Every screen here was
-        reviewed and approved by stakeholders before it went out.
-      </p>
-    ),
-  },
-  {
-    id: 'kl-08',
-    number: '08',
-    title: 'Reflection',
-    heading: "What I'd do differently",
-    body: (
-      <p style={serifP}>
-        I designed the explaining and the doing in one pass. Given the timeline again, I'd have tested the landing
-        page against real patrons before drawing a single management screen. If people can't repeat back what a
-        syndicate is, the rest of the flow is decoration.
-      </p>
-    ),
-  },
-];
-
-export default function Klub() {
-  return (
-    <CaseStudyLayout
-      kicker="Klub · Syndicates · 2021–22"
-      title={
-        <>
-          <span style={{ color: 'var(--accent)' }}>Adding</span> group investing to an app built for one investor
-        </>
-      }
-      summary="Klub finances local brands through revenue-based financing, funded by a community of patrons. Syndicates (a lead who sources a deal and members who back it together) were already happening, entirely offline, run by hand. The brief was to productise them inside the existing patrons app without unsettling the patrons already using it. So the design question wasn't “what does a syndicate product look like”; it was “how much new can one app absorb before it stops feeling like the app people already trust”."
-      meta={[
-        { label: 'Role', value: 'Product designer, owned the syndicate flow end to end' },
-        { label: 'Team', value: 'Only designer, founder-led product' },
-        { label: 'Timeframe', value: 'Roughly a year to the first version, 2019 to 2021 in total' },
-        { label: 'Platform', value: 'Klub patrons app · web' },
-        { label: 'Users', value: 'Syndicate leads, syndicate members and investment firms, on top of existing solo patrons' },
-        { label: 'Scope', value: 'Owned the IA, flows, screens and the syndicates landing page. Did not own deal terms, compliance or the RBF model.' },
-      ]}
-      metrics={[
-        { value: '1 app', label: 'No second product, no re-onboarding' },
-        { value: '3', label: 'New user types served' },
-        { value: '100+', label: 'Client companies today' },
-      ]}
-      hero={
-        <div style={{ display: 'flex', flexWrap: 'wrap', gap: 32, alignItems: 'flex-start' }}>
+      <>
+<div style={{ marginTop: 24 }}><div style={{ display: 'flex', flexWrap: 'wrap', gap: 32, alignItems: 'flex-start' }}>
           <div style={{ flex: '1 1 380px', minWidth: 320 }}>
             <FitScale designWidth={1280}>
               <KlubSyndicate startPage="Syndicates" section="Discovery" maxCards={3} />
@@ -270,35 +247,71 @@ export default function Klub() {
               this?" before anyone commits.
             </div>
           </div>
-        </div>
+        </div></div>
+      </>
+    ),
+  },
+  {
+    id: "kl-07",
+    number: '07',
+    title: "Status",
+    heading: 'Where this got to',
+    body: (
+      <>
+      <p style={serifP}>
+        It shipped just before I left: architecture, flows for both the syndicate lead and the member, and the
+        syndicates landing experience. I also designed the Klub website in the same stretch. Every screen here was
+        reviewed and approved by stakeholders before it went out.
+      </p>
+      </>
+    ),
+  },
+  {
+    id: "kl-08",
+    number: '08',
+    title: "Reflection",
+    heading: "What I'd do differently",
+    body: (
+      <>
+      <p style={serifP}>
+        I designed the explaining and the doing in one pass. Given the timeline again, I'd have tested the landing
+        page against real patrons before drawing a single management screen. If people can't repeat back what a
+        syndicate is, the rest of the flow is decoration.
+      </p>
+      </>
+    ),
+  },
+];
+
+const headStats = [{"value": "1 app", "label": "No re-onboarding"}, {"value": "3", "label": "New user types served"}, {"value": "100+", "label": "Client companies today"}];
+
+const headFacts = [{"label": "Role", "value": "Product designer"}, {"label": "Team", "value": "Sole designer"}, {"label": "Timeline", "value": "~1 year to v1"}, {"label": "Platform", "value": "Web"}];
+
+const contextFacts = [{"label": "Users", "value": "Syndicate leads, syndicate members and investment firms, on top of existing solo patrons"}, {"label": "Scope", "value": "Owned the IA, flows, screens and the syndicates landing page. Did not own deal terms, compliance or the RBF model."}];
+
+const summaryItems = [
+  { label: "Problem", text: (<>Syndicates were already happening, <strong style={summaryEm}>entirely offline, run by hand</strong>, and had to fit inside an app patrons already trusted.</>) },
+  { label: "What I did", text: (<><strong style={summaryEm}>Keep one app, one identity, one portfolio</strong>, and treat investing with a syndicate as another way to commit to a deal rather than a different app to live in.</>) },
+  { label: "Result", text: (<><strong style={summaryEm}>It shipped just before I left</strong>: architecture, flows for both the syndicate lead and the member, and the syndicates landing experience.</>) },
+];
+
+export default function Klub() {
+  return (
+    <CaseStudyLayout
+      kicker="Klub · Syndicates · 2021–22"
+      title={
+        <>
+          <span style={{ color: 'var(--accent)' }}>Adding</span> group investing to an app built for one investor
+        </>
       }
+      summary="Klub's syndicates were already happening, entirely offline. I brought them into the existing patrons app without unsettling the patrons already using it."
+      meta={[]}
+      headerAside={<HeaderDevice src="/assets/thumbs/klub.jpg" kind="web" alt="The Syndicates discovery page" />}
+      headerFooter={<HeaderStatsAndFacts stats={headStats} facts={headFacts} />}
+      hero={<OverviewSummary items={summaryItems} context={contextFacts} />}
+      overview={{ id: "kl-overview", number: '01', title: 'Overview' }}
+      railExtra={<RailStats stats={headStats} />}
       sections={sections}
-      notes={[
-        {
-          title: 'Sidenote',
-          body: (
-            <>
-              The real constraint was other people's habits. Most of my decisions here were subtraction: what can
-              syndicates <em>not</em> change about the app a patron already knows? That question resolved more
-              arguments than any mockup did.
-            </>
-          ),
-        },
-        {
-          title: 'Process',
-          body: "Discover → define → ideate → design over 15 weeks: research and segmentation, information architecture, flows for the lead and member journeys, wireframes, then visual design on Klub's existing system (Open Sans, brand blue).",
-        },
-        {
-          title: 'Principles',
-          body: (
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
-              <div>01&nbsp; New capability, same furniture.</div>
-              <div>02&nbsp; Never make an existing user re-register.</div>
-              <div>03&nbsp; Explain the model before asking for money.</div>
-            </div>
-          ),
-        },
-      ]}
       prev={{ kicker: 'Next case study', label: 'Spottabl: three sides, one pipeline', to: '/work/spottabl' }}
       next={{ kicker: 'Back to', label: 'All work', to: '/' }}
     />

@@ -1,4 +1,5 @@
 import CaseStudyLayout, { type CSSection } from '../components/CaseStudyLayout';
+import { HeaderStatsAndFacts, HeaderDevice, OverviewSummary, RailStats, InlineNotes, PullQuote, TintedBlock, SubsectionHead, summaryEm } from '../components/CaseStudyParts';
 import { ScaleFrame } from './spottabl/shared';
 import MyJobsScreen from './spottabl/MyJobsScreen';
 import CandidateMatchesScreen from './spottabl/CandidateMatchesScreen';
@@ -58,11 +59,12 @@ const systemSwatches = [
 
 const sections: CSSection[] = [
   {
-    id: 'sp-01',
-    number: '01',
-    title: 'Frame',
+    id: "sp-01",
+    number: '02',
+    title: "The problem",
     heading: 'Three users who need the same fact at different times',
     body: (
+      <>
       <>
         <p style={serifP}>
           Companies want qualified candidates, fast, without wading through a mailbox of near-misses. Recruiters are
@@ -74,14 +76,17 @@ const sections: CSSection[] = [
           to make sense in three different vocabularies without becoming three different products.
         </p>
       </>
+<PullQuote>Nobody could see where a candidate stood without asking a person.</PullQuote>
+      </>
     ),
   },
   {
-    id: 'sp-02',
-    number: '02',
-    title: 'The brief',
+    id: "sp-02",
+    number: '03',
+    title: "What we were asked to build",
     heading: 'Build a marketplace, digitise the process',
     body: (
+      <>
       <>
         <p style={serifP}>
           A recruiter network where specialists could pick up roles from companies they wanted to work with. And,
@@ -97,15 +102,7 @@ const sections: CSSection[] = [
           ))}
         </div>
       </>
-    ),
-  },
-  {
-    id: 'sp-03',
-    number: '03',
-    title: 'The reframe',
-    heading: "The bottleneck wasn't sourcing. It was status.",
-    tinted: true,
-    body: (
+<TintedBlock label="The reframe" heading="The bottleneck wasn't sourcing. It was status.">
       <p style={{ ...serifP, margin: 0, maxWidth: '62ch' }}>
         Every pain point we heard was the same pain point wearing a different hat: nobody could see where a
         candidate stood without asking a person. Recruiters chased companies by phone and email; companies
@@ -113,14 +110,17 @@ const sections: CSSection[] = [
         was lost in the gaps between updates. So the product's job was to make one candidate's state legible to all
         three sides at once, and everything else (matching, the JD library, the network) hangs off that.
       </p>
+</TintedBlock>
+      </>
     ),
   },
   {
-    id: 'sp-04',
+    id: "sp-04",
     number: '04',
-    title: 'Evidence',
+    title: "Evidence and cuts",
     heading: 'The pain points, as we heard them',
     body: (
+      <>
       <>
         <div style={{ display: 'flex', flexDirection: 'column', gap: 14, marginTop: 24 }}>
           {painPoints.map((p) => (
@@ -135,14 +135,7 @@ const sections: CSSection[] = [
           early-stage startups, running through the year of discovery and design before the first version shipped.
         </div>
       </>
-    ),
-  },
-  {
-    id: 'sp-05',
-    number: '05',
-    title: 'The cuts',
-    heading: 'Relevance over volume',
-    body: (
+<SubsectionHead label="The cuts" heading='Relevance over volume' />
       <>
         <p style={serifP}>
           The obvious marketplace move is to maximise applications. We did the opposite: a company sees matches and
@@ -157,14 +150,36 @@ const sections: CSSection[] = [
           I&rsquo;d put back first.
         </p>
       </>
+<InlineNotes notes={[
+        {
+          title: 'Sidenote',
+          body: 'A marketplace has to be worth using before either side is full. Early on there were more roles than qualified recruiters, so the interface had to look honest when a job had two matches, not twelve; empty and thin states got designed first, not last.',
+        },
+        {
+          title: 'Process',
+          body: 'Discover → define → ideate → design, over 15 weeks: research and user segmentation, then flows for the company and recruiter sides, then wireframes, then the visual system.',
+        },
+        {
+          title: 'Principles',
+          body: (
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+              <div>01&nbsp; Relevance over volume.</div>
+              <div>02&nbsp; One object, three vocabularies.</div>
+              <div>03&nbsp; No status that needs a phone call.</div>
+            </div>
+          ),
+        },
+      ]} />
+      </>
     ),
   },
   {
-    id: 'sp-06',
-    number: '06',
-    title: 'The design',
+    id: "sp-06",
+    number: '05',
+    title: "The design",
     heading: 'One candidate, one timeline, three readers',
     body: (
+      <>
       <>
         <p style={serifP}>
           The candidate view is the spine of the product: a list of people on the left, one person's full timeline
@@ -244,14 +259,7 @@ const sections: CSSection[] = [
           Candidate side: every request sorted by whose move it is, and accepting one says exactly what it costs.
         </div>
       </>
-    ),
-  },
-  {
-    id: 'sp-07',
-    number: '07',
-    title: 'The system',
-    heading: 'What made three products feel like one',
-    body: (
+<SubsectionHead label="The system" heading='What made three products feel like one' />
       <>
         <p style={serifP}>
           A single style guide: Montserrat throughout, a primary blue for actions, orange for anything that needs a
@@ -268,14 +276,30 @@ const sections: CSSection[] = [
           ))}
         </div>
       </>
+      </>
     ),
   },
   {
-    id: 'sp-08',
-    number: '08',
-    title: 'Reflection',
+    id: "sp-screens",
+    number: '06',
+    title: "The screens",
+    heading: "My jobs",
+    body: (
+      <>
+<div style={{ marginTop: 24 }}><ScaleFrame maxWidth={800}>
+          <MyJobsScreen />
+        </ScaleFrame></div>
+<div style={{ fontFamily: 'var(--font-ui)', fontSize: 13, fontWeight: 600, letterSpacing: '0.05em', color: 'var(--muted)', marginTop: 14 }}>{"My jobs: one row per role, three numbers, one action. The card only speaks up when a role needs something."}</div>
+      </>
+    ),
+  },
+  {
+    id: "sp-08",
+    number: '07',
+    title: "Reflection",
     heading: "What I'd do differently",
     body: (
+      <>
       <p style={serifP}>
         The status vocabulary assumed companies would keep the pipeline current, the one behaviour the product
         couldn't enforce. I'd design for stale data as a first-class state next time: show when a stage was last
@@ -283,8 +307,21 @@ const sections: CSSection[] = [
         that it made our in-house team's work materially smoother; I left before the first version reached a scale
         worth quoting, so I'll leave the rest unclaimed.
       </p>
+      </>
     ),
   },
+];
+
+const headStats = [{"value": "3", "label": "Sides, one pipeline"}, {"value": "100+", "label": "Client companies today"}, {"value": "3,000+", "label": "Recruiters today"}];
+
+const headFacts = [{"label": "Role", "value": "UI/UX designer"}, {"label": "Team", "value": "Sole designer, CPO, CTO"}, {"label": "Timeline", "value": "~1 year to v1"}, {"label": "Platform", "value": "Web, SaaS"}];
+
+const contextFacts = [{"label": "Users", "value": "Three sides: companies, recruiters and candidates"}, {"label": "Scope", "value": "Owned the flows, the interface system and the style guide. Did not own the matching engine or pricing."}];
+
+const summaryItems = [
+  { label: "Problem", text: (<>The hard part was never the matching. <strong style={summaryEm}>Every party tracked the same candidate somewhere else</strong>: a company in its ATS, a recruiter in a spreadsheet, a candidate in their inbox.</>) },
+  { label: "What I did", text: (<>I designed <strong style={summaryEm}>one pipeline object that all three sides read</strong>, so “where is this candidate” stopped being a phone call.</>) },
+  { label: "Result", text: (<><strong style={summaryEm}>One style guide, one card anatomy and one status vocabulary</strong> across the company platform, the recruiter product and the candidate site.</>) },
 ];
 
 export default function Spottabl() {
@@ -296,47 +333,14 @@ export default function Spottabl() {
           <span style={{ color: 'var(--accent)' }}>Three</span> sides of a hiring marketplace, one shared pipeline
         </>
       }
-      summary="Spottabl connects startups that are hiring with specialist recruiters who can fill the role. The hard part was never the matching; it was that every party tracked the same candidate somewhere else: a company in its ATS, a recruiter in a spreadsheet, a candidate in their inbox. I designed one pipeline object that all three sides read, so “where is this candidate” stopped being a phone call."
-      meta={[
-        { label: 'Role', value: 'UI/UX designer, early team member, zero to one' },
-        { label: 'Team', value: 'Only designer, working directly with the CPO and CTO' },
-        { label: 'Timeframe', value: 'Roughly a year to the first version, 2019 to 2021 in total' },
-        { label: 'Platform', value: 'Web · SaaS marketplace' },
-        { label: 'Users', value: 'Three sides: companies, recruiters and candidates' },
-        { label: 'Scope', value: 'Owned the flows, the interface system and the style guide. Did not own the matching engine or pricing.' },
-      ]}
-      metrics={[
-        { value: '3', label: 'Sides, one pipeline' },
-        { value: '100+', label: 'Client companies today' },
-        { value: '3,000+', label: 'Recruiters on the platform today' },
-      ]}
-      hero={
-        <ScaleFrame maxWidth={800}>
-          <MyJobsScreen />
-        </ScaleFrame>
-      }
-      heroCaption="My jobs: one row per role, three numbers, one action. The card only speaks up when a role needs something."
+      summary="Spottabl connects startups that are hiring with specialist recruiters. I designed one pipeline that the company, the recruiter and the candidate all read."
+      meta={[]}
+      headerAside={<HeaderDevice src="/assets/thumbs/spottabl.jpg" kind="web" alt="The My jobs screen" />}
+      headerFooter={<HeaderStatsAndFacts stats={headStats} facts={headFacts} />}
+      hero={<OverviewSummary items={summaryItems} context={contextFacts} />}
+      overview={{ id: "sp-overview", number: '01', title: 'Overview' }}
+      railExtra={<RailStats stats={headStats} />}
       sections={sections}
-      notes={[
-        {
-          title: 'Sidenote',
-          body: 'A marketplace has to be worth using before either side is full. Early on there were more roles than qualified recruiters, so the interface had to look honest when a job had two matches, not twelve; empty and thin states got designed first, not last.',
-        },
-        {
-          title: 'Process',
-          body: 'Discover → define → ideate → design, over 15 weeks: research and user segmentation, then flows for the company and recruiter sides, then wireframes, then the visual system.',
-        },
-        {
-          title: 'Principles',
-          body: (
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
-              <div>01&nbsp; Relevance over volume.</div>
-              <div>02&nbsp; One object, three vocabularies.</div>
-              <div>03&nbsp; No status that needs a phone call.</div>
-            </div>
-          ),
-        },
-      ]}
       prev={{ kicker: 'Next case study', label: 'Wells Fargo: financial health tools', to: '/work/wells-fargo-financial-health' }}
       next={{ kicker: 'Back to', label: 'All work', to: '/' }}
     />

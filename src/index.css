@@ -6,11 +6,17 @@
   --secondary: #43463F;
   --muted: #8A8D85;
   --hairline: #D9E1E6;
-  --panel-tint: #EFF1FA;
+  --panel-tint: #F6F7FC;
   --panel-border: #E7E9F5;
   --accent: #BE4229;
-  --sky: #7BA6C9;
-  --sky-deep: #3C6C94;
+  /* Lilac: the second colour. Pale tones are for fills only; text uses --lilac-deep. */
+  --lilac: #8B6CCF;
+  --lilac-deep: #6A4BB0;
+  --lilac-soft: #EFE8FB;
+  --lilac-mist: #D9CCF5;
+  /* Kept as aliases so existing styles pick up lilac. */
+  --sky: var(--lilac);
+  --sky-deep: var(--lilac-deep);
   --green: #0C8139;
 
   --font-head: 'Schibsted Grotesk', Helvetica, Arial, sans-serif;
@@ -32,6 +38,11 @@ html, body {
   color: var(--ink);
   -webkit-font-smoothing: antialiased;
   font-family: var(--font-head);
+}
+
+::selection {
+  background: var(--lilac-mist);
+  color: var(--ink);
 }
 
 #root {
@@ -61,20 +72,41 @@ table {
     grid-template-columns: 1fr !important;
   }
 
+  /* Stacked layout: drop the desktop overlap so the card sits below the intro text. */
+  .illo-card {
+    margin-top: 0 !important;
+  }
+
   .hero-h1 {
     font-size: clamp(22px, calc(-9px + 14.5vw), 56px) !important;
     max-width: 100% !important;
   }
 
-  .hero-circle {
-    width: 96px !important;
-    top: 4px !important;
-  }
 }
 
 .work-row:hover {
   background-color: var(--panel-tint);
   border-left-color: var(--accent) !important;
+}
+
+/* Column labels only make sense when the row is laid out in columns. */
+@media (max-width: 899px) {
+  .work-table-header { display: none !important; }
+}
+
+.work-thumb-device {
+  transition: transform 260ms cubic-bezier(.2, .8, .2, 1);
+}
+
+.work-row:hover .work-thumb-device,
+.work-row:focus-visible .work-thumb-device {
+  transform: translateY(-5px) rotate(-1.5deg);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .work-thumb-device { transition: none; }
+  .work-row:hover .work-thumb-device,
+  .work-row:focus-visible .work-thumb-device { transform: none; }
 }
 
 .scroll-hint {
@@ -92,4 +124,31 @@ table {
     color: var(--muted);
     margin-top: 8px;
   }
+}
+
+/* Homepage headline entrance (see HeroHeadline in Home.tsx). */
+.hh-rise {
+  opacity: 0;
+  animation: hh-rise 700ms cubic-bezier(.2, .8, .2, 1) forwards;
+}
+
+/* The last line rises, then sharpens once the question above has unscrambled. */
+.hh-focus {
+  animation:
+    hh-rise 700ms 320ms cubic-bezier(.2, .8, .2, 1) forwards,
+    hh-focus 800ms 800ms cubic-bezier(.3, .7, .3, 1) both;
+}
+
+@keyframes hh-rise {
+  from { opacity: 0; transform: translateY(14px); }
+  to { opacity: 1; transform: none; }
+}
+
+@keyframes hh-focus {
+  from { filter: blur(9px); opacity: 0.4; }
+  to { filter: blur(0); opacity: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hh-rise, .hh-focus { animation: none; opacity: 1; transform: none; filter: none; }
 }

@@ -1,4 +1,5 @@
 import CaseStudyLayout, { type CSSection } from '../components/CaseStudyLayout';
+import { HeaderStatsAndFacts, HeaderDevice, OverviewSummary, RailStats, InlineNotes, PullQuote, TintedBlock, SubsectionHead, summaryEm } from '../components/CaseStudyParts';
 import WFCodeDiscovery from './wells-fargo-ai/WFCodeDiscovery';
 
 const serifP: React.CSSProperties = {
@@ -17,11 +18,12 @@ const mono15: React.CSSProperties = { fontFamily: 'var(--font-mono)', fontSize: 
 
 const sections: CSSection[] = [
   {
-    id: 'ai-01',
-    number: '01',
-    title: 'Frame',
+    id: "ai-01",
+    number: '02',
+    title: "The problem",
     heading: 'A research problem that looked like a search problem',
     body: (
+      <>
       <>
         <p style={serifP}>
           The tool's job is simple to state: let a PM ask a question about the bank's systems and get back something
@@ -33,14 +35,17 @@ const sections: CSSection[] = [
           view, and a generated mindmap) sitting over an index of the bank's repositories.
         </p>
       </>
+<PullQuote>The failure mode is a confident, plausible, slightly wrong answer.</PullQuote>
+      </>
     ),
   },
   {
-    id: 'ai-02',
-    number: '02',
-    title: 'The brief',
+    id: "ai-02",
+    number: '03',
+    title: "What we were asked to build",
     heading: 'What was asked for',
     body: (
+      <>
       <>
         <p style={serifP}>
           PMs were blocked on engineers. Any question that touched implementation (does this already exist, which
@@ -50,15 +55,7 @@ const sections: CSSection[] = [
         </p>
         <p style={serifP}>Stated that way, it reads like a search box over the repositories.</p>
       </>
-    ),
-  },
-  {
-    id: 'ai-03',
-    number: '03',
-    title: 'The reframe',
-    heading: 'What the problem actually was',
-    tinted: true,
-    body: (
+<TintedBlock label="The reframe" heading='What the problem actually was'>
       <>
         <p style={{ ...serifP, margin: 0, maxWidth: '62ch' }}>
           PMs weren't short of information. The documentation existed. That was the problem. There was too much of
@@ -78,29 +75,17 @@ const sections: CSSection[] = [
           meeting. Everything in the design is arranged against that one outcome.
         </p>
       </>
-    ),
-  },
-  {
-    id: 'ai-04',
-    number: '04',
-    title: 'Evidence',
-    heading: 'How I know that',
-    body: (
-      <>
-        <p style={serifP}>
-          Before this, the answer lived in whatever channel you could reach: Confluence pages that documented a
-          decision at the time it was made, and engineers you asked directly about what had changed since. Neither
-          is wrong; both just put the burden on knowing who to ask, and on that person being free.
-        </p>
+</TintedBlock>
       </>
     ),
   },
   {
-    id: 'ai-05',
-    number: '05',
-    title: 'The constraints',
+    id: "ai-05",
+    number: '04',
+    title: "Constraints and evidence",
     heading: 'What shaped every decision',
     body: (
+      <>
       <>
         <h3 style={h3}>The reader can't check the answer.</h3>
         <p style={p10}>
@@ -133,14 +118,44 @@ const sections: CSSection[] = [
           confidence. What was left was a tool that shows its work.
         </p>
       </>
+<SubsectionHead label="Evidence" heading='How I know that' />
+      <>
+        <p style={serifP}>
+          Before this, the answer lived in whatever channel you could reach: Confluence pages that documented a
+          decision at the time it was made, and engineers you asked directly about what had changed since. Neither
+          is wrong; both just put the burden on knowing who to ask, and on that person being free.
+        </p>
+      </>
+<InlineNotes notes={[
+        {
+          title: 'Constraints',
+          body: "The person reading the answer usually can't verify it. The index lags the codebase. The tool had to stop short of the decision.",
+        },
+        {
+          title: 'Credits',
+          body: 'One PM and the engineering team. I owned the flow and the screens.',
+        },
+        {
+          title: 'Principles',
+          body: (
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+              <div>01&nbsp; Show the source, not the summary.</div>
+              <div>02&nbsp; Say how old the answer is.</div>
+              <div>03&nbsp; Stop before the decision.</div>
+            </div>
+          ),
+        },
+      ]} />
+      </>
     ),
   },
   {
-    id: 'ai-06',
-    number: '06',
-    title: 'The design',
+    id: "ai-06",
+    number: '05',
+    title: "The design",
     heading: 'Screens as answers',
     body: (
+      <>
       <>
         <h3 style={h3}>Choosing the shape of the answer before asking the question.</h3>
         <p style={p10}>
@@ -181,14 +196,40 @@ const sections: CSSection[] = [
           place. It's the one output meant to leave the tool.
         </p>
       </>
+      </>
     ),
   },
   {
-    id: 'ai-07',
+    id: "ai-prototype",
+    number: '06',
+    title: "The prototype",
+    heading: "Try the working prototype",
+    body: (
+      <>
+<div style={{ marginTop: 24 }}><>
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '12px 24px', alignItems: 'baseline', justifyContent: 'space-between', marginBottom: 14 }}>
+            <div style={{ fontFamily: 'var(--font-ui)', fontSize: 13, fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.1em', color: 'var(--muted)' }}>
+              Working prototype
+            </div>
+            <div style={{ fontFamily: 'var(--font-serif)', fontWeight: 300, fontSize: 16, lineHeight: 1.6, color: 'var(--secondary)' }}>
+              Pick a mode, edit the query, hit Search. Try "Create Mindmap", and search "wire" for the no-result state.
+            </div>
+          </div>
+          <div style={{ width: '100%', background: '#F8F9FA', border: '1px solid var(--hairline)' }}>
+            <WFCodeDiscovery />
+          </div>
+        </></div>
+<div style={{ fontFamily: 'var(--font-ui)', fontSize: 13, fontWeight: 600, letterSpacing: '0.05em', color: 'var(--muted)', marginTop: 14 }}>{"The shipped discovery surface, rendered live: mode first, scope and freshness in the filter row, and results that return the source rather than a summary of it. The mode cards and the query field are interactive."}</div>
+      </>
+    ),
+  },
+  {
+    id: "ai-07",
     number: '07',
-    title: 'Impact',
+    title: "Impact",
     heading: 'What shipped',
     body: (
+      <>
       <>
         <p style={serifP}>
           It shipped internally right before I left, and it was the first internal tool built by the India team. PM
@@ -205,14 +246,16 @@ const sections: CSSection[] = [
           <li>How often people opened the source file versus stopping at the result list</li>
         </ul>
       </>
+      </>
     ),
   },
   {
-    id: 'ai-08',
+    id: "ai-08",
     number: '08',
-    title: 'Reflection',
+    title: "Reflection",
     heading: "What I'd do differently",
     body: (
+      <>
       <>
         <p style={serifP}>
           The search field assumes you already know the name of the thing you're looking for. Every screen I
@@ -227,8 +270,21 @@ const sections: CSSection[] = [
           of one who already knew it.
         </p>
       </>
+      </>
     ),
   },
+];
+
+const headStats = [{"value": "50+", "label": "Est. users when I left"}, {"value": "4", "label": "Modes before one question"}, {"value": "0", "label": "Answers without a source"}];
+
+const headFacts = [{"label": "Role", "value": "Product designer"}, {"label": "Team", "value": "Sole designer, PM, eng"}, {"label": "Timeline", "value": "3 weeks"}, {"label": "Platform", "value": "Web, internal"}];
+
+const contextFacts = [{"label": "Scope", "value": "Owned the flow and the screens. Did not own retrieval, indexing, or model behaviour."}, {"label": "Note", "value": "Screens redrawn and repository names replaced under NDA."}];
+
+const summaryItems = [
+  { label: "Problem", text: (<>PMs weren't short of information. <strong style={summaryEm}>There was too much of it, written by engineers for engineers, and no way to tell which parts were still true.</strong></>) },
+  { label: "What I did", text: (<>I designed the surface: <strong style={summaryEm}>what it could claim, how it showed uncertainty, and where a human had to decide.</strong></>) },
+  { label: "Result", text: (<><strong style={summaryEm}>It shipped internally right before I left</strong>, the first internal tool built by the India team. PM teams across India and the US were using it (by my estimate more than 50 people), though adoption was never formally measured.</>) },
 ];
 
 export default function WellsFargoAITool() {
@@ -240,57 +296,14 @@ export default function WellsFargoAITool() {
           <span style={{ color: 'var(--accent)' }}>An</span> answer a PM can repeat out loud
         </>
       }
-      summary="Product managers at Wells Fargo were spending hours reading documentation to answer questions engineers could answer in a sentence. We built an internal tool that searches the bank's code repositories and returns an answer. I designed the surface: what it could claim, how it showed uncertainty, and where a human had to decide."
-      meta={[
-        { label: 'Role', value: 'Product designer, designed the tool end to end' },
-        { label: 'Team', value: 'Only designer, with a PM and the engineering team' },
-        { label: 'Timeframe', value: '3 weeks' },
-        { label: 'Platform', value: 'Web · Internal' },
-        { label: 'Scope', value: 'Owned the flow and the screens. Did not own retrieval, indexing, or model behaviour.' },
-        { label: '', value: 'Screens redrawn and repository names replaced under NDA.' },
-      ]}
-      metrics={[
-        { value: '50+', label: 'Estimated users when I left' },
-        { value: '4', label: 'Modes before one question' },
-        { value: '0', label: 'Answers without a source' },
-      ]}
-      hero={
-        <>
-          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '12px 24px', alignItems: 'baseline', justifyContent: 'space-between', marginBottom: 14 }}>
-            <div style={{ fontFamily: 'var(--font-ui)', fontSize: 13, fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.1em', color: 'var(--muted)' }}>
-              Working prototype
-            </div>
-            <div style={{ fontFamily: 'var(--font-serif)', fontWeight: 300, fontSize: 16, lineHeight: 1.6, color: 'var(--secondary)' }}>
-              Pick a mode, edit the query, hit Search. Try "Create Mindmap", and search "wire" for the no-result state.
-            </div>
-          </div>
-          <div style={{ width: '100%', background: '#F8F9FA', border: '1px solid var(--hairline)' }}>
-            <WFCodeDiscovery />
-          </div>
-        </>
-      }
-      heroCaption="The shipped discovery surface, rendered live: mode first, scope and freshness in the filter row, and results that return the source rather than a summary of it. The mode cards and the query field are interactive."
+      summary="Product managers at Wells Fargo spent hours reading documentation to answer questions engineers could answer in a sentence. I designed the internal tool that searches the bank's code and returns an answer."
+      meta={[]}
+      headerAside={<HeaderDevice src="/assets/thumbs/wf-ai-tool.jpg" kind="web" alt="The Code Discovery search screen" />}
+      headerFooter={<HeaderStatsAndFacts stats={headStats} facts={headFacts} />}
+      hero={<OverviewSummary items={summaryItems} context={contextFacts} />}
+      overview={{ id: "ai-overview", number: '01', title: 'Overview' }}
+      railExtra={<RailStats stats={headStats} />}
       sections={sections}
-      notes={[
-        {
-          title: 'Constraints',
-          body: "The person reading the answer usually can't verify it. The index lags the codebase. The tool had to stop short of the decision.",
-        },
-        {
-          title: 'Credits',
-          body: 'One PM and the engineering team. I owned the flow and the screens.',
-        },
-        {
-          title: 'Principles',
-          body: (
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
-              <div>01&nbsp; Show the source, not the summary.</div>
-              <div>02&nbsp; Say how old the answer is.</div>
-              <div>03&nbsp; Stop before the decision.</div>
-            </div>
-          ),
-        },
-      ]}
       prev={{ kicker: 'Next case study', label: 'Cars24: refer & earn', to: '/work/cars24-refer-earn' }}
       next={{ kicker: 'Back to', label: 'All work', to: '/' }}
     />

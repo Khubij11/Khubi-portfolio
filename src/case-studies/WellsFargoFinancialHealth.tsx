@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react';
 import CaseStudyLayout, { type CSSection } from '../components/CaseStudyLayout';
+import { HeaderStatsAndFacts, HeaderDevice, OverviewSummary, RailStats, InlineNotes, PullQuote, TintedBlock, SubsectionHead, summaryEm } from '../components/CaseStudyParts';
 import FitScale from '../components/FitScale';
 import IOSDevice from '../components/IOSFrame';
 import WFFinancialHealthFlow from './wells-fargo/WFFinancialHealthFlow';
@@ -63,39 +64,35 @@ function PhoneFrame({ children }: { children: ReactNode }) {
 
 const sections: CSSection[] = [
   {
-    id: 'wf-01',
-    number: '01',
-    title: 'Frame',
+    id: "wf-01",
+    number: '02',
+    title: "The problem",
     heading: 'A tool for money that people avoided opening',
     body: (
+      <>
       <p style={serifP}>
         The section's job is simple to state: show a customer where their money is going, and help them decide what to
         do about it. What we designed is a budget set in four steps (choose the accounts to watch, confirm what comes
         in, review what is already committed, cap what is left) that ends on a dashboard they live with, inside the
         bank they already use. Savings goals sit beside it as their own object, not a step inside it.
       </p>
+<PullQuote>Dense isn't the same as informative.</PullQuote>
+      </>
     ),
   },
   {
-    id: 'wf-02',
-    number: '02',
-    title: 'The brief',
+    id: "wf-02",
+    number: '03',
+    title: "What we were asked to build",
     heading: 'What Wells Fargo asked for',
     body: (
+      <>
       <p style={serifP}>
         The section wasn't being used. It had been designed a long time ago, and it showed: dense screens, a lot of
         numbers, and a workflow that asked people to understand the whole thing before it gave them anything. The ask
         was straightforward: make it something people actually want to open.
       </p>
-    ),
-  },
-  {
-    id: 'wf-03',
-    number: '03',
-    title: 'The reframe',
-    heading: 'What the problem actually was',
-    tinted: true,
-    body: (
+<TintedBlock label="The reframe" heading='What the problem actually was'>
       <>
         <p style={{ ...serifP, maxWidth: '62ch' }}>
           The obvious reading was that it looked dated. That was true, but it wasn't the reason nobody used it.
@@ -117,14 +114,42 @@ const sections: CSSection[] = [
           obvious.
         </p>
       </>
+</TintedBlock>
+      </>
     ),
   },
   {
-    id: 'wf-04',
+    id: "wf-05",
     number: '04',
-    title: 'Evidence',
-    heading: 'How I know that',
+    title: "Constraints and evidence",
+    heading: 'What shaped every decision',
     body: (
+      <>
+      <>
+        <h3 style={{ fontSize: 17, fontWeight: 600, letterSpacing: '-0.01em', margin: '26px 0 0 0' }}>You can't move one part of a bank.</h3>
+        <p style={{ ...serifP, marginTop: 10 }}>
+          Changing a single section in the Wells Fargo system means untangling everything it shares with the rest of the
+          app first. So the redesign had to be built almost entirely from components that already existed; the
+          improvement had to come from what we showed and in what order, not from new UI.
+        </p>
+        <h3 style={{ fontSize: 17, fontWeight: 600, letterSpacing: '-0.01em', margin: '26px 0 0 0' }}>It couldn't stand out.</h3>
+        <p style={{ ...serifP, marginTop: 10 }}>
+          A section that looked like a different product would read as untrustworthy to this audience, and would have
+          broken the consistency the rest of the app depends on. The design had to feel like the same bank, only
+          clearer.
+        </p>
+        <h3 style={{ fontSize: 17, fontWeight: 600, letterSpacing: '-0.01em', margin: '26px 0 0 0' }}>Data security capped the feature set.</h3>
+        <p style={{ ...serifP, marginTop: 10 }}>
+          We couldn't ask customers to upload much, or lean on the kind of data-hungry personalisation the neobanks use.
+          Anything that made the tools smarter had to work from what the bank already held.
+        </p>
+        <p style={{ ...serifP, marginTop: 24 }}>
+          Those three together ruled out most of what a redesign usually reaches for. What was left was sequence,
+          hierarchy and language: deciding what a customer sees first, what they see at all, and what it's called. That
+          turned out to be enough, and it's the part I'd argue matters most anyway.
+        </p>
+      </>
+<SubsectionHead label="Evidence" heading='How I know that' />
       <>
         <p style={serifP}>
           We looked outward first. I went through the neobanks (the US challengers and a lot of the Indian ones, where
@@ -174,46 +199,36 @@ const sections: CSSection[] = [
           />
         </div>
       </>
-    ),
-  },
-  {
-    id: 'wf-05',
-    number: '05',
-    title: 'The constraints',
-    heading: 'What shaped every decision',
-    body: (
-      <>
-        <h3 style={{ fontSize: 17, fontWeight: 600, letterSpacing: '-0.01em', margin: '26px 0 0 0' }}>You can't move one part of a bank.</h3>
-        <p style={{ ...serifP, marginTop: 10 }}>
-          Changing a single section in the Wells Fargo system means untangling everything it shares with the rest of the
-          app first. So the redesign had to be built almost entirely from components that already existed; the
-          improvement had to come from what we showed and in what order, not from new UI.
-        </p>
-        <h3 style={{ fontSize: 17, fontWeight: 600, letterSpacing: '-0.01em', margin: '26px 0 0 0' }}>It couldn't stand out.</h3>
-        <p style={{ ...serifP, marginTop: 10 }}>
-          A section that looked like a different product would read as untrustworthy to this audience, and would have
-          broken the consistency the rest of the app depends on. The design had to feel like the same bank, only
-          clearer.
-        </p>
-        <h3 style={{ fontSize: 17, fontWeight: 600, letterSpacing: '-0.01em', margin: '26px 0 0 0' }}>Data security capped the feature set.</h3>
-        <p style={{ ...serifP, marginTop: 10 }}>
-          We couldn't ask customers to upload much, or lean on the kind of data-hungry personalisation the neobanks use.
-          Anything that made the tools smarter had to work from what the bank already held.
-        </p>
-        <p style={{ ...serifP, marginTop: 24 }}>
-          Those three together ruled out most of what a redesign usually reaches for. What was left was sequence,
-          hierarchy and language: deciding what a customer sees first, what they see at all, and what it's called. That
-          turned out to be enough, and it's the part I'd argue matters most anyway.
-        </p>
+<InlineNotes notes={[
+        {
+          title: 'Constraints',
+          body: 'The redesign had to be assembled from components the bank already shipped; a shared system means a new pattern here would have to be paid for everywhere. The work was sequence, hierarchy and language.',
+        },
+        {
+          title: 'Credits',
+          body: "One PM, two junior designers I mentored, and the bank's design-system and accessibility teams, who reviewed everything before sign-off. I owned the audit, the flows, the screens and the copy.",
+        },
+        {
+          title: 'Principles',
+          body: (
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+              <div>01&nbsp; One decision per screen.</div>
+              <div>02&nbsp; Sequence is the argument.</div>
+              <div>03&nbsp; Name it what a customer would call it.</div>
+            </div>
+          ),
+        },
+      ]} />
       </>
     ),
   },
   {
-    id: 'wf-06',
-    number: '06',
-    title: 'The design',
+    id: "wf-06",
+    number: '05',
+    title: "The design",
     heading: 'Screens as answers',
     body: (
+      <>
       <>
         <p style={serifP}>
           The first decision was to stop showing the whole picture at once. Setting a budget became a sequence of four
@@ -269,14 +284,7 @@ const sections: CSSection[] = [
           <div style={caption}>The last step caps categories against what you usually spend. Finish set-up disables, with a plain reason, if the limits exceed what is there.</div>
         </div>
       </>
-    ),
-  },
-  {
-    id: 'wf-06b',
-    number: '07',
-    title: 'Savings goals',
-    heading: 'The number that disappeared',
-    body: (
+<SubsectionHead label="Savings goals" heading='The number that disappeared' />
       <>
         <p style={serifP}>
           My first version told a customer to pay themselves first inside the budget wizard, and then produced a number
@@ -322,7 +330,7 @@ const sections: CSSection[] = [
           One decision per screen was already the rule, so the phone needed less furniture rather than a different
           structure.
         </p>
-        <div style={{ display: 'flex', flexWrap: 'nowrap', gap: 20, marginTop: 32, justifyContent: 'center', alignItems: 'flex-start' }}>
+        <div style={{ display: 'flex', flexWrap: 'wrap', gap: 20, marginTop: 32, justifyContent: 'center', alignItems: 'flex-start' }}>
           <PhoneFrame>
             <WFFinancialHealthFlow view="setup" step={1} showChrome={false} compact />
           </PhoneFrame>
@@ -338,84 +346,17 @@ const sections: CSSection[] = [
           the money-flow ledger stacks, and the steppers keep their 48px targets. Each screen scrolls inside its frame.
         </div>
       </>
-    ),
-  },
-  {
-    id: 'wf-07',
-    number: '08',
-    title: 'Status',
-    heading: 'Where it got to',
-    body: (
-      <>
-        <p style={serifP}>
-          The redesign was reviewed, approved and released, and usage of the section rose 1.2% against the flat baseline
-          we started from. Every screen cleared an accessibility review before sign-off, which was a condition of
-          shipping anything here.
-        </p>
-        <p style={serifP}>
-          The honest measure is narrow. A 1.2% lift is real movement on a number that had not moved at all, but it is
-          small, and I would not claim the sequence alone did it. Screen count stayed close to where it started; the
-          win was the savings plan flow, where reworking the form took three screens out of the path. Most of the change
-          was in what each screen asked for and in what order, not in how many there were.
-        </p>
       </>
     ),
   },
   {
-    id: 'wf-08',
-    number: '09',
-    title: 'Reflection',
-    heading: "What I'd do differently",
+    id: "wf-prototype",
+    number: '06',
+    title: "The prototype",
+    heading: "Try the working prototype",
     body: (
-      <p style={serifP}>
-        I'd push to define what "engagement" meant before design started. We inherited a flat number for the section and
-        treated it as the problem statement, which made every improvement arguable after the fact. If I'd instrumented
-        specific behaviours instead (who finishes setup, who comes back to the dashboard, who changes an amount once
-        it's live), I'd be able to say which of these changes did the work, rather than describing a redesign and
-        trusting the reader to believe it helped.
-      </p>
-    ),
-  },
-];
-
-export default function WellsFargoFinancialHealth() {
-  return (
-    <CaseStudyLayout
-      kicker="Wells Fargo · 2024"
-      title={
-        <>
-          <span style={{ color: 'var(--accent)' }}>Financial</span> health tools
-        </>
-      }
-      summary="Wells Fargo's financial health tools had been built years earlier and barely touched since. Engagement was flat. I led the redesign of the section, working end-to-end from the initial audit through to approved screens."
-      meta={[
-        { label: 'Role', value: 'Design lead, led the redesign end to end' },
-        { label: 'Team', value: '3 designers (2 juniors I mentored) and 1 PM, with developers on call for design reviews' },
-        { label: 'Timeframe', value: '8 months' },
-        { label: 'Platform', value: 'Web · responsive' },
-        { label: 'Scope', value: 'Audit through to approved screens, handed to engineering. Did not own the scoring model or the underlying account data.' },
-        { label: '', value: 'Screens redrawn and figures simplified under NDA.' },
-      ]}
-      metrics={[
-        { value: '7', label: 'Steps, one decision each' },
-        { value: '+1.2%', label: 'Tool usage after launch' },
-        { value: '1', label: 'Figure always in view' },
-      ]}
-      afterMetrics={
-        <>
-          <p style={{ ...serifP, maxWidth: '58ch', margin: '26px 0 0 0' }}>
-            The constraint that shaped everything: I couldn't add UI. Every screen had to be assembled from components
-            the bank already shipped, so the improvement had to come from sequence, hierarchy and language: what a
-            customer sees first, what they see at all, and what it's called.
-          </p>
-          <div style={{ display: 'flex', flexWrap: 'wrap', gap: 10, marginTop: 22 }}>
-            <a href="#wf-03" style={{ fontFamily: 'var(--font-ui)', fontSize: 13, fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.1em', padding: '10px 16px', border: '1px solid var(--ink)', color: 'var(--ink)' }}>Read the reframe →</a>
-            <a href="#wf-06" style={{ fontFamily: 'var(--font-ui)', fontSize: 13, fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.1em', padding: '10px 16px', border: '1px solid var(--hairline)', color: 'var(--secondary)' }}>See the design decisions →</a>
-          </div>
-        </>
-      }
-      hero={
-        <>
+      <>
+<div style={{ marginTop: 24 }}><>
           <div style={{ maxWidth: 1000, margin: '0 auto' }}>
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: '12px 24px', alignItems: 'baseline', justifyContent: 'space-between', marginBottom: 14 }}>
               <div style={kicker}>Working prototype</div>
@@ -431,29 +372,81 @@ export default function WellsFargoFinancialHealth() {
               goal from the dashboard; change any number and every dependent figure recalculates.
             </div>
           </div>
+        </></div>
+      </>
+    ),
+  },
+  {
+    id: "wf-07",
+    number: '07',
+    title: "Status",
+    heading: 'Where it got to',
+    body: (
+      <>
+      <>
+        <p style={serifP}>
+          The redesign was reviewed, approved and released, and usage of the section rose 1.2% against the flat baseline
+          we started from. Every screen cleared an accessibility review before sign-off, which was a condition of
+          shipping anything here.
+        </p>
+        <p style={serifP}>
+          The honest measure is narrow. A 1.2% lift is real movement on a number that had not moved at all, but it is
+          small, and I would not claim the sequence alone did it. Screen count stayed close to where it started; the
+          win was the savings plan flow, where reworking the form took three screens out of the path. Most of the change
+          was in what each screen asked for and in what order, not in how many there were.
+        </p>
+      </>
+      </>
+    ),
+  },
+  {
+    id: "wf-08",
+    number: '08',
+    title: "Reflection",
+    heading: "What I'd do differently",
+    body: (
+      <>
+      <p style={serifP}>
+        I'd push to define what "engagement" meant before design started. We inherited a flat number for the section and
+        treated it as the problem statement, which made every improvement arguable after the fact. If I'd instrumented
+        specific behaviours instead (who finishes setup, who comes back to the dashboard, who changes an amount once
+        it's live), I'd be able to say which of these changes did the work, rather than describing a redesign and
+        trusting the reader to believe it helped.
+      </p>
+      </>
+    ),
+  },
+];
+
+const headStats = [{"value": "7", "label": "Steps, one decision each"}, {"value": "+1.2%", "label": "Usage after launch"}, {"value": "1", "label": "Figure always in view"}];
+
+const headFacts = [{"label": "Role", "value": "Design lead"}, {"label": "Team", "value": "3 designers, 1 PM"}, {"label": "Timeline", "value": "8 months"}, {"label": "Platform", "value": "Web, responsive"}];
+
+const contextFacts = [{"label": "Scope", "value": "Audit through to approved screens, handed to engineering. Did not own the scoring model or the underlying account data."}, {"label": "Note", "value": "Screens redrawn and figures simplified under NDA."}];
+
+const summaryItems = [
+  { label: "Problem", text: (<><strong style={summaryEm}>The section showed everything at once and prioritised nothing.</strong> Every number was given equal weight, so a customer opening it had to decide what mattered before they could act on anything.</>) },
+  { label: "What I did", text: (<>I led the redesign end to end. <strong style={summaryEm}>Setting a budget became a sequence of four steps, each holding one decision</strong>, and savings goals became their own object.</>) },
+  { label: "Result", text: (<>The redesign was reviewed, approved and released, and <strong style={summaryEm}>usage of the section rose 1.2%</strong> against the flat baseline we started from.</>) },
+];
+
+export default function WellsFargoFinancialHealth() {
+  return (
+    <CaseStudyLayout
+      kicker="Wells Fargo · 2024"
+      title={
+        <>
+          <span style={{ color: 'var(--accent)' }}>Financial</span> health tools
         </>
       }
+      summary="Wells Fargo's financial health tools had been built years earlier and barely touched since. I led the redesign, from the initial audit through to approved screens."
+      meta={[]}
+      headerAside={<HeaderDevice src="/assets/thumbs/wf-financial-health.jpg" kind="web" alt="The redesigned budget start screen" />}
+      headerFooter={<HeaderStatsAndFacts stats={headStats} facts={headFacts} />}
+      hero={<OverviewSummary items={summaryItems} context={contextFacts} />}
+      overview={{ id: "wf-overview", number: '01', title: 'Overview' }}
+      railExtra={<RailStats stats={headStats} />}
       sections={sections}
-      notes={[
-        {
-          title: 'Constraints',
-          body: 'The redesign had to be assembled from components the bank already shipped; a shared system means a new pattern here would have to be paid for everywhere. The work was sequence, hierarchy and language.',
-        },
-        {
-          title: 'Credits',
-          body: "One PM, two junior designers I mentored, and the bank's design-system and accessibility teams, who reviewed everything before sign-off. I owned the audit, the flows, the screens and the copy.",
-        },
-        {
-          title: 'Principles',
-          body: (
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
-              <div>01&nbsp; One decision per screen.</div>
-              <div>02&nbsp; Sequence is the argument.</div>
-              <div>03&nbsp; Name it what a customer would call it.</div>
-            </div>
-          ),
-        },
-      ]}
       prev={{ kicker: 'Next case study', label: 'Klub: syndicates on the patron platform', to: '/work/klub' }}
       next={{ kicker: 'Back to', label: 'All work', to: '/' }}
     />
