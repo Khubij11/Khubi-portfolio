@@ -77,8 +77,13 @@ table {
     margin-top: 0 !important;
   }
 
+  /* Less air between the scene and Selected work once everything stacks. */
+  .hero-sec {
+    padding-bottom: 24px !important;
+  }
+
   .hero-h1 {
-    font-size: clamp(22px, calc(-9px + 14.5vw), 56px) !important;
+    font-size: clamp(22px, 10.2vw, 56px) !important;
     max-width: 100% !important;
   }
 
@@ -92,6 +97,10 @@ table {
 /* Column labels only make sense when the row is laid out in columns. */
 @media (max-width: 899px) {
   .work-table-header { display: none !important; }
+  /* Stacked rows: the thumbnail fills the column, with its device centred and enlarged. */
+  .work-thumb-col { flex-basis: 100% !important; }
+  .work-thumb { width: 100% !important; height: 180px !important; }
+  .work-thumb-device { left: 50% !important; margin-left: 0 !important; translate: -50% 0; scale: 1.35; transform-origin: top center; }
 }
 
 .work-thumb-device {

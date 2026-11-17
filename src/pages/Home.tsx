@@ -111,6 +111,13 @@ const BAKE_PHOTOS = [
   { src: '/assets/bake-muffins.jpg', alt: 'Strawberry cream cheese muffins with fresh strawberries' },
 ];
 
+// Writing: essays on Medium, newest first.
+const ESSAYS = [
+  { title: 'Designing in the Age of Instant Answers', date: 'Sep 2026', read: '4 min read', href: 'https://medium.com/@khubi.brahmbhatt/designing-in-the-age-of-instant-answers-9fb5a3dec812' },
+  { title: 'In Defense of Friction: Why the Best Products Make You Pause', date: 'Sep 2026', read: '5 min read', href: 'https://medium.com/@khubi.brahmbhatt/in-defense-of-the-pause-b879b994d081' },
+  { title: 'Designing Before the Prompt', date: 'Sep 2026', read: '6 min read', href: 'https://medium.com/@khubi.brahmbhatt/designing-before-the-prompt-8d61b0341161' },
+];
+
 // Travel: two vintage-style postage stamps from trips, tucked above the bowl.
 const STAMPS = [
   { place: 'Bali', src: '/assets/scene/stamp-bali.png', cls: 'otc-stamp-a' },
@@ -368,11 +375,11 @@ function IllustrationCard() {
         }
         .otc-tag {
           display: inline-flex; align-items: center; gap: 7px; padding: 6px 12px 6px 10px; border-radius: 999px;
-          background: #FFFFFF; border: 1px solid var(--hairline); box-shadow: 0 6px 14px -10px rgba(23,26,24,0.35);
-          font-family: var(--font-mono); font-size: 10px; text-transform: uppercase; letter-spacing: 0.16em; color: var(--secondary);
+          background: var(--lilac-soft); border: 1px solid var(--lilac-mist); box-shadow: 0 6px 14px -10px rgba(106,75,176,0.45);
+          font-family: var(--font-mono); font-size: 10px; text-transform: uppercase; letter-spacing: 0.16em; color: var(--lilac-deep);
           position: relative; z-index: 12;
         }
-        .otc-tag-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--lilac); box-shadow: 0 0 0 3px var(--lilac-soft); }
+        .otc-tag-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--lilac); box-shadow: 0 0 0 3px #FFFFFF; }
         /* Depth: a gentle parallax, with front objects drifting further than the photo and circles behind it. */
         .otc-stage { --px: 0; --py: 0; }
         .otc-moon, .otc-pill, .otc-books, .otc-mokabox, .otc-garden, .otc-toolsbtn, .otc-stamps, .otc-bake { transition: translate 500ms cubic-bezier(.2,.8,.2,1); }
@@ -656,7 +663,7 @@ export default function Home() {
   return (
     <main style={{ margin: '0 auto', maxWidth: 1344, padding: '0 clamp(20px, 5vw, 72px) 96px' }}>
       {/* Hero */}
-      <section style={{ position: 'relative', padding: '64px 24px 64px 0', marginRight: 'calc(-1 * clamp(20px, 5vw, 72px))', overflowX: 'clip', overflowY: 'visible' }}>
+      <section className="hero-sec" style={{ position: 'relative', padding: '64px 24px 64px 0', marginRight: 'calc(-1 * clamp(20px, 5vw, 72px))', overflowX: 'clip', overflowY: 'visible' }}>
         <div
           style={{
             position: 'absolute',
@@ -756,79 +763,51 @@ export default function Home() {
             <WorkRow key={r.title} row={r} />
           ))}
         </div>
-
-        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '10px 32px', alignItems: 'baseline', padding: '26px 0 0 0' }}>
-          <span style={{ ...kicker, flex: '0 0 88px' }}>Evidence key</span>
-          <span style={{ fontSize: 13, color: 'var(--secondary)' }}>
-            <span style={{ display: 'inline-block', width: 7, height: 7, borderRadius: 999, background: '#0B5030', marginRight: 7, verticalAlign: 'middle' }} />
-            <span style={{ color: 'var(--ink)' }}>Shipped · measured</span>: live, with numbers
-          </span>
-          <span style={{ fontSize: 13, color: 'var(--secondary)' }}>
-            <span style={{ display: 'inline-block', width: 7, height: 7, borderRadius: 999, background: '#0E5C6B', marginRight: 7, verticalAlign: 'middle' }} />
-            <span style={{ color: 'var(--ink)' }}>Shipped</span>: live, not instrumented
-          </span>
-          <span style={{ fontSize: 13, color: 'var(--secondary)' }}>
-            <span style={{ display: 'inline-block', width: 7, height: 7, borderRadius: 999, background: '#8A5410', marginRight: 7, verticalAlign: 'middle' }} />
-            <span style={{ color: 'var(--ink)' }}>Approved</span>: signed off, not yet live
-          </span>
-          <span style={{ fontSize: 13, color: 'var(--secondary)' }}>
-            <span style={{ display: 'inline-block', width: 7, height: 7, borderRadius: 999, background: '#5B3E82', marginRight: 7, verticalAlign: 'middle' }} />
-            <span style={{ color: 'var(--ink)' }}>Concept</span>: self-initiated
-          </span>
-        </div>
       </section>
 
-      {/* Writing */}
-      <section style={{ padding: '72px 0 0 0' }}>
-        <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', gap: 24, flexWrap: 'wrap', borderBottom: '1px solid var(--ink)', paddingBottom: 14 }}>
-          <span style={kicker}>Writing</span>
-          <span style={{ ...kicker, color: 'var(--muted)' }}>On Medium</span>
+      {/* Writing: an editorial panel, set apart from the work table above. */}
+      <section className="writing" style={{ marginTop: 88 }}>
+        <div className="writing-head">
+          <div>
+            <span style={{ ...kicker, color: 'var(--lilac-deep)' }}>Writing</span>
+            <h2 className="writing-title">On instant answers, friction and the prompt</h2>
+          </div>
+          <span style={{ ...kicker, color: 'var(--muted)' }}>Essays on Medium</span>
         </div>
-        <a
-          href="https://medium.com/@khubi.brahmbhatt/designing-in-the-age-of-instant-answers-9fb5a3dec812"
-          target="_blank"
-          rel="noopener"
-          style={{ display: 'flex', flexWrap: 'wrap', gap: '12px 24px', alignItems: 'flex-start', padding: '24px 0', borderBottom: '1px solid var(--hairline)', color: 'var(--ink)' }}
-        >
-          <span style={{ flex: '0 0 72px', fontFamily: 'var(--font-mono)', fontSize: 12, color: 'var(--muted)', paddingTop: 4 }}>Sep 2026</span>
-          <span style={{ flex: '1 1 420px' }}>
-            <span style={{ display: 'block', fontSize: 19, fontWeight: 500, letterSpacing: '-0.02em' }}>
-              Designing in the Age of Instant Answers
-            </span>
-          </span>
-          <span style={{ flex: '0 0 150px', fontFamily: 'var(--font-mono)', fontSize: 12, color: 'var(--secondary)', paddingTop: 4 }}>4 min read</span>
-          <span style={{ flex: '0 0 20px', color: 'var(--muted)', paddingTop: 3 }}>↗</span>
-        </a>
-        <a
-          href="https://medium.com/@khubi.brahmbhatt/in-defense-of-the-pause-b879b994d081"
-          target="_blank"
-          rel="noopener"
-          style={{ display: 'flex', flexWrap: 'wrap', gap: '12px 24px', alignItems: 'flex-start', padding: '24px 0', borderBottom: '1px solid var(--hairline)', color: 'var(--ink)' }}
-        >
-          <span style={{ flex: '0 0 72px', fontFamily: 'var(--font-mono)', fontSize: 12, color: 'var(--muted)', paddingTop: 4 }}>Sep 2026</span>
-          <span style={{ flex: '1 1 420px' }}>
-            <span style={{ display: 'block', fontSize: 19, fontWeight: 500, letterSpacing: '-0.02em' }}>
-              In Defense of Friction: Why the Best Products Make You Pause
-            </span>
-          </span>
-          <span style={{ flex: '0 0 150px', fontFamily: 'var(--font-mono)', fontSize: 12, color: 'var(--secondary)', paddingTop: 4 }}>5 min read</span>
-          <span style={{ flex: '0 0 20px', color: 'var(--muted)', paddingTop: 3 }}>↗</span>
-        </a>
-        <a
-          href="https://medium.com/@khubi.brahmbhatt/designing-before-the-prompt-8d61b0341161"
-          target="_blank"
-          rel="noopener"
-          style={{ display: 'flex', flexWrap: 'wrap', gap: '12px 24px', alignItems: 'flex-start', padding: '24px 0', borderBottom: '1px solid var(--hairline)', color: 'var(--ink)' }}
-        >
-          <span style={{ flex: '0 0 72px', fontFamily: 'var(--font-mono)', fontSize: 12, color: 'var(--muted)', paddingTop: 4 }}>Sep 2026</span>
-          <span style={{ flex: '1 1 420px' }}>
-            <span style={{ display: 'block', fontSize: 19, fontWeight: 500, letterSpacing: '-0.02em' }}>
-              Designing Before the Prompt
-            </span>
-          </span>
-          <span style={{ flex: '0 0 150px', fontFamily: 'var(--font-mono)', fontSize: 12, color: 'var(--secondary)', paddingTop: 4 }}>6 min read</span>
-          <span style={{ flex: '0 0 20px', color: 'var(--muted)', paddingTop: 3 }}>↗</span>
-        </a>
+        <div className="writing-grid">
+          {ESSAYS.map((e, i) => (
+            <a key={e.href} className="essay" href={e.href} target="_blank" rel="noopener">
+              <span className="essay-meta">
+                <span>No. {String(i + 1).padStart(2, '0')}</span>
+                <span>{e.date}</span>
+              </span>
+              <span className="essay-title">{e.title}</span>
+              <span className="essay-foot">
+                <span>{e.read}</span>
+                <span className="essay-cta">Read on Medium ↗</span>
+              </span>
+            </a>
+          ))}
+        </div>
+        <style>{`
+          .writing { background: var(--lilac-soft); border-radius: 6px; padding: clamp(24px, 4vw, 44px); }
+          .writing-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 12px 24px; flex-wrap: wrap; }
+          .writing-title { font-family: var(--font-serif); font-weight: 300; font-size: clamp(26px, 3.2vw, 38px); letter-spacing: -0.02em; line-height: 1.1; margin: 10px 0 0 0; color: var(--ink); }
+          .writing-grid { display: grid; grid-template-columns: 1fr; gap: 16px; margin-top: 28px; }
+          @media (min-width: 900px) { .writing-grid { grid-template-columns: repeat(3, 1fr); } }
+          @media (max-width: 899px) { .essay { min-height: 0; } }
+          .essay {
+            display: flex; flex-direction: column; gap: 18px; min-height: 200px; padding: 22px 22px 20px;
+            background: #FFFFFF; border: 1px solid var(--lilac-mist); border-radius: 4px; color: var(--ink);
+            box-shadow: 0 1px 2px rgba(23,26,24,0.04); transition: transform 260ms cubic-bezier(.2,.8,.2,1), box-shadow 260ms ease;
+          }
+          .essay:hover, .essay:focus-visible { color: var(--ink); transform: translateY(-4px); box-shadow: 0 18px 30px -20px rgba(106,75,176,0.55); }
+          .essay-meta, .essay-foot { display: flex; justify-content: space-between; gap: 12px; font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.04em; color: var(--muted); }
+          .essay-title { flex: 1; font-family: var(--font-serif); font-weight: 400; font-size: 23px; line-height: 1.22; letter-spacing: -0.015em; }
+          .essay-cta { color: var(--lilac-deep); }
+          .essay:hover .essay-cta { text-decoration: underline; text-underline-offset: 3px; }
+          @media (prefers-reduced-motion: reduce) { .essay { transition: none; } .essay:hover { transform: none; } }
+        `}</style>
       </section>
 
       {/* Footer */}
