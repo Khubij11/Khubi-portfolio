@@ -100,7 +100,7 @@ interface FlowState {
 const VC_LINES = [
   "Hi, you've reached {name}. I can't pick up right now, but I'm listening.",
   "Tell me what it's about and I'll make sure it gets to them today.",
-  "Thanks for calling — {name} will get back to you.",
+  "Thanks for calling. {name} will get back to you.",
 ];
 
 const TASKS = [
@@ -188,7 +188,7 @@ const SUGG = [
   { text: 'Loan and credit-card calls are the #1 spam category. One tap brushes them off automatically.', skip: 'Not for me' },
   { text: 'Tell mum and dad you love them and that you’ll call right back. Tap and pick their contacts.', skip: 'Not now' },
   { text: 'Every call from your partner becomes a fun, flirty moment.', skip: 'Not now' },
-  { text: 'Delivery, friends, repair guys — when they ask where you live, Tanya tells them. Tap to add your address.', skip: 'Not now' },
+  { text: 'Delivery, friends, repair guys: when they ask where you live, Tanya tells them. Tap to add your address.', skip: 'Not now' },
 ];
 
 const OWN_CALLS = [
@@ -196,7 +196,7 @@ const OWN_CALLS = [
   { title: 'Dinner reservation at Kaatan', date: '18th November', time: '8pm to 9:30pm', place: 'Indiranagar', pill: 'Pending' },
   { title: 'Appointment with Dr Rakesh', date: '21st November', time: '11am to 11:30am', place: 'Koramangala', pill: 'Confirmed' },
   { title: 'Callback with Anita from Sunrise Dental', date: '19th November', time: '10am to 10:15am', place: 'Phone call', pill: 'Pending' },
-  { title: 'Unknown caller — loan offer, ended', date: '17th November', time: '11:47am · 9 sec', place: 'Blocked by Tanya', pill: 'Spam' },
+  { title: 'Unknown caller: loan offer, ended', date: '17th November', time: '11:47am · 9 sec', place: 'Blocked by Tanya', pill: 'Spam' },
 ];
 
 export default function OsmoOnboardingFlow({
@@ -350,7 +350,7 @@ export default function OsmoOnboardingFlow({
               </div>
             </div>
             <div style={{ marginTop: 16, paddingTop: 16, boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.07)', fontFamily: "'Instrument Serif', Georgia, serif", fontStyle: 'italic', fontSize: 19, lineHeight: 1.32, color: '#E7DED4' }}>
-              &ldquo;He's busy right now — can I take a message?&rdquo;
+              &ldquo;He's busy right now. Can I take a message?&rdquo;
             </div>
           </div>
 
@@ -533,7 +533,7 @@ export default function OsmoOnboardingFlow({
                       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="6" y="3" width="12" height="18" rx="2.5" /></svg>
                     </div>
                     <div style={{ minWidth: 0 }}>
-                      <div style={{ fontSize: 14, fontWeight: 600, color: '#FFFFFF' }}>You ring first — level 1</div>
+                      <div style={{ fontSize: 14, fontWeight: 600, color: '#FFFFFF' }}>You ring first (level 1)</div>
                       <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, marginTop: 8 }}>
                         {['Busy', 'Declined', 'Missed'].map((tag) => (
                           <div key={tag} style={{ height: 24, padding: '0 10px', borderRadius: 999, boxShadow: 'inset 0 0 0 1px rgba(255,255,255,0.16)', display: 'flex', alignItems: 'center', fontSize: 12, color: 'rgba(255,255,255,0.72)' }}>
@@ -545,7 +545,7 @@ export default function OsmoOnboardingFlow({
                   </div>
                   <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
                     <div style={{ width: 32, height: 32, borderRadius: 10, flexShrink: 0, background: 'linear-gradient(160deg, #C8AF9B 0%, #8A7566 100%)', boxShadow: '0 3px 7px rgba(172,148,130,0.18)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 12, fontWeight: 700, color: '#232531', zIndex: 1 }}>T</div>
-                    <div style={{ fontSize: 14, fontWeight: 500, color: '#FFFFFF' }}>Only then: Tanya — level 2</div>
+                    <div style={{ fontSize: 14, fontWeight: 500, color: '#FFFFFF' }}>Only then: Tanya (level 2)</div>
                   </div>
                 </div>
               </div>
@@ -736,7 +736,7 @@ export default function OsmoOnboardingFlow({
 
             <div style={{ borderRadius: 16, ...cssObj(glass), padding: '24px 20px' }}>
               <div style={{ fontSize: 13, lineHeight: 1.5, color: '#B8B9C2' }}>
-                {vcDone === 3 ? 'We have everything we need to sound like you.' : `Line ${vcDone + 1} of 3 — say it the way you normally would.`}
+                {vcDone === 3 ? 'We have everything we need to sound like you.' : `Line ${vcDone + 1} of 3. Say it the way you normally would.`}
               </div>
               <div style={{ fontSize: 20, fontWeight: 500, lineHeight: 1.45, letterSpacing: '-0.015em', color: '#FFFFFF', marginTop: 12 }}>
                 {VC_LINES[Math.min(2, vcDone)].replace('{name}', s.name || 'Priya')}
@@ -778,7 +778,7 @@ export default function OsmoOnboardingFlow({
                 {s.vcRec ? <div style={{ width: 26, height: 26, borderRadius: 7, background: '#232531' }} /> : <div style={{ width: 26, height: 26, display: 'flex', color: '#232531' }}><OsmoIcon name="VuesaxBoldMicrophone2" size={24} /></div>}
               </div>
             </div>
-            <div style={{ fontSize: 13, color: '#9B9CA7' }}>{s.vcRec ? 'Listening — tap to stop' : vcDone === 3 ? 'Tap to record any line again' : 'Tap to start'}</div>
+            <div style={{ fontSize: 13, color: '#9B9CA7' }}>{s.vcRec ? 'Listening. Tap to stop' : vcDone === 3 ? 'Tap to record any line again' : 'Tap to start'}</div>
           </div>
 
           <button
@@ -1115,7 +1115,7 @@ export default function OsmoOnboardingFlow({
                     ...p,
                     chat: p.chat.concat([
                       { me: true, text: 'Who called today?' },
-                      { me: false, text: 'Three. Anita from Sunrise Dental about your cleaning, one loan offer I ended, and your sister — I said you’d ring back.' },
+                      { me: false, text: 'Three. Anita from Sunrise Dental about your cleaning, one loan offer I ended, and your sister. I said you’d ring back.' },
                     ]),
                   }))
                 }
@@ -1130,9 +1130,9 @@ export default function OsmoOnboardingFlow({
             <div style={{ padding: '0 20px 16px 20px', display: 'flex', flexDirection: 'column', gap: 16 }}>
               {[
                 { me: true, text: 'Did anyone call about the dental appointment?' },
-                { me: false, text: 'Yes. Anita from Sunrise Dental called at 10:12am. She asked to move your cleaning to the 19th at 10am. I said you’d confirm — it’s waiting under Needs you.' },
+                { me: false, text: 'Yes. Anita from Sunrise Dental called at 10:12am. She asked to move your cleaning to the 19th at 10am. I said you’d confirm. It’s waiting under Needs you.' },
                 { me: true, text: 'Anything I missed yesterday?' },
-                { me: false, text: 'Four calls. Two were loan offers and I ended them. Dr Rajesh’s office confirmed the 17th. Your sister called twice — I told her you’d ring back.' },
+                { me: false, text: 'Four calls. Two were loan offers and I ended them. Dr Rajesh’s office confirmed the 17th. Your sister called twice. I told her you’d ring back.' },
               ]
                 .concat(s.chat)
                 .map((m, i) => (

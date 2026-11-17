@@ -88,7 +88,7 @@ export default function JobCreationScreen() {
           <div style={{ marginTop: 'auto', background: '#F7F8FC', borderRadius: 10, padding: '14px 16px' }}>
             <div style={{ fontSize: 11, fontWeight: 600 }}>Start from a template</div>
             <div style={{ fontSize: 11, lineHeight: 1.55, color: '#6B7089', marginTop: 6 }}>
-              Senior Software Developer is in the library — 14 fields prefilled.
+              Senior Software Developer is in the library: 14 fields prefilled.
             </div>
           </div>
         </div>

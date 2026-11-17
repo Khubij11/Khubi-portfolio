@@ -37,7 +37,7 @@ export default function Contact() {
             <span style={{ color: 'var(--accent)' }}>Want</span> to work together?
           </h1>
           <p style={{ fontFamily: 'var(--font-serif)', fontWeight: 300, fontSize: 19, lineHeight: 1.7, color: 'var(--secondary)', margin: '28px 0 0 0', maxWidth: '52ch' }}>
-            Hit me up and we'll take it from there. A project, a question, or just something you're stuck on — all
+            Hit me up and we'll take it from there. A project, a question, or just something you're stuck on. All
             welcome.
           </p>
         </div>

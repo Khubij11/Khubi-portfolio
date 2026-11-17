@@ -44,7 +44,7 @@ function Stepper({ value }: { value: string }) {
 
 function ScreenA() {
   return (
-    <PhoneFrame label="A · Step 4 — Pay yourself first">
+    <PhoneFrame label="A · Step 4: Pay yourself first">
       <Masthead />
       <div style={{ position: 'sticky', top: 0, background: '#FFFFFF', borderBottom: '1px solid #E7E5E4', padding: '14px 18px 12px 18px' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
@@ -117,11 +117,11 @@ function ScreenA() {
               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 4l9 16H3zM12 10v4" /></svg>
             </div>
             <div style={{ flexGrow: 1, minWidth: 0 }}>
-              <div style={{ fontSize: 14, lineHeight: 1.55, color: '#8A4E08' }}>At $500 a month you reach $12,000 in Sep 2028 — 4 months later than your target.</div>
+              <div style={{ fontSize: 14, lineHeight: 1.55, color: '#8A4E08' }}>At $500 a month you reach $12,000 in Sep 2028, 4 months later than your target.</div>
               <div style={{ display: 'inline-block', marginTop: 10, padding: '9px 14px', borderRadius: 9, background: '#fff', border: '1px solid #EFD9BC', fontSize: 12.5, fontWeight: 700, color: '#8A4E08' }}>Save $600 a month to hit it</div>
             </div>
           </div>
-          <div style={{ fontSize: 13, fontWeight: 700, color: '#57534E', textDecoration: 'underline', textUnderlineOffset: '3px', marginTop: 16 }}>Skip for now — I'll set this up later</div>
+          <div style={{ fontSize: 13, fontWeight: 700, color: '#57534E', textDecoration: 'underline', textUnderlineOffset: '3px', marginTop: 16 }}>Skip for now, I'll set this up later</div>
 
           <div style={{ display: 'flex', alignItems: 'center', gap: 14, background: '#0E7A42', borderRadius: 12, padding: '18px 20px', marginTop: 16 }}>
             <div style={{ flexGrow: 1, minWidth: 0 }}>
@@ -148,7 +148,7 @@ function ScreenA() {
 
 function ScreenB() {
   return (
-    <PhoneFrame label="B · Dashboard — your goals">
+    <PhoneFrame label="B · Dashboard: your goals">
       <Masthead />
       <div style={{ background: '#FFFFFF', borderBottom: '1px solid #E7E5E4', padding: '14px 18px' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
@@ -233,7 +233,7 @@ function ScreenB() {
               <div style={{ height: 5, borderRadius: 999, background: '#C06A0A', width: '45%' }} />
             </div>
             <div style={{ display: 'flex', alignItems: 'center', gap: 9, marginTop: 11 }}>
-              <span style={{ padding: '3px 10px', borderRadius: 999, fontSize: 11.5, fontWeight: 700, color: '#C06A0A', background: '#FDF1E7' }}>Behind — needs $640/mo</span>
+              <span style={{ padding: '3px 10px', borderRadius: 999, fontSize: 11.5, fontWeight: 700, color: '#C06A0A', background: '#FDF1E7' }}>Behind, needs $640/mo</span>
             </div>
             <div style={{ fontSize: 11.5, color: '#A8A29E', marginTop: 7 }}>Target Oct 2027 · $150/mo</div>
           </div>

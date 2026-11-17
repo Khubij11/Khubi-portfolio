@@ -1,4 +1,5 @@
 import CaseStudyLayout, { type CSSection } from '../components/CaseStudyLayout';
+import { HeaderStatsAndFacts, HeaderDevice, OverviewSummary, RailStats, InlineNotes, PullQuote, TintedBlock, SubsectionHead, summaryEm } from '../components/CaseStudyParts';
 import { ScaleFrame } from './spottabl/shared';
 import MyJobsScreen from './spottabl/MyJobsScreen';
 import CandidateMatchesScreen from './spottabl/CandidateMatchesScreen';
@@ -37,7 +38,7 @@ const caption: React.CSSProperties = {
 };
 
 const objectives = [
-  { n: '01', text: 'Digitise the process — JD, sourcing, rounds, feedback.' },
+  { n: '01', text: 'Digitise the process: JD, sourcing, rounds, feedback.' },
   { n: '02', text: 'A marketplace where companies and recruiters find each other.' },
   { n: '03', text: 'A library of role-ready job descriptions to speed up job creation.' },
 ];
@@ -45,7 +46,7 @@ const objectives = [
 const painPoints = [
   { n: '01', text: 'No digital way to check how far a candidate has got in the interview process.' },
   { n: '02', text: "No way to connect a recruiter's own database to the HR platform except manual upload." },
-  { n: '03', text: 'Job descriptions too vague to tell a candidate whether the role is for them — so fewer, weaker applications.' },
+  { n: '03', text: 'Job descriptions too vague to tell a candidate whether the role is for them, so fewer, weaker applications.' },
   { n: '04', text: 'Hours spent following up with companies about candidate status by phone or email.' },
 ];
 
@@ -58,11 +59,12 @@ const systemSwatches = [
 
 const sections: CSSection[] = [
   {
-    id: 'sp-01',
-    number: '01',
-    title: 'Frame',
+    id: "sp-01",
+    number: '02',
+    title: "The problem",
     heading: 'Three users who need the same fact at different times',
     body: (
+      <>
       <>
         <p style={serifP}>
           Companies want qualified candidates, fast, without wading through a mailbox of near-misses. Recruiters are
@@ -70,21 +72,24 @@ const sections: CSSection[] = [
           Candidates want to know one thing after applying: am I still in this?
         </p>
         <p style={serifP}>
-          Designing for three sides at once meant the same underlying stage — screening, interviewing, offer — had
+          Designing for three sides at once meant the same underlying stage (screening, interviewing, offer) had
           to make sense in three different vocabularies without becoming three different products.
         </p>
+      </>
+<PullQuote>Nobody could see where a candidate stood without asking a person.</PullQuote>
       </>
     ),
   },
   {
-    id: 'sp-02',
-    number: '02',
-    title: 'The brief',
+    id: "sp-02",
+    number: '03',
+    title: "What we were asked to build",
     heading: 'Build a marketplace, digitise the process',
     body: (
       <>
+      <>
         <p style={serifP}>
-          A recruiter network where specialists could pick up roles from companies they wanted to work with — and,
+          A recruiter network where specialists could pick up roles from companies they wanted to work with. And,
           alongside it, digitise the recruitment process end to end: job description creation, sourcing, interview
           rounds and feedback, so the whole thing could be monitored in one place instead of chased across channels.
         </p>
@@ -97,30 +102,25 @@ const sections: CSSection[] = [
           ))}
         </div>
       </>
-    ),
-  },
-  {
-    id: 'sp-03',
-    number: '03',
-    title: 'The reframe',
-    heading: "The bottleneck wasn't sourcing. It was status.",
-    tinted: true,
-    body: (
+<TintedBlock label="The reframe" heading="The bottleneck wasn't sourcing. It was status.">
       <p style={{ ...serifP, margin: 0, maxWidth: '62ch' }}>
         Every pain point we heard was the same pain point wearing a different hat: nobody could see where a
         candidate stood without asking a person. Recruiters chased companies by phone and email; companies
-        re-explained vague job descriptions; candidates waited. Turnaround time wasn't lost in finding people — it
+        re-explained vague job descriptions; candidates waited. Turnaround time wasn't lost in finding people; it
         was lost in the gaps between updates. So the product's job was to make one candidate's state legible to all
-        three sides at once, and everything else — matching, the JD library, the network — hangs off that.
+        three sides at once, and everything else (matching, the JD library, the network) hangs off that.
       </p>
+</TintedBlock>
+      </>
     ),
   },
   {
-    id: 'sp-04',
+    id: "sp-04",
     number: '04',
-    title: 'Evidence',
+    title: "Evidence and cuts",
     heading: 'The pain points, as we heard them',
     body: (
+      <>
       <>
         <div style={{ display: 'flex', flexDirection: 'column', gap: 14, marginTop: 24 }}>
           {painPoints.map((p) => (
@@ -132,195 +132,28 @@ const sections: CSSection[] = [
         </div>
         <div style={{ ...serifP, maxWidth: '65ch' }}>
           Daily contact with around 30 recruiters plus our in-house team, and interviews with founders of several
-          early-stage startups — running through the year of discovery and design before the first version shipped.
+          early-stage startups, running through the year of discovery and design before the first version shipped.
         </div>
       </>
-    ),
-  },
-  {
-    id: 'sp-05',
-    number: '05',
-    title: 'The cuts',
-    heading: 'Relevance over volume',
-    body: (
+<SubsectionHead label="The cuts" heading='Relevance over volume' />
       <>
         <p style={serifP}>
           The obvious marketplace move is to maximise applications. We did the opposite: a company sees matches and
-          qualified counts, not a mailbox. That decision set the interface — every job card leads with how many
+          qualified counts, not a mailbox. That decision set the interface: every job card leads with how many
           candidates are actually screened and how many are in process, and the primary action is &ldquo;screen
           qualified profiles&rdquo;, never &ldquo;view all applicants&rdquo;.
         </p>
         <p style={serifP}>
           What didn&rsquo;t make it: structured feedback to the candidate after a rejection. Spottabl had a
-          candidate-facing product too, and rejection is the moment a candidate most wants to know why — it&rsquo;s
+          candidate-facing product too, and rejection is the moment a candidate most wants to know why; it&rsquo;s
           also feedback the market almost never gives. I argued for it and it was deferred; it remains the piece
           I&rsquo;d put back first.
         </p>
       </>
-    ),
-  },
-  {
-    id: 'sp-06',
-    number: '06',
-    title: 'The design',
-    heading: 'One candidate, one timeline, three readers',
-    body: (
-      <>
-        <p style={serifP}>
-          The candidate view is the spine of the product: a list of people on the left, one person's full timeline
-          on the right — who moved them, when, what was said, what's needed next. Availability and notice period sit
-          next to the name, because they are the two facts that decide whether a shortlist is real.
-        </p>
-        <div style={{ marginTop: 28 }}>
-          <ScaleFrame>
-            <CandidateMatchesScreen />
-          </ScaleFrame>
-        </div>
-        <div style={caption}>
-          Candidate matches — the four facts that decide a shortlist sit at the top of the panel, and passing on
-          someone requires a reason.
-        </div>
-
-        <p style={serifP}>
-          Once someone is in the pipeline, the same person is read through one timeline: which stage they're at, who
-          moved them, what was said, and what is needed next. Feedback is captured at the stage it belongs to, so
-          &ldquo;rejected&rdquo; always carries a reason and nobody has to reconstruct a decision from memory.
-        </p>
-        <div style={{ marginTop: 28 }}>
-          <ScaleFrame>
-            <JobCandidatesScreen />
-          </ScaleFrame>
-        </div>
-        <div style={caption}>
-          Job candidates — the stage rail says where the pipeline is stuck and who owes the next move; the history
-          below says why.
-        </div>
-
-        <p style={serifP}>
-          Recruiters arrive with their own book — spreadsheets, resumes, a LinkedIn network — and the old answer to
-          that was a manual upload. So the product takes candidates the way recruiters actually hold them: bulk
-          resume upload, a pasted LinkedIn URL, a connected network, or manual entry when it's one person. Whatever
-          the source, it lands as the same candidate object.
-        </p>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 16, marginTop: 28 }}>
-          <ScaleFrame>
-            <AddCandidatesScreen />
-          </ScaleFrame>
-          <ScaleFrame>
-            <MyNetworkScreen />
-          </ScaleFrame>
-        </div>
-        <div style={caption}>
-          Add candidates and my network — four ways in, one candidate record out, and a source you connect once.
-        </div>
-
-        <p style={serifP}>
-          The vague job description gets answered upstream, with structure instead of a blank text box: role and
-          responsibilities, experience band, compensation, location, must-have skills and assessment questions —
-          each a field, each reusable. That's what makes a role legible to a candidate later, and it's why the JD
-          library was worth building.
-        </p>
-        <div style={{ marginTop: 28 }}>
-          <ScaleFrame>
-            <JobCreationScreen />
-          </ScaleFrame>
-        </div>
-        <div style={caption}>
-          Job creation — five steps, one section at a time, and a live preview of what a candidate will actually
-          read.
-        </div>
-
-        <p style={serifP}>
-          Candidates get the same object again, stripped to what they are allowed to see: curated roles, the jobs
-          they've been shortlisted for, earning potential and notice-period fit stated up front, and the live status
-          of every application.
-        </p>
-        <div style={{ marginTop: 28 }}>
-          <ScaleFrame>
-            <CandidateRequestsScreen />
-          </ScaleFrame>
-        </div>
-        <div style={caption}>
-          Candidate side — every request sorted by whose move it is, and accepting one says exactly what it costs.
-        </div>
-      </>
-    ),
-  },
-  {
-    id: 'sp-07',
-    number: '07',
-    title: 'The system',
-    heading: 'What made three products feel like one',
-    body: (
-      <>
-        <p style={serifP}>
-          A single style guide — Montserrat throughout, a primary blue for actions, orange for anything that needs a
-          decision, yellow for waiting — plus one card anatomy and one status vocabulary reused across the company
-          platform, the recruiter product and the candidate site. New screens got cheaper to design as the system
-          settled, which is the only reason a 15-week timeline covered three surfaces.
-        </p>
-        <div style={{ display: 'flex', flexWrap: 'wrap', gap: 20, marginTop: 28 }}>
-          {systemSwatches.map((s) => (
-            <div key={s.label} style={{ flex: '1 1 120px' }}>
-              <div style={{ height: 56, background: s.color }} />
-              <div style={{ ...kicker, marginTop: 10 }}>{s.label}</div>
-            </div>
-          ))}
-        </div>
-      </>
-    ),
-  },
-  {
-    id: 'sp-08',
-    number: '08',
-    title: 'Reflection',
-    heading: "What I'd do differently",
-    body: (
-      <p style={serifP}>
-        The status vocabulary assumed companies would keep the pipeline current — the one behaviour the product
-        couldn't enforce. I'd design for stale data as a first-class state next time: show when a stage was last
-        touched, and make nudging a company a one-tap action instead of a phone call. What I can say for certain is
-        that it made our in-house team's work materially smoother — I left before the first version reached a scale
-        worth quoting, so I'll leave the rest unclaimed.
-      </p>
-    ),
-  },
-];
-
-export default function Spottabl() {
-  return (
-    <CaseStudyLayout
-      kicker="Spottabl · recruiter marketplace · 2019 — 21"
-      title={
-        <>
-          <span style={{ color: 'var(--accent)' }}>Three</span> sides of a hiring marketplace, one shared pipeline
-        </>
-      }
-      summary="Spottabl connects startups that are hiring with specialist recruiters who can fill the role. The hard part was never the matching — it was that every party tracked the same candidate somewhere else: a company in its ATS, a recruiter in a spreadsheet, a candidate in their inbox. I designed one pipeline object that all three sides read, so “where is this candidate” stopped being a phone call."
-      meta={[
-        { label: 'Role', value: 'UI/UX designer — early team member, zero to one' },
-        { label: 'Team', value: 'Only designer, working directly with the CPO and CTO' },
-        { label: 'Timeframe', value: 'Roughly a year to the first version — 2019 to 2021 in total' },
-        { label: 'Platform', value: 'Web · SaaS marketplace' },
-        { label: 'Users', value: 'Three sides — companies, recruiters and candidates' },
-        { label: 'Scope', value: 'Owned the flows, the interface system and the style guide. Did not own the matching engine or pricing.' },
-      ]}
-      metrics={[
-        { value: '3', label: 'Sides, one pipeline' },
-        { value: '100+', label: 'Client companies today' },
-        { value: '3,000+', label: 'Recruiters on the platform today' },
-      ]}
-      hero={
-        <ScaleFrame maxWidth={800}>
-          <MyJobsScreen />
-        </ScaleFrame>
-      }
-      heroCaption="My jobs — one row per role, three numbers, one action. The card only speaks up when a role needs something."
-      sections={sections}
-      notes={[
+<InlineNotes notes={[
         {
           title: 'Sidenote',
-          body: 'A marketplace has to be worth using before either side is full. Early on there were more roles than qualified recruiters, so the interface had to look honest when a job had two matches, not twelve — empty and thin states got designed first, not last.',
+          body: 'A marketplace has to be worth using before either side is full. Early on there were more roles than qualified recruiters, so the interface had to look honest when a job had two matches, not twelve; empty and thin states got designed first, not last.',
         },
         {
           title: 'Process',
@@ -336,8 +169,179 @@ export default function Spottabl() {
             </div>
           ),
         },
-      ]}
-      prev={{ kicker: 'Next case study', label: 'Wells Fargo — financial health tools', to: '/work/wells-fargo-financial-health' }}
+      ]} />
+      </>
+    ),
+  },
+  {
+    id: "sp-06",
+    number: '05',
+    title: "The design",
+    heading: 'One candidate, one timeline, three readers',
+    body: (
+      <>
+      <>
+        <p style={serifP}>
+          The candidate view is the spine of the product: a list of people on the left, one person's full timeline
+          on the right: who moved them, when, what was said, what's needed next. Availability and notice period sit
+          next to the name, because they are the two facts that decide whether a shortlist is real.
+        </p>
+        <div style={{ marginTop: 28 }}>
+          <ScaleFrame>
+            <CandidateMatchesScreen />
+          </ScaleFrame>
+        </div>
+        <div style={caption}>
+          Candidate matches: the four facts that decide a shortlist sit at the top of the panel, and passing on
+          someone requires a reason.
+        </div>
+
+        <p style={serifP}>
+          Once someone is in the pipeline, the same person is read through one timeline: which stage they're at, who
+          moved them, what was said, and what is needed next. Feedback is captured at the stage it belongs to, so
+          &ldquo;rejected&rdquo; always carries a reason and nobody has to reconstruct a decision from memory.
+        </p>
+        <div style={{ marginTop: 28 }}>
+          <ScaleFrame>
+            <JobCandidatesScreen />
+          </ScaleFrame>
+        </div>
+        <div style={caption}>
+          Job candidates: the stage rail says where the pipeline is stuck and who owes the next move; the history
+          below says why.
+        </div>
+
+        <p style={serifP}>
+          Recruiters arrive with their own book (spreadsheets, resumes, a LinkedIn network) and the old answer to
+          that was a manual upload. So the product takes candidates the way recruiters actually hold them: bulk
+          resume upload, a pasted LinkedIn URL, a connected network, or manual entry when it's one person. Whatever
+          the source, it lands as the same candidate object.
+        </p>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 16, marginTop: 28 }}>
+          <ScaleFrame>
+            <AddCandidatesScreen />
+          </ScaleFrame>
+          <ScaleFrame>
+            <MyNetworkScreen />
+          </ScaleFrame>
+        </div>
+        <div style={caption}>
+          Add candidates and my network: four ways in, one candidate record out, and a source you connect once.
+        </div>
+
+        <p style={serifP}>
+          The vague job description gets answered upstream, with structure instead of a blank text box: role and
+          responsibilities, experience band, compensation, location, must-have skills and assessment questions,
+          each a field, each reusable. That's what makes a role legible to a candidate later, and it's why the JD
+          library was worth building.
+        </p>
+        <div style={{ marginTop: 28 }}>
+          <ScaleFrame>
+            <JobCreationScreen />
+          </ScaleFrame>
+        </div>
+        <div style={caption}>
+          Job creation: five steps, one section at a time, and a live preview of what a candidate will actually
+          read.
+        </div>
+
+        <p style={serifP}>
+          Candidates get the same object again, stripped to what they are allowed to see: curated roles, the jobs
+          they've been shortlisted for, earning potential and notice-period fit stated up front, and the live status
+          of every application.
+        </p>
+        <div style={{ marginTop: 28 }}>
+          <ScaleFrame>
+            <CandidateRequestsScreen />
+          </ScaleFrame>
+        </div>
+        <div style={caption}>
+          Candidate side: every request sorted by whose move it is, and accepting one says exactly what it costs.
+        </div>
+      </>
+<SubsectionHead label="The system" heading='What made three products feel like one' />
+      <>
+        <p style={serifP}>
+          A single style guide: Montserrat throughout, a primary blue for actions, orange for anything that needs a
+          decision, yellow for waiting, plus one card anatomy and one status vocabulary reused across the company
+          platform, the recruiter product and the candidate site. New screens got cheaper to design as the system
+          settled, which is the only reason a 15-week timeline covered three surfaces.
+        </p>
+        <div style={{ display: 'flex', flexWrap: 'wrap', gap: 20, marginTop: 28 }}>
+          {systemSwatches.map((s) => (
+            <div key={s.label} style={{ flex: '1 1 120px' }}>
+              <div style={{ height: 56, background: s.color }} />
+              <div style={{ ...kicker, marginTop: 10 }}>{s.label}</div>
+            </div>
+          ))}
+        </div>
+      </>
+      </>
+    ),
+  },
+  {
+    id: "sp-screens",
+    number: '06',
+    title: "The screens",
+    heading: "My jobs",
+    body: (
+      <>
+<div style={{ marginTop: 24 }}><ScaleFrame maxWidth={800}>
+          <MyJobsScreen />
+        </ScaleFrame></div>
+<div style={{ fontFamily: 'var(--font-ui)', fontSize: 13, fontWeight: 600, letterSpacing: '0.05em', color: 'var(--muted)', marginTop: 14 }}>{"My jobs: one row per role, three numbers, one action. The card only speaks up when a role needs something."}</div>
+      </>
+    ),
+  },
+  {
+    id: "sp-08",
+    number: '07',
+    title: "Reflection",
+    heading: "What I'd do differently",
+    body: (
+      <>
+      <p style={serifP}>
+        The status vocabulary assumed companies would keep the pipeline current, the one behaviour the product
+        couldn't enforce. I'd design for stale data as a first-class state next time: show when a stage was last
+        touched, and make nudging a company a one-tap action instead of a phone call. What I can say for certain is
+        that it made our in-house team's work materially smoother; I left before the first version reached a scale
+        worth quoting, so I'll leave the rest unclaimed.
+      </p>
+      </>
+    ),
+  },
+];
+
+const headStats = [{"value": "3", "label": "Sides, one pipeline"}, {"value": "100+", "label": "Client companies today"}, {"value": "3,000+", "label": "Recruiters today"}];
+
+const headFacts = [{"label": "Role", "value": "UI/UX designer"}, {"label": "Team", "value": "Sole designer, CPO, CTO"}, {"label": "Timeline", "value": "~1 year to v1"}, {"label": "Platform", "value": "Web, SaaS"}];
+
+const contextFacts = [{"label": "Users", "value": "Three sides: companies, recruiters and candidates"}, {"label": "Scope", "value": "Owned the flows, the interface system and the style guide. Did not own the matching engine or pricing."}];
+
+const summaryItems = [
+  { label: "Problem", text: (<>The hard part was never the matching. <strong style={summaryEm}>Every party tracked the same candidate somewhere else</strong>: a company in its ATS, a recruiter in a spreadsheet, a candidate in their inbox.</>) },
+  { label: "What I did", text: (<>I designed <strong style={summaryEm}>one pipeline object that all three sides read</strong>, so “where is this candidate” stopped being a phone call.</>) },
+  { label: "Result", text: (<><strong style={summaryEm}>One style guide, one card anatomy and one status vocabulary</strong> across the company platform, the recruiter product and the candidate site.</>) },
+];
+
+export default function Spottabl() {
+  return (
+    <CaseStudyLayout
+      kicker="Spottabl · recruiter marketplace · 2019–21"
+      title={
+        <>
+          <span style={{ color: 'var(--accent)' }}>Three</span> sides of a hiring marketplace, one shared pipeline
+        </>
+      }
+      summary="Spottabl connects startups that are hiring with specialist recruiters. I designed one pipeline that the company, the recruiter and the candidate all read."
+      meta={[]}
+      headerAside={<HeaderDevice src="/assets/thumbs/spottabl.jpg" kind="web" alt="The My jobs screen" />}
+      headerFooter={<HeaderStatsAndFacts stats={headStats} facts={headFacts} />}
+      hero={<OverviewSummary items={summaryItems} context={contextFacts} />}
+      overview={{ id: "sp-overview", number: '01', title: 'Overview' }}
+      railExtra={<RailStats stats={headStats} />}
+      sections={sections}
+      prev={{ kicker: 'Next case study', label: 'Wells Fargo: financial health tools', to: '/work/wells-fargo-financial-health' }}
       next={{ kicker: 'Back to', label: 'All work', to: '/' }}
     />
   );

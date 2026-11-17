@@ -10,6 +10,9 @@ const kickerStyle: React.CSSProperties = {
   color: 'var(--muted)',
 };
 
+/** Header width when a visual sits beside the headline, so text, visual and footer share edges. */
+const HEADER_WITH_ASIDE_MAX = 960;
+
 export interface MetaItem {
   label: string;
   value: ReactNode;
@@ -35,6 +38,13 @@ export interface CSNote {
   body: ReactNode;
 }
 
+/** Optional contents entry that links to the page header rather than a section. */
+export interface OverviewEntry {
+  id: string;
+  number: string;
+  title: string;
+}
+
 export interface PrevNext {
   kicker: string;
   label: string;
@@ -52,12 +62,16 @@ export default function CaseStudyLayout({
   heroCaption,
   sections,
   notes,
+  overview,
+  headerAside,
+  headerFooter,
+  railExtra,
   prev,
   next,
 }: {
   kicker: string;
   title: ReactNode;
-  summary: string;
+  summary?: string;
   meta: MetaItem[];
   metrics?: Metric[];
   afterMetrics?: ReactNode;
@@ -65,6 +79,13 @@ export default function CaseStudyLayout({
   heroCaption?: string;
   sections: CSSection[];
   notes?: CSNote[];
+  overview?: OverviewEntry;
+  /** Optional visual shown beside the headline (wraps below it on narrow screens). */
+  headerAside?: ReactNode;
+  /** Optional full-width block under the headline row (and beside-headline visual), above the divider. */
+  headerFooter?: ReactNode;
+  /** Optional block under the contents list; shown only while the rail is sticky (desktop). */
+  railExtra?: ReactNode;
   prev?: PrevNext;
   next?: PrevNext;
 }) {
@@ -91,16 +112,18 @@ export default function CaseStudyLayout({
 
   return (
     <main style={{ margin: '0 auto', maxWidth: 1344, padding: '0 clamp(20px, 5vw, 72px) 96px' }}>
-      <div style={{ display: 'flex', flexWrap: 'wrap', gap: '32px 40px', padding: '72px 0 0 0' }}>
-        <div style={{ flex: '0 0 200px', display: 'flex', flexDirection: 'column', gap: 22 }}>
-          {meta.map((m) => (
-            <div key={m.label}>
-              <div style={kickerStyle}>{m.label}</div>
-              <div style={{ fontSize: 15, color: 'var(--ink)', marginTop: 6 }}>{m.value}</div>
-            </div>
-          ))}
-        </div>
-        <div style={{ flex: '1 1 520px' }}>
+      <div id={overview?.id} style={{ display: 'flex', flexWrap: 'wrap', gap: '32px 40px', padding: '72px 0 0 0', ...(headerAside ? { maxWidth: HEADER_WITH_ASIDE_MAX, alignItems: 'center', justifyContent: 'space-between' } : {}) }}>
+        {meta.length > 0 && (
+          <div style={{ flex: '0 0 200px', display: 'flex', flexDirection: 'column', gap: 22 }}>
+            {meta.map((m) => (
+              <div key={m.label}>
+                <div style={kickerStyle}>{m.label}</div>
+                <div style={{ fontSize: 15, color: 'var(--ink)', marginTop: 6 }}>{m.value}</div>
+              </div>
+            ))}
+          </div>
+        )}
+        <div style={headerAside ? { flex: '1 1 520px', maxWidth: 640 } : { flex: '1 1 520px' }}>
           <div style={kickerStyle}>{kicker}</div>
           <h1
             style={{
@@ -115,6 +138,7 @@ export default function CaseStudyLayout({
           >
             {title}
           </h1>
+          {summary && (
           <p
             style={{
               fontFamily: 'var(--font-serif)',
@@ -128,6 +152,7 @@ export default function CaseStudyLayout({
           >
             {summary}
           </p>
+          )}
           {metrics && metrics.length > 0 && (
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: '24px 56px', marginTop: 44 }}>
               {metrics.map((m) => (
@@ -142,12 +167,16 @@ export default function CaseStudyLayout({
           )}
           {afterMetrics}
         </div>
+        {headerAside && <div className="cs-header-aside" style={{ flex: '0 0 auto' }}>{headerAside}</div>}
       </div>
 
-      <div style={{ borderTop: '1px solid var(--hairline)', marginTop: 56 }} />
+      {headerFooter && <div style={{ maxWidth: headerAside ? HEADER_WITH_ASIDE_MAX : undefined }}>{headerFooter}</div>}
+
+      {/* The facts strip already ends on a rule, so skip the divider when it is present. */}
+      {!headerFooter && <div style={{ borderTop: '1px solid var(--hairline)', marginTop: 56 }} />}
 
       {hero && (
-        <div style={{ marginTop: 40 }}>
+        <div style={{ marginTop: headerFooter ? 56 : 40 }}>
           {hero}
           {heroCaption && (
             <div style={{ ...kickerStyle, textTransform: 'none', letterSpacing: '0.02em', marginTop: 16 }}>{heroCaption}</div>
@@ -169,7 +198,7 @@ export default function CaseStudyLayout({
         >
           <div style={{ ...kickerStyle, borderBottom: '1px solid var(--ink)', paddingBottom: 12 }}>Contents</div>
           <div style={{ display: 'flex', flexDirection: 'column', marginTop: 14 }}>
-            {sections.map((s) => (
+            {[...(overview ? [overview] : []), ...sections].map((s) => (
               <a
                 key={s.id}
                 href={`#${s.id}`}
@@ -178,8 +207,8 @@ export default function CaseStudyLayout({
                   gap: 14,
                   padding: '5px 0',
                   fontSize: 14,
-                  color: active === s.id ? 'var(--accent)' : 'var(--secondary)',
-                  borderLeft: `2px solid ${active === s.id ? 'var(--accent)' : 'transparent'}`,
+                  color: active === s.id ? 'var(--lilac-deep)' : 'var(--secondary)',
+                  borderLeft: `2px solid ${active === s.id ? 'var(--lilac)' : 'transparent'}`,
                   paddingLeft: 10,
                   marginLeft: -12,
                 }}
@@ -189,6 +218,7 @@ export default function CaseStudyLayout({
               </a>
             ))}
           </div>
+          {railExtra && <div className="cs-rail-extra" style={{ marginTop: 28 }}>{railExtra}</div>}
         </aside>
 
         <div className="cs-main" style={{ flex: '1 1 300px', minWidth: 0, maxWidth: 640 }}>
@@ -201,12 +231,12 @@ export default function CaseStudyLayout({
               }}
               style={
                 s.tinted
-                  ? { background: '#E6EDF2', borderLeft: '3px solid var(--accent)', padding: '28px 32px', marginBottom: 56 }
+                  ? { background: 'var(--lilac-soft)', borderLeft: '3px solid var(--accent)', padding: '28px 32px', marginBottom: 56 }
                   : { paddingBottom: 56 }
               }
             >
               <div style={{ ...kickerStyle, color: s.tinted ? 'var(--accent)' : 'var(--muted)' }}>
-                {s.number} — {s.title}
+                {s.number} · {s.title}
               </div>
               <h2 style={{ fontSize: 25, fontWeight: 500, letterSpacing: '-0.025em', margin: '14px 0 0 0' }}>{s.heading}</h2>
               <div style={{ marginTop: 16 }}>{s.body}</div>
@@ -249,6 +279,7 @@ export default function CaseStudyLayout({
 
       <style>{`
         @media (max-width: 1140px) {
+          .cs-rail-extra { display: none; }
           .cs-rail { position: static !important; top: auto !important; max-height: none !important; overflow-y: visible !important; flex: 0 0 100% !important; }
         }
         @media (min-width: 1141px) {

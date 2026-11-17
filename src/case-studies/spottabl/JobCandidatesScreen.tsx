@@ -55,7 +55,7 @@ const timeline: TimelineEntry[] = [
     title: 'Moved to interview round 1',
     meta: 'Pranita Kaur, HR · 15 March',
     quote:
-      '“Communication is strong and she has led a team of six. Wants product work over platform — worth testing on system design.”',
+      '“Communication is strong and she has led a team of six. Wants product work over platform; worth testing on system design.”',
   },
   {
     dot: '#2ECC71',

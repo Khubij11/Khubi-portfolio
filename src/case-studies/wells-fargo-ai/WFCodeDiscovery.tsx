@@ -94,7 +94,7 @@ const MAP_INPUTS = [
 const MAP_OUTPUTS = [
   { name: 'CreditCardProcessor', kind: 'Implements IPaymentProcessor', top: 40, kindColor: 'rgb(100,116,139)' },
   { name: 'DebitCardProcessor', kind: 'Implements IPaymentProcessor', top: 150, kindColor: 'rgb(100,116,139)' },
-  { name: 'WireProcessor', kind: 'Not implemented — throws', top: 260, kindColor: 'rgb(180,83,9)' },
+  { name: 'WireProcessor', kind: 'Not implemented, throws', top: 260, kindColor: 'rgb(180,83,9)' },
 ];
 
 const mono = "'Liberation Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace";
@@ -399,7 +399,7 @@ export default function WFCodeDiscovery({
             <span style={{ fontFamily: "'DM Sans', sans-serif", fontWeight: 600, fontSize: 18, lineHeight: '26px', textAlign: 'center', color: 'rgb(30,41,59)' }}>No matches in this scope</span>
             <span style={{ fontWeight: 400, fontSize: 14, lineHeight: '22px', textAlign: 'center', maxWidth: '52ch', color: 'rgb(100,116,139)' }}>
               Nothing in <span style={{ fontFamily: mono, color: 'rgb(51,65,85)' }}>{repository}</span> on <span style={{ fontFamily: mono, color: 'rgb(51,65,85)' }}>{branch}</span> matches this query. This is a scope
-              result, not an answer — the code may exist on another branch or in a repository you have not selected.
+              result, not an answer; the code may exist on another branch or in a repository you have not selected.
             </span>
             <div style={{ marginTop: 16, display: 'flex', flexDirection: 'row', gap: 10, alignItems: 'center', flexWrap: 'wrap', justifyContent: 'center' }}>
               <div onClick={() => setEmpty(false)} style={{ borderRadius: 24, background: 'rgb(216,31,40)', padding: '11px 22px', cursor: 'pointer' }}>

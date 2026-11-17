@@ -59,7 +59,7 @@ const PORTFOLIO_SECTORS = [
 
 const ACTIVITY = [
   { text: 'Fintech Alpha raised Series B at 2× valuation', when: '2 days ago', color: 'rgb(43,94,232)', bg: 'rgb(238,242,255)' },
-  { text: 'SaaS Collective acquisition completed — 2.1× return', when: '3 weeks ago', color: 'rgb(56,161,105)', bg: 'rgb(240,255,244)' },
+  { text: 'SaaS Collective acquisition completed, 2.1× return', when: '3 weeks ago', color: 'rgb(56,161,105)', bg: 'rgb(240,255,244)' },
   { text: 'EdTech Gamma Q3 investor update published', when: '1 month ago', color: 'rgb(245,166,35)', bg: 'rgb(255,244,237)' },
   { text: 'Climate Ventures new deal room open for members', when: '1 month ago', color: 'rgb(244,124,32)', bg: 'rgb(255,244,237)' },
   { text: 'KYC renewal completed for HealthTech Beta', when: '2 months ago', color: 'rgb(20,194,194)', bg: 'rgba(20,194,194,0.1)' },
