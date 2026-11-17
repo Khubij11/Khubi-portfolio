@@ -218,7 +218,7 @@ const sections: CSSection[] = [
           <strong style={{ color: 'var(--ink)', fontWeight: 500 }}>My role:</strong> I was the only designer, working
           with one PM and one developer over about two months. I designed the product end to end: the information
           architecture, onboarding, call screening and blocking, then scheduling and appointments, phase by phase,
-          starting from a set of screens that had been generated one at a time with no design pass.
+          building it from scratch.
         </p>
         <p style={{ ...serifP, maxWidth: '62ch' }}>
           An assistant that speaks for you asks for far more trust than one that filters calls. People need to feel
@@ -343,17 +343,17 @@ const sections: CSSection[] = [
           </blockquote>
         </figure>
         <p style={serifP}>
-          There was no measured baseline for the earlier flow, so the 90% completion can't be shown as a
-          before-and-after. What testing did show was where people hesitated, and those moments are what the
-          redesign removed.
+          The product was new, so there was no earlier flow to measure against and the 90% completion can't be shown
+          as a before-and-after. What testing did show was where people hesitated in early versions, and those
+          moments are what the final flow removed.
         </p>
 
         <div style={{ marginTop: 32, paddingLeft: 24, borderLeft: '1px solid var(--hairline)', display: 'flex', flexDirection: 'column', gap: 28 }}>
           <div>
             <div style={noteKicker}>Process</div>
             <div style={{ fontSize: 14, lineHeight: 1.65, color: 'var(--secondary)', marginTop: 8, maxWidth: '52ch' }}>
-              Phase by phase over two months: audit the generated screens, rebuild the IA, then onboarding and
-              call-blocking, then scheduling and appointments. Each phase was tried with people in the founders'
+              Phase by phase over two months, built from scratch: the IA first, then onboarding and call-blocking,
+              then scheduling and appointments. Each phase was tried with people in the founders'
               network before the next was built on top of it.
             </div>
           </div>
@@ -363,14 +363,6 @@ const sections: CSSection[] = [
               <div>01&nbsp; Required steps configure a phone, never a personality.</div>
               <div>02&nbsp; Prove it works before asking for anything personal.</div>
               <div>03&nbsp; Every irreversible-looking action shows how to undo it.</div>
-            </div>
-          </div>
-          <div>
-            <div style={noteKicker}>Sidenote</div>
-            <div style={{ fontSize: 14, lineHeight: 1.65, color: 'var(--secondary)', marginTop: 8, maxWidth: '52ch' }}>
-              The navigation bug (no way back from appointments) was the thing everyone pointed at first. It took an
-              afternoon to fix and changed nothing about the business. The expensive problem was invisible in a
-              screenshot: what the flow was asking for, and in what order.
             </div>
           </div>
         </div>
@@ -682,9 +674,9 @@ const summaryItems: { label: string; color: string; text: ReactNode }[] = [
     color: 'var(--accent)',
     text: (
       <>
-        I audited the generated screens, <strong style={em}>rebuilt the information architecture</strong>, and{' '}
-        <strong style={em}>designed the onboarding and call-blocking flows</strong>, then scheduling and appointments,
-        phase by phase.
+        I built OsmO from scratch: <strong style={em}>the information architecture</strong>,{' '}
+        <strong style={em}>the onboarding and call-blocking flows</strong>, then scheduling and appointments, phase by
+        phase.
       </>
     ),
   },
