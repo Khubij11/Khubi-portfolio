@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import WorkRow, { WorkTableHeader, type WorkRowData } from '../components/WorkRow';
 
@@ -125,9 +125,25 @@ const STAMPS = [
   { place: 'Dubai', src: '/assets/scene/stamp-dubai.png', cls: 'otc-stamp-c' },
 ];
 
+// Touch screens never blur a tapped button, so close an open scene item on any tap outside it.
+function useTapOutside<T extends HTMLElement>(open: boolean, close: () => void) {
+  const ref = useRef<T>(null);
+  useEffect(() => {
+    if (!open) return;
+    const onDown = (e: PointerEvent) => {
+      if (ref.current && !ref.current.contains(e.target as Node)) close();
+    };
+    document.addEventListener('pointerdown', onDown);
+    return () => document.removeEventListener('pointerdown', onDown);
+  }, [open, close]);
+  return ref;
+}
+
 function TravelStamps() {
+  const [open, setOpen] = useState(false);
+  const ref = useTapOutside<HTMLDivElement>(open, () => setOpen(false));
   return (
-    <div className="otc-stamps" aria-label="Travel stamps from Bali, Japan and Dubai" role="img">
+    <div ref={ref} className={`otc-stamps${open ? ' is-open' : ''}`} aria-label="Travel stamps from Bali, Japan and Dubai" role="img" onClick={() => setOpen((o) => !o)}>
       {STAMPS.map((t) => (
         <img key={t.place} className={`otc-stamp ${t.cls}`} src={t.src} alt="" />
       ))}
@@ -172,8 +188,10 @@ const TOOL_TILES = [
 
 function DesignTools() {
   const [open, setOpen] = useState(false);
+  const ref = useTapOutside<HTMLButtonElement>(open, () => setOpen(false));
   return (
     <button
+      ref={ref}
       type="button"
       className={`otc-toolsbtn${open ? ' is-open' : ''}`}
       aria-expanded={open}
@@ -199,8 +217,10 @@ function DesignTools() {
 
 // Moka pot: on hover the lid flips open, steam rises and a cup slides in beside it.
 function MokaPot() {
+  const [open, setOpen] = useState(false);
+  const ref = useTapOutside<HTMLSpanElement>(open, () => setOpen(false));
   return (
-    <span className="otc-mokabox" aria-hidden="true">
+    <span ref={ref} className={`otc-mokabox${open ? ' is-open' : ''}`} aria-hidden="true" onClick={() => setOpen((o) => !o)}>
       <img className="otc-cup" src="/assets/scene/cup.png" alt="" />
       <span className="otc-obj otc-moka">
         <img className="moka-base" src="/assets/scene/moka.png" alt="" />
@@ -224,8 +244,10 @@ const BOOKS_ALL = [
 
 function BookStack() {
   const [open, setOpen] = useState(false);
+  const ref = useTapOutside<HTMLButtonElement>(open, () => setOpen(false));
   return (
     <button
+      ref={ref}
       type="button"
       className={`otc-books${open ? ' is-open' : ''}`}
       aria-expanded={open}
@@ -249,6 +271,15 @@ function BookStack() {
 
 function IllustrationCard() {
   const [gardenOpen, setGardenOpen] = useState(false);
+  const gardenRef = useTapOutside<HTMLButtonElement>(gardenOpen, () => setGardenOpen(false));
+  // Hover effects only for a real mouse: on touch, :hover sticks after a tap and kept popups showing.
+  useEffect(() => {
+    const mq = window.matchMedia('(hover: hover) and (pointer: fine)');
+    const sync = () => document.documentElement.classList.toggle('can-hover', mq.matches);
+    sync();
+    mq.addEventListener('change', sync);
+    return () => mq.removeEventListener('change', sync);
+  }, []);
   return (
     <div
       className="illo-card"
@@ -330,6 +361,7 @@ function IllustrationCard() {
           <img className="bake-whisk otc-obj" src="/assets/scene/bake.png" alt="" />
         </a>
         <button
+          ref={gardenRef}
           type="button"
           className={`garden-btn otc-garden${gardenOpen ? ' is-open' : ''}`}
           aria-expanded={gardenOpen}
@@ -398,8 +430,8 @@ function IllustrationCard() {
         .moka-base { clip-path: polygon(0 0, 10% 0, 10% 20%, 71% 20%, 71% 0, 100% 0, 100% 100%, 0 100%); }
         .moka-lid { position: absolute; inset: 0; clip-path: polygon(10% 0, 71% 0, 71% 20%, 10% 20%); transform-origin: 74% 17%; transition: transform 480ms cubic-bezier(.3,1.4,.5,1); }
         .moka-mouth { position: absolute; left: 14%; top: 17%; width: 54%; height: 6%; border-radius: 50%; background: #2B2420; opacity: 0; transition: opacity 200ms ease; }
-        .otc-mokabox:hover .moka-lid { transform: translateY(-6%) rotate(70deg); }
-        .otc-mokabox:hover .moka-mouth { opacity: 1; }
+        .can-hover .otc-mokabox:hover .moka-lid, .otc-mokabox.is-open .moka-lid { transform: translateY(-6%) rotate(70deg); }
+        .can-hover .otc-mokabox:hover .moka-mouth, .otc-mokabox.is-open .moka-mouth { opacity: 1; }
         .moka-steam { position: absolute; left: 24%; top: -14%; width: 40%; height: 32%; pointer-events: none; }
         .moka-steam i {
           position: absolute; bottom: 0; width: 22%; height: 80%; border-radius: 50%;
@@ -408,23 +440,23 @@ function IllustrationCard() {
         .moka-steam i:nth-child(1) { left: 10%; }
         .moka-steam i:nth-child(2) { left: 40%; height: 100%; }
         .moka-steam i:nth-child(3) { left: 70%; }
-        .otc-mokabox:hover .moka-steam i { animation: moka-steam 1.8s ease-out 320ms infinite; }
-        .otc-mokabox:hover .moka-steam i:nth-child(2) { animation-delay: 700ms; }
-        .otc-mokabox:hover .moka-steam i:nth-child(3) { animation-delay: 1050ms; }
+        .can-hover .otc-mokabox:hover .moka-steam i, .otc-mokabox.is-open .moka-steam i { animation: moka-steam 1.8s ease-out 320ms infinite; }
+        .can-hover .otc-mokabox:hover .moka-steam i:nth-child(2), .otc-mokabox.is-open .moka-steam i:nth-child(2) { animation-delay: 700ms; }
+        .can-hover .otc-mokabox:hover .moka-steam i:nth-child(3), .otc-mokabox.is-open .moka-steam i:nth-child(3) { animation-delay: 1050ms; }
         @keyframes moka-steam {
           0% { opacity: 0; transform: translateY(20%) scaleY(0.6); }
           30% { opacity: 1; }
           100% { opacity: 0; transform: translate(8%, -55%) scaleY(1.1); }
         }
         .otc-cup { position: absolute; left: 72%; top: 64%; width: 62%; opacity: 0; transform: translateX(40%) rotate(8deg); transition: opacity 220ms ease, transform 360ms cubic-bezier(.2,.8,.2,1); filter: drop-shadow(0 8px 10px rgba(23,26,24,0.18)); z-index: 1; }
-        .otc-mokabox:hover .otc-cup { opacity: 1; transform: none; }
+        .can-hover .otc-mokabox:hover .otc-cup, .otc-mokabox.is-open .otc-cup { opacity: 1; transform: none; }
         .otc-toolsbtn { position: absolute; left: 75.65%; top: 71.2%; width: 19.56%; z-index: 6; margin: 0; padding: 0; border: 0; background: none; cursor: pointer; }
         .otc-toolsbtn .otc-obj { position: relative; width: 100%; }
         /* Pencils are the same picture clipped to what sticks out of the cup, so they can jiggle. */
         .tools-base { clip-path: polygon(52% 0, 100% 0, 100% 100%, 0 100%, 0 40%, 41% 40%, 41% 23%, 52% 23%); }
         .tools-pencils { position: absolute; inset: 0; clip-path: polygon(0 0, 52% 0, 52% 23%, 41% 23%, 41% 40%, 0 40%); transform-origin: 26% 42%; }
-        .otc-toolsbtn:hover .tools-art, .otc-toolsbtn:focus-visible .tools-art { transform: translateY(-4px) rotate(-2deg); }
-        .otc-toolsbtn:hover .tools-pencils, .otc-toolsbtn:focus-visible .tools-pencils { animation: pencil-jiggle 700ms ease-in-out; }
+        .can-hover .otc-toolsbtn:hover .tools-art, .otc-toolsbtn:focus-visible .tools-art { transform: translateY(-4px) rotate(-2deg); }
+        .can-hover .otc-toolsbtn:hover .tools-pencils, .otc-toolsbtn:focus-visible .tools-pencils { animation: pencil-jiggle 700ms ease-in-out; }
         @keyframes pencil-jiggle {
           0%, 100% { transform: none; }
           25% { transform: rotate(-5deg); }
@@ -441,13 +473,13 @@ function IllustrationCard() {
         .tool-tile + .tool-tile { margin-left: -10px; }
         .tool-tile-icon { display: flex; height: 30px; align-items: center; }
         .tool-tile-name { font-family: var(--font-mono); font-size: 8.5px; letter-spacing: 0.06em; color: var(--secondary); }
-        .otc-toolsbtn:hover .tool-tile, .otc-toolsbtn:focus-visible .tool-tile, .otc-toolsbtn.is-open .tool-tile { opacity: 1; }
-        .otc-toolsbtn:hover .tool-tile:nth-child(1), .otc-toolsbtn:focus-visible .tool-tile:nth-child(1), .otc-toolsbtn.is-open .tool-tile:nth-child(1) { transform: translateY(4px) rotate(-9deg); }
-        .otc-toolsbtn:hover .tool-tile:nth-child(2), .otc-toolsbtn:focus-visible .tool-tile:nth-child(2), .otc-toolsbtn.is-open .tool-tile:nth-child(2) { transform: translateY(-6px) rotate(-2deg); transition-delay: 40ms; }
-        .otc-toolsbtn:hover .tool-tile:nth-child(3), .otc-toolsbtn:focus-visible .tool-tile:nth-child(3), .otc-toolsbtn.is-open .tool-tile:nth-child(3) { transform: translateY(2px) rotate(8deg); transition-delay: 80ms; }
-        .otc-toolsbtn:hover, .otc-toolsbtn:focus-visible, .otc-toolsbtn.is-open, .otc-mokabox:hover { z-index: 10; }
+        .can-hover .otc-toolsbtn:hover .tool-tile, .otc-toolsbtn:focus-visible .tool-tile, .otc-toolsbtn.is-open .tool-tile { opacity: 1; }
+        .can-hover .otc-toolsbtn:hover .tool-tile:nth-child(1), .otc-toolsbtn:focus-visible .tool-tile:nth-child(1), .otc-toolsbtn.is-open .tool-tile:nth-child(1) { transform: translateY(4px) rotate(-9deg); }
+        .can-hover .otc-toolsbtn:hover .tool-tile:nth-child(2), .otc-toolsbtn:focus-visible .tool-tile:nth-child(2), .otc-toolsbtn.is-open .tool-tile:nth-child(2) { transform: translateY(-6px) rotate(-2deg); transition-delay: 40ms; }
+        .can-hover .otc-toolsbtn:hover .tool-tile:nth-child(3), .otc-toolsbtn:focus-visible .tool-tile:nth-child(3), .otc-toolsbtn.is-open .tool-tile:nth-child(3) { transform: translateY(2px) rotate(8deg); transition-delay: 80ms; }
+        .can-hover .otc-toolsbtn:hover, .otc-toolsbtn:focus-visible, .otc-toolsbtn.is-open, .can-hover .otc-mokabox:hover, .otc-mokabox.is-open { z-index: 10; }
         .otc-stamps { position: absolute; left: -1%; top: 50%; width: 36%; aspect-ratio: 1.4; z-index: 3; cursor: default; }
-        .otc-stamps:hover { z-index: 10; }
+        .can-hover .otc-stamps:hover, .otc-stamps.is-open { z-index: 10; }
         .otc-stamp {
           position: absolute; width: 32%; height: auto; display: block;
           filter: drop-shadow(0 1px 1px rgba(23,26,24,0.16)) drop-shadow(0 10px 12px rgba(23,26,24,0.22));
@@ -457,10 +489,10 @@ function IllustrationCard() {
         .otc-stamp-b { left: 32%; top: 10%; transform: rotate(2deg); z-index: 2; }
         .otc-stamp-c { left: 54%; top: 26%; transform: rotate(9deg); }
         /* Hover: the stamps lift and fan apart, like peeling them off a postcard. */
-        .otc-stamps:hover .otc-stamp { filter: drop-shadow(0 14px 14px rgba(23,26,24,0.22)); }
-        .otc-stamps:hover .otc-stamp-a { transform: translate(-16%, -4%) rotate(-15deg) scale(1.06); }
-        .otc-stamps:hover .otc-stamp-b { transform: translateY(-14%) rotate(0deg) scale(1.08); }
-        .otc-stamps:hover .otc-stamp-c { transform: translate(16%, -4%) rotate(15deg) scale(1.06); }
+        .can-hover .otc-stamps:hover .otc-stamp, .otc-stamps.is-open .otc-stamp { filter: drop-shadow(0 14px 14px rgba(23,26,24,0.22)); }
+        .can-hover .otc-stamps:hover .otc-stamp-a, .otc-stamps.is-open .otc-stamp-a { transform: translate(-16%, -4%) rotate(-15deg) scale(1.06); }
+        .can-hover .otc-stamps:hover .otc-stamp-b, .otc-stamps.is-open .otc-stamp-b { transform: translateY(-14%) rotate(0deg) scale(1.08); }
+        .can-hover .otc-stamps:hover .otc-stamp-c, .otc-stamps.is-open .otc-stamp-c { transform: translate(16%, -4%) rotate(15deg) scale(1.06); }
         /* Objects drawn 15% larger than traced, each growing from its own centre so the layout holds. */
         .otc-mokabox, .otc-books, .otc-bake { scale: 1.15; }
         .otc-toolsbtn, .otc-garden { scale: 1.3; }
@@ -471,10 +503,10 @@ function IllustrationCard() {
         .otc-book { position: absolute; top: 0; display: block; height: auto; filter: drop-shadow(0 2px 2px rgba(23,26,24,0.18)) drop-shadow(0 16px 16px rgba(23,26,24,0.22)); transition: transform 300ms cubic-bezier(.2,.8,.2,1); }
         .otc-book-pachinko { left: -4%; width: 60%; }
         .otc-book-silent { left: 19.6%; width: 80.4%; top: 1.6%; }
-        .otc-books:hover .otc-book-pachinko, .otc-books.is-open .otc-book-pachinko { transform: rotate(-4deg) translateY(-6px); }
-        .otc-books:hover .otc-book-silent, .otc-books.is-open .otc-book-silent { transform: rotate(4deg) translateX(6px); }
-        .otc-books:hover, .otc-books:focus-visible, .otc-books.is-open,
-        .otc-bake:hover, .otc-bake:focus-visible, .otc-garden:hover, .otc-garden:focus-visible, .otc-garden.is-open { z-index: 10; }
+        .can-hover .otc-books:hover .otc-book-pachinko, .otc-books.is-open .otc-book-pachinko { transform: rotate(-4deg) translateY(-6px); }
+        .can-hover .otc-books:hover .otc-book-silent, .otc-books.is-open .otc-book-silent { transform: rotate(4deg) translateX(6px); }
+        .can-hover .otc-books:hover, .otc-books:focus-visible, .otc-books.is-open,
+        .can-hover .otc-bake:hover, .otc-bake:focus-visible, .can-hover .otc-garden:hover, .otc-garden:focus-visible, .otc-garden.is-open { z-index: 10; }
         .otc-shelf {
           position: absolute; right: 0; top: calc(100% + 10px); width: 210px; padding: 12px 14px;
           background: #FCFBF7; border: 1px solid var(--hairline); border-radius: 3px;
@@ -483,7 +515,7 @@ function IllustrationCard() {
           opacity: 0; transform: translateY(-6px); pointer-events: none;
           transition: opacity 180ms ease, transform 220ms ease;
         }
-        .otc-books:hover .otc-shelf, .otc-books:focus-visible .otc-shelf, .otc-books.is-open .otc-shelf { opacity: 1; transform: none; }
+        .can-hover .otc-books:hover .otc-shelf, .otc-books:focus-visible .otc-shelf, .otc-books.is-open .otc-shelf { opacity: 1; transform: none; }
         .otc-shelf-title {
           font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase;
           color: var(--muted); margin-bottom: 4px;
@@ -495,11 +527,11 @@ function IllustrationCard() {
         .bake-cap, .bake-handle { grid-area: 1 / 1; transition: opacity 200ms ease, transform 200ms ease; }
         .bake-handle { color: var(--sky-deep); opacity: 0; transform: translateY(4px); text-decoration: underline; text-underline-offset: 3px; text-decoration-thickness: 1px; }
         .bake-card { display: flex; align-items: center; gap: 10px; opacity: 0; transform: translateY(-6px) rotate(0.7deg); pointer-events: none; transition: opacity 180ms ease, transform 220ms ease; }
-        .bake-link:hover .bake-card, .bake-link:focus-visible .bake-card { opacity: 1; transform: translateY(0) rotate(0.7deg); }
-        .bake-link:hover .bake-whisk, .bake-link:focus-visible .bake-whisk { animation: bake-whisk 0.5s ease-in-out infinite alternate; }
-        .bake-link:hover .bake-hand, .bake-link:focus-visible .bake-hand { animation: bake-hand 1.6s linear infinite; }
-        .bake-link:hover .bake-cap, .bake-link:focus-visible .bake-cap { opacity: 0; transform: translateY(-4px); }
-        .bake-link:hover .bake-handle, .bake-link:focus-visible .bake-handle { opacity: 1; transform: none; }
+        .can-hover .bake-link:hover .bake-card, .bake-link:focus-visible .bake-card { opacity: 1; transform: translateY(0) rotate(0.7deg); }
+        .can-hover .bake-link:hover .bake-whisk, .bake-link:focus-visible .bake-whisk { animation: bake-whisk 0.5s ease-in-out infinite alternate; }
+        .can-hover .bake-link:hover .bake-hand, .bake-link:focus-visible .bake-hand { animation: bake-hand 1.6s linear infinite; }
+        .can-hover .bake-link:hover .bake-cap, .bake-link:focus-visible .bake-cap { opacity: 0; transform: translateY(-4px); }
+        .can-hover .bake-link:hover .bake-handle, .bake-link:focus-visible .bake-handle { opacity: 1; transform: none; }
         @keyframes bake-whisk { from { transform: rotate(-7deg); } to { transform: rotate(7deg); } }
         @keyframes bake-hand {
           from { transform: translate(-50%, -100%) rotate(48deg); }
@@ -510,10 +542,10 @@ function IllustrationCard() {
         .garden-caption { display: grid; }
         .garden-cap, .garden-hint { grid-area: 1 / 1; transition: opacity 200ms ease, transform 200ms ease; }
         .garden-hint { color: var(--green); opacity: 0; transform: translateY(4px); text-decoration: underline; text-underline-offset: 3px; text-decoration-thickness: 1px; }
-        .garden-btn:hover .garden-plant, .garden-btn:focus-visible .garden-plant, .garden-btn.is-open .garden-plant { animation: garden-sway 1.1s ease-in-out infinite alternate; }
-        .garden-btn:hover .garden-spade, .garden-btn:focus-visible .garden-spade, .garden-btn.is-open .garden-spade { animation: garden-dig 0.55s ease-in-out infinite alternate; }
-        .garden-btn:hover .garden-cap, .garden-btn:focus-visible .garden-cap, .garden-btn.is-open .garden-cap { opacity: 0; transform: translateY(-4px); }
-        .garden-btn:hover .garden-hint, .garden-btn:focus-visible .garden-hint, .garden-btn.is-open .garden-hint { opacity: 1; transform: none; }
+        .can-hover .garden-btn:hover .garden-plant, .garden-btn:focus-visible .garden-plant, .garden-btn.is-open .garden-plant { animation: garden-sway 1.1s ease-in-out infinite alternate; }
+        .can-hover .garden-btn:hover .garden-spade, .garden-btn:focus-visible .garden-spade, .garden-btn.is-open .garden-spade { animation: garden-dig 0.55s ease-in-out infinite alternate; }
+        .can-hover .garden-btn:hover .garden-cap, .garden-btn:focus-visible .garden-cap, .garden-btn.is-open .garden-cap { opacity: 0; transform: translateY(-4px); }
+        .can-hover .garden-btn:hover .garden-hint, .garden-btn:focus-visible .garden-hint, .garden-btn.is-open .garden-hint { opacity: 1; transform: none; }
         @keyframes garden-sway { from { transform: rotate(-4deg); } to { transform: rotate(4deg); } }
         @keyframes garden-dig { from { transform: rotate(-10deg); } to { transform: rotate(8deg) translateY(-3px); } }
         .garden-photos { position: absolute; right: -6px; top: calc(100% + 12px); z-index: 3; display: flex; pointer-events: none; }
@@ -525,14 +557,14 @@ function IllustrationCard() {
         }
         .polaroid + .polaroid { margin-left: -18px; }
         .bake-photos { position: absolute; left: -6px; top: calc(100% + 12px); z-index: 3; display: flex; pointer-events: none; }
-        .bake-link:hover .bake-photo, .bake-link:focus-visible .bake-photo { opacity: 1; }
-        .bake-link:hover .bake-photo:nth-child(1), .bake-link:focus-visible .bake-photo:nth-child(1) { transform: translateY(4px) rotate(-10deg); }
-        .bake-link:hover .bake-photo:nth-child(2), .bake-link:focus-visible .bake-photo:nth-child(2) { transform: translateY(-4px) rotate(-3deg); transition-delay: 40ms; }
-        .bake-link:hover .bake-photo:nth-child(3), .bake-link:focus-visible .bake-photo:nth-child(3) { transform: translateY(2px) rotate(8deg); transition-delay: 80ms; }
-        .garden-btn:hover .garden-photo, .garden-btn:focus-visible .garden-photo, .garden-btn.is-open .garden-photo { opacity: 1; }
-        .garden-btn:hover .garden-photo:nth-child(1), .garden-btn:focus-visible .garden-photo:nth-child(1), .garden-btn.is-open .garden-photo:nth-child(1) { transform: translateY(2px) rotate(-8deg); }
-        .garden-btn:hover .garden-photo:nth-child(2), .garden-btn:focus-visible .garden-photo:nth-child(2), .garden-btn.is-open .garden-photo:nth-child(2) { transform: translateY(-4px) rotate(3deg); transition-delay: 40ms; }
-        .garden-btn:hover .garden-photo:nth-child(3), .garden-btn:focus-visible .garden-photo:nth-child(3), .garden-btn.is-open .garden-photo:nth-child(3) { transform: translateY(4px) rotate(10deg); transition-delay: 80ms; }
+        .can-hover .bake-link:hover .bake-photo, .bake-link:focus-visible .bake-photo { opacity: 1; }
+        .can-hover .bake-link:hover .bake-photo:nth-child(1), .bake-link:focus-visible .bake-photo:nth-child(1) { transform: translateY(4px) rotate(-10deg); }
+        .can-hover .bake-link:hover .bake-photo:nth-child(2), .bake-link:focus-visible .bake-photo:nth-child(2) { transform: translateY(-4px) rotate(-3deg); transition-delay: 40ms; }
+        .can-hover .bake-link:hover .bake-photo:nth-child(3), .bake-link:focus-visible .bake-photo:nth-child(3) { transform: translateY(2px) rotate(8deg); transition-delay: 80ms; }
+        .can-hover .garden-btn:hover .garden-photo, .garden-btn:focus-visible .garden-photo, .garden-btn.is-open .garden-photo { opacity: 1; }
+        .can-hover .garden-btn:hover .garden-photo:nth-child(1), .garden-btn:focus-visible .garden-photo:nth-child(1), .garden-btn.is-open .garden-photo:nth-child(1) { transform: translateY(2px) rotate(-8deg); }
+        .can-hover .garden-btn:hover .garden-photo:nth-child(2), .garden-btn:focus-visible .garden-photo:nth-child(2), .garden-btn.is-open .garden-photo:nth-child(2) { transform: translateY(-4px) rotate(3deg); transition-delay: 40ms; }
+        .can-hover .garden-btn:hover .garden-photo:nth-child(3), .garden-btn:focus-visible .garden-photo:nth-child(3), .garden-btn.is-open .garden-photo:nth-child(3) { transform: translateY(4px) rotate(10deg); transition-delay: 80ms; }
         @media (hover: none) {
           .bake-card, .bake-photos { display: none; }
           .bake-caption { display: block; }
@@ -547,8 +579,8 @@ function IllustrationCard() {
           .garden-btn:hover:not(.is-open) .garden-plant, .garden-btn:hover:not(.is-open) .garden-spade { animation: none; }
         }
         @media (prefers-reduced-motion: reduce) {
-          .bake-link:hover .bake-whisk, .bake-link:focus-visible .bake-whisk,
-          .bake-link:hover .bake-hand, .bake-link:focus-visible .bake-hand,
+          .can-hover .bake-link:hover .bake-whisk, .bake-link:focus-visible .bake-whisk,
+          .can-hover .bake-link:hover .bake-hand, .bake-link:focus-visible .bake-hand,
           .garden-btn .garden-plant, .garden-btn .garden-spade { animation: none !important; }
         }
       `}</style>
@@ -765,44 +797,52 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Writing: same header rule as Selected work; the essay cards set it apart from the table above. */}
-      <section className="writing" style={{ marginTop: 88 }}>
-        <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', gap: 24, flexWrap: 'wrap', borderBottom: '1px solid var(--ink)', paddingBottom: 14 }}>
-          <span style={{ ...kicker, color: 'var(--lilac-deep)' }}>Writing</span>
-          <span style={{ ...kicker, color: 'var(--muted)' }}>Essays on Medium</span>
-        </div>
-        <h2 className="writing-title">On instant answers, friction and the prompt</h2>
+      {/* Writing: an editorial split, heading on the left and the essays as a reading list on the right. */}
+      <section className="writing" style={{ marginTop: 88, borderTop: '1px solid var(--ink)', paddingTop: 28 }}>
         <div className="writing-grid">
-          {ESSAYS.map((e, i) => (
-            <a key={e.href} className="essay" href={e.href} target="_blank" rel="noopener">
-              <span className="essay-meta">
-                <span>No. {String(i + 1).padStart(2, '0')}</span>
-                <span>{e.date}</span>
-              </span>
-              <span className="essay-title">{e.title}</span>
-              <span className="essay-foot">
-                <span>{e.read}</span>
-                <span className="essay-cta">Read on Medium ↗</span>
-              </span>
+          <div className="writing-intro">
+            <span style={{ ...kicker, color: 'var(--lilac-deep)' }}>Writing</span>
+            <h2 className="writing-title">On instant answers, friction and the prompt</h2>
+            <p className="writing-sub">Three essays, published on Medium in September 2026.</p>
+            <a className="writing-all" href="https://medium.com/@khubi.brahmbhatt" target="_blank" rel="noopener">
+              All essays on Medium ↗
             </a>
-          ))}
+          </div>
+          <ol className="essay-list">
+            {ESSAYS.map((e, i) => (
+              <li key={e.href}>
+                <a className="essay-row" href={e.href} target="_blank" rel="noopener">
+                  <span className="essay-num">{String(i + 1).padStart(2, '0')}</span>
+                  <span className="essay-body">
+                    <span className="essay-title">{e.title}</span>
+                    <span className="essay-meta">{e.date} · {e.read}</span>
+                  </span>
+                  <span className="essay-arrow" aria-hidden="true">↗</span>
+                </a>
+              </li>
+            ))}
+          </ol>
         </div>
         <style>{`
-          .writing-title { font-family: var(--font-serif); font-weight: 300; font-size: clamp(26px, 3.2vw, 38px); letter-spacing: -0.02em; line-height: 1.1; margin: 28px 0 0 0; color: var(--ink); }
-          .writing-grid { display: grid; grid-template-columns: 1fr; gap: 16px; margin-top: 28px; }
-          @media (min-width: 900px) { .writing-grid { grid-template-columns: repeat(3, 1fr); } }
-          @media (max-width: 899px) { .essay { min-height: 0; } }
-          .essay {
-            display: flex; flex-direction: column; gap: 18px; min-height: 200px; padding: 22px 22px 20px;
-            background: #FFFFFF; border: 1px solid var(--hairline); border-top: 3px solid var(--lilac); border-radius: 4px; color: var(--ink);
-            box-shadow: 0 1px 2px rgba(23,26,24,0.04); transition: transform 260ms cubic-bezier(.2,.8,.2,1), box-shadow 260ms ease;
-          }
-          .essay:hover, .essay:focus-visible { color: var(--ink); transform: translateY(-4px); box-shadow: 0 18px 30px -20px rgba(106,75,176,0.55); }
-          .essay-meta, .essay-foot { display: flex; justify-content: space-between; gap: 12px; font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.04em; color: var(--muted); }
-          .essay-title { flex: 1; font-family: var(--font-serif); font-weight: 400; font-size: 23px; line-height: 1.22; letter-spacing: -0.015em; }
-          .essay-cta { color: var(--lilac-deep); }
-          .essay:hover .essay-cta { text-decoration: underline; text-underline-offset: 3px; }
-          @media (prefers-reduced-motion: reduce) { .essay { transition: none; } .essay:hover { transform: none; } }
+          .writing-grid { display: grid; grid-template-columns: 1fr; gap: 28px; }
+          @media (min-width: 900px) { .writing-grid { grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.6fr); gap: 64px; } }
+          .writing-title { font-family: var(--font-serif); font-weight: 300; font-size: clamp(28px, 3vw, 36px); letter-spacing: -0.02em; line-height: 1.12; margin: 14px 0 0 0; color: var(--ink); max-width: 16ch; }
+          .writing-sub { font-family: var(--font-serif); font-weight: 300; font-size: 17px; line-height: 1.55; color: var(--secondary); margin: 16px 0 0 0; max-width: 34ch; }
+          .writing-all { display: inline-block; margin-top: 20px; font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.04em; color: var(--lilac-deep); text-decoration: underline; text-underline-offset: 4px; text-decoration-color: var(--lilac-mist); }
+          .writing-all:hover { color: var(--ink); text-decoration-color: var(--lilac); }
+          .essay-list { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--hairline); }
+          .essay-list li { border-bottom: 1px solid var(--hairline); }
+          .essay-row { display: grid; grid-template-columns: 44px minmax(0, 1fr) 24px; gap: 16px; align-items: baseline; padding: 24px 4px; color: var(--ink); }
+          .essay-num { font-family: var(--font-mono); font-size: 12px; color: var(--lilac-deep); }
+          .essay-body { display: flex; flex-direction: column; gap: 8px; }
+          .essay-title { font-family: var(--font-serif); font-weight: 400; font-size: clamp(21px, 2.2vw, 26px); line-height: 1.22; letter-spacing: -0.015em; text-decoration: underline; text-decoration-color: transparent; text-underline-offset: 5px; text-decoration-thickness: 1px; transition: text-decoration-color 200ms ease; }
+          .essay-meta { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.04em; color: var(--muted); }
+          .essay-arrow { color: var(--muted); font-size: 18px; justify-self: end; transition: transform 220ms cubic-bezier(.2,.8,.2,1), color 200ms ease; }
+          .essay-row:hover, .essay-row:focus-visible { color: var(--ink); }
+          .essay-row:hover .essay-title, .essay-row:focus-visible .essay-title { text-decoration-color: var(--lilac); }
+          .essay-row:hover .essay-arrow, .essay-row:focus-visible .essay-arrow { color: var(--lilac-deep); transform: translate(3px, -3px); }
+          @media (max-width: 640px) { .essay-row { grid-template-columns: 32px minmax(0, 1fr) 18px; gap: 12px; padding: 20px 0; } }
+          @media (prefers-reduced-motion: reduce) { .essay-arrow { transition: none; } .essay-row:hover .essay-arrow { transform: none; } }
         `}</style>
       </section>
 
